@@ -1,7 +1,7 @@
 
 <?php
     
-    $connection = new mysqli("localhost","root","","thesis");//make database connection
+    $connection = new mysqli("localhost","eas","eas2018","eas");//make database connection
     
 //trial
     $DB_host = "localhost";

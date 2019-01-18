@@ -1,9 +1,9 @@
 <?php
-	$db = mysqli_connect('localhost', 'root', '', 'eas');
+	$db = mysqli_connect('localhost', 'eas', 'eas2018', 'eas');
 class database{
 	public $host="localhost";
-	public $username="root";
-	public $pass="";
+	public $username="eas";
+	public $pass="eas2018";
 	public $db_name="eas";
 	public $conn;
 	public $data;

@@ -1,5 +1,5 @@
 <?php
-    $connection = new mysqli("localhost","root","","eas");//make database connection
+    $connection = new mysqli("localhost","eas","eas2018","eas");//make database connection
     $data = $connection->prepare("SELECT * FROM appointments WHERE status = 'Accepted' AND id = 74");
     if($data->execute()){
         $values = $data->get_result();

@@ -1,5 +1,5 @@
 <?php
-   $connection = new mysqli("localhost","eas","","eas");//make database connection
+   $connection = new mysqli("localhost","eas","eas2018","eas");//make database connection
 
 //Updating Overdue Appointment Request
 $checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `appointments` WHERE status = 'Pending' AND date = CURDATE()");
