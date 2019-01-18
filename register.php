@@ -1,7 +1,5 @@
 <?php include('process/process.php'); ?>
-<?php include('process/database.php'); ?>
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 
@@ -166,14 +164,12 @@
           <span style="font-size: 0.9em;"></span>
         </div>
         <div class="form-group">
-          <select name="make" id="make" class="form-control action" onclick="myFunction()"><
-          <option value="">Select Make</option>
-          <?php echo $make; ?>
-          </select><br>
+          <input type="text" class="form-control" id="make" placeholder="Enter Your Make" aria-describedby="make" name="make" >
           <div id="make_msg" style="display: none; color: red;font-size: 0.9em;">Make is empty</div>
           <small id="make" class="form-text text-muted">Eg. Toyota, Mitsubishi, Honda etc.</small>
-        <select name="series" id="series" class="form-control action">
-        <option value="">Select Series</option></select><br>
+        </div>
+         <div class="form-group">
+          <input class="form-control" type="text" class="form-control" name="series" id="series" placeholder="Series">
           <div id="series_msg" style="display: none; color: red;font-size: 0.9em;">Series is empty</div>
         </div>
         <div class="form-group">
@@ -262,7 +258,7 @@
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/custom.js"></script>
      <script src="js/script.js"></script>
-     <script src="js/makeseries.js"></script>     
+     
 
 </body>
 </html>
