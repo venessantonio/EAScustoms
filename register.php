@@ -90,112 +90,131 @@
    
    
      <!-- REGISTER PAGE -->
-    <div class="container">
-    <div id="error_msg"></div>
-    <div class="row">
-    <div class="col-md-6 col-sm-6">
-      <form id="register_form">
-      <div class="panel panel-default" id="headings">
-    <div class="panel-heading" style="background-color: #b80011;color: white;">Personal Info</div>
-    <div class="panel-body" style="overflow-y: auto;height: auto;">
-    <div class="form-group">
-    <input type="text" class="form-control" name="firstName" placeholder="First Name" id="firstName" required>
-    <div id="firstName_msg" style="display: none; color: red;font-size: 0.9em;">First name is empty</div>
-    </div>
-    <div class="form-group">
-    <input type="text" class="form-control" name="middleName" placeholder="Middle Name" id="middleName">
-    <div id="middleName_msg" style="display: none; color: red;font-size: 0.9em">Middle name is empty</div>
-    </div>
-    <div class="form-group">
-    <input type="text" class="form-control" name="lastName" placeholder="Last Name" id="lastName">
-    <div id="lastName_msg" style="display: none; color: red;font-size: 0.9em">Last name is empty</div>
-    </div>
-    <div class="form-group">
-    <input type="text" class="form-control" name="username" placeholder="Username" id="username" pattern=".{8,}" title='must contain 6 or more characters'>
-    <small id="username" class="form-text text-muted"> Must contain 8-12 characters</small><br>
-    <div id="username_msg" style="display: none; color: red;font-size: 0.9em">Username is empty</div>
-    <div id="usernamepat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter</div>
-    <span style="font-size: 0.9em"></span>
-    </div>
-    <div class="form-group">
-    <input type="text" class="form-control" name="address" placeholder="Address" id="address">
-    <div id="address_msg" style="display: none; color: red;font-size: 0.9em">Address is empty</div>
-    </div>
-    <div class="form-group">
-    <div class="input-group input-group-md">
-    <span class="input-group-addon" id="sizing-addon3">+63</span>
-    <input type="text" class="form-control" name="contactNumber" placeholder="Contact Number" id="contactNumber" aria-describedby="sizing-addon3">
-    </div>
-    <small id="Ex" class="form-text text-muted">10 Digits Eg. 95xxxxxxxx</small><br>
-    <div id="contactNumberpat_msg" style="display: none; color: red;font-size: 0.9em">Not more than 10 digits</div>
-    <div id="contactNumber_msg" style="display: none; color: red;font-size: 0.9em">Contact Number is empty</div>
-    <span id="contact" style="font-size: 0.9em"></span>
-    </div>
-    <div class="form-group">
-    <input type="email" class="form-control" name="Email" placeholder="Email" id="email">
-    <div id="email_msg" style="display: none; color: red;font-size: 0.9em">email is empty</div>
-    <span style="font-size: 0.9em"></span>
-    <div id="emailpat_msg" style="display: none; color: red;font-size: 0.9em"> Invalid Email</div>
-    </div>
-    <div class="form-group">
-    <input type="password" class="form-control" name="password" placeholder="Password" id="password" title="must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter">
-    <div id="passwordpat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter</div>
-    <div id="password_msg" style="display: none; color: red;font-size: 0.9em">password is empty</div>
-    <span style="font-size: 0.9em"></span>
-    </div>
-    <div class="form-group">
-    <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password">
-    <span id="message" style="font-size: 0.9em"></span>
-    </div>
-    </div>
-  </div>
-  </div>  
-    <div class="col-md-6 col-sm-6">
-
-
-      <div class="panel panel-default" id="headings">
-      <div class="panel-heading" style="background-color: #b80011;color: white;">Vehicle Info</div>
-      <div class="panel-body" style="overflow-y: auto;height: auto;">      
-        <div class="form-group">
-          <input type="text" class="form-control" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber">
-          <small id="plateNumberEx" class="form-text text-muted">Eg. AYT 321, AAAA 334</small><br>
-          <div id="plateNumber_msg" style="display: none; color: red;font-size: 0.9em;">Plate Number is empty</div>
-          <div id="plateNumberpat_msg" style="display: none; color: red;font-size: 0.9em"> Wrong Plate Number format.</div>
-          <span style="font-size: 0.9em;"></span>
+    <div id="appointment-section" style="background-color: #b80011; background: -webkit-linear-gradient(-135deg, #f06d06, #B80011); background: -o-linear-gradient(-135deg, #f06d06, #B80011); background: -moz-linear-gradient(-135deg, #f06d06, #B80011); background: linear-gradient(-135deg, #f06d06, #B80011);">
+            <div class="container">
+                <div class="col-xs-12 col-sm-12" style="width:100%; padding-top:20px; padding-left:50px; padding-right:50px; padding-bottom:20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background-color: white; border-radius: 10px; display: inline-block; margin-top: 3%; margin-left: 1%; margin-right: 2%; margin-bottom:2%;">
+                <div class="row">
+                    <form id="register_form">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="panel panel-default" id="headings" style="margin-top: 5%; margin-bottom: 8%; width: auto;">
+                                <div class="panel-heading" style="background-color: #333;color: white; text-align: center; font-size: 150%; font-weight: bold; letter-spacing: 5px;">PERSONAL INFO</div>
+                                <div class="panel-body" style="overflow-y: auto;height: auto;">
+                                    
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="firstName" placeholder="First Name" id="firstName" required>
+                                        <div id="firstName_msg" style="display: none; color: red;font-size: 0.9em;">First name is empty</div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="middleName" placeholder="Middle Name" id="middleName">
+                                        <div id="middleName_msg" style="display: none; color: red;font-size: 0.9em">Middle name is empty</div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="lastName" placeholder="Last Name" id="lastName">
+                                        <div id="lastName_msg" style="display: none; color: red;font-size: 0.9em">Last name is empty</div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="username" placeholder="Username" id="username" pattern=".{8,}" title='must contain 6 or more characters'>
+                                        <small id="username" class="form-text text-muted"> Must contain 8-12 characters</small><br>
+                                        <div id="username_msg" style="display: none; color: red;font-size: 0.9em">Username is empty</div>
+                                        <div id="usernamepat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter</div>
+                                        <span style="font-size: 0.9em"></span>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="address" placeholder="Address" id="address">
+                                        <div id="address_msg" style="display: none; color: red;font-size: 0.9em">Address is empty</div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="input-group input-group-md">
+                                            <span class="input-group-addon" id="sizing-addon3">+63</span>
+                                            <input type="text" class="form-control" name="contactNumber" placeholder="Contact Number" id="contactNumber" aria-describedby="sizing-addon3">
+                                        </div>
+                                        
+                                        <small id="Ex" class="form-text text-muted">10 Digits Eg. 95xxxxxxxx</small><br>
+                                        <div id="contactNumberpat_msg" style="display: none; color: red;font-size: 0.9em">Not more than 10 digits</div>
+                                        <div id="contactNumber_msg" style="display: none; color: red;font-size: 0.9em">Contact Number is empty</div>
+                                        <span id="contact" style="font-size: 0.9em"></span>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" name="Email" placeholder="Email" id="email">
+                                        <div id="email_msg" style="display: none; color: red;font-size: 0.9em">email is empty</div>
+                                        <span style="font-size: 0.9em"></span>
+                                        <div id="emailpat_msg" style="display: none; color: red;font-size: 0.9em"> Invalid Email</div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" name="password" placeholder="Password" id="password" title="must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter">
+                                        <div id="passwordpat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter</div>
+                                        <div id="password_msg" style="display: none; color: red;font-size: 0.9em">password is empty</div>
+                                        <span style="font-size: 0.9em"></span>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password">
+                                        <span id="message" style="font-size: 0.9em"></span>
+                                    </div>   
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-sm-6">
+                            <div class="panel panel-default" id="headings" style="margin-top: 5%; margin-bottom: 7%;width: auto;">
+                                <div class="panel-heading" style="background-color: #333;color: white; text-align: center; font-size: 150%; font-weight: bold; letter-spacing: 5px; ">VEHICLE INFO</div>
+                                <div class="panel-body" style="overflow-y: auto;height: auto;">
+                                    
+                                    <div class="form-group">
+                                      <input type="text" class="form-control" id="plateNumber"  placeholder="Enter Plate Number" name="plateNumber">
+                                      <small id="plateNumberEx" class="form-text text-muted">Eg. AYT 321, AAAA 334</small><br>
+                                      <div id="plateNumber_msg" style="display: none; color: red;font-size: 0.9em;">Plate Number is empty</div>
+                                      <div id="plateNumberpat_msg" style="display: none; color: red;font-size: 0.9em"> Wrong Plate Number format.</div>
+                                      <span style="font-size: 0.9em;"></span>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                      <input type="text" class="form-control" id="make" placeholder="Enter Your Make" aria-describedby="make" name="make" >
+                                      <div id="make_msg" style="display: none; color: red;font-size: 0.9em;">Make is empty</div>
+                                      <small id="make" class="form-text text-muted">Eg. Toyota, Mitsubishi, Honda etc.</small>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                      <input class="form-control" type="text" class="form-control" name="series" id="series" placeholder="Series">
+                                      <div id="series_msg" style="display: none; color: red;font-size: 0.9em;">Series is empty</div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                      <input class="form-control" type="number" class="form-control" id="yearModel" name="yearModel" placeholder="Year Model">
+                                      <div id="yearModel_msg" style="display: none; color: red;font-size: 0.9em;">Year Model is empty</div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                      <input class="form-control" type="text" name="color" id="color" placeholder="Color">
+                                      <div id="color_msg" style="display: none; color: red;font-size: 0.9em;">Color is empty</div>
+                                    </div>
+                                    
+                                    <div class="pull-right">
+                                        <a href="#" class="btn" id="reg_btn" style="background-color: #308ee0; color: white;"><i class="fas fa-user-alt"></i> &nbsp;Register</a>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                         
+                        
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-          <input type="text" class="form-control" id="make" placeholder="Enter Your Make" aria-describedby="make" name="make" >
-          <div id="make_msg" style="display: none; color: red;font-size: 0.9em;">Make is empty</div>
-          <small id="make" class="form-text text-muted">Eg. Toyota, Mitsubishi, Honda etc.</small>
-        </div>
-         <div class="form-group">
-          <input class="form-control" type="text" class="form-control" name="series" id="series" placeholder="Series">
-          <div id="series_msg" style="display: none; color: red;font-size: 0.9em;">Series is empty</div>
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="number" class="form-control" id="yearModel" name="yearModel" placeholder="Year Model">
-          <div id="yearModel_msg" style="display: none; color: red;font-size: 0.9em;">Year Model is empty</div>
-        </div>
-         <div class="form-group">
-          <input class="form-control" type="text" name="color" id="color" placeholder="Color">
-          <div id="color_msg" style="display: none; color: red;font-size: 0.9em;">Color is empty</div>
-        </div>
-        <div class="pull-right">
-        <a href="#" class="btn btn-danger btn-sm disabled" id="reg_btn" style="background-color: #b80011;color: white;"><i class="fas fa-user-alt"></i> Register</a>
-        </div>
-        </div>
-        </div>  
-    
-  </form>
-  </div>
-
-       
-  </div> 
+    </div>
 
 
              
      <!-- FOOTER -->
-<footer data-stellar-background-ratio="5">
+     <footer data-stellar-background-ratio="5">
           <div class="container">
                <div class="row">
 
@@ -204,9 +223,9 @@
                               <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
 
                               <div class="contact-info">
-                                   <p><i class="fas fa-phone"></i> 09257196568 / 09304992021</p>
-                                   <p><i class="far fa-envelope"></i> <a href="#">eascustoms@yahoo.com</a></p>
-                                   <p><i class="fab fa-facebook-square"></i> <a href="#">EAS Customs / @eascustoms75</a>
+                                   <p><i class="fa fa-phone"></i> 09257196568 / 09304992021</p>
+                                   <p><i class="fa fa-envelope-o"></i> <a href="#">eascustoms@yahoo.com</a></p>
+                                   <p><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a>
                               </div>
                          </div>
                     </div>
