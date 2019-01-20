@@ -1,5 +1,5 @@
 <?php
-	$db = mysqli_connect('localhost', 'eas', 'eas', 'eas2018');
+	$db = mysqli_connect('localhost', 'eas', 'eas2018', 'eas');
 class database{
 	public $host="localhost";
 	public $username="eas";
