@@ -370,4 +370,32 @@ if(isset($_POST["changePass"])){
 }
 
 
+if(isset($_POST["add_spareparts"])){
+  $name = $connection->real_escape_string($_POST["name"]);
+  $price = $connection->real_escape_string($_POST["price"]);
+  
+  $query = $connection->prepare("INSERT INTO `spareparts`(`name`, `price` ) VALUES (?, ?)");
+   $query->bind_param('ss',$name, $price);
+  if($query->execute()){
+    header("Location: ../sparepartsmanagement.php");
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
+if(isset($_POST["update_spareparts"])){
+  $name = $connection->real_escape_string($_POST["name"]);
+  $price = $connection->real_escape_string($_POST["price"]);
+  $id = $connection->real_escape_string($_POST["id"]);
+  echo $name, $price, $id;
+  
+  $query = $connection->prepare("UPDATE `spareparts` SET `name`=?,`price`=? WHERE id = ?");
+   $query->bind_param('ssi',$name, $price, $id);
+  if($query->execute()){
+    header("Location: ../sparepartsmanagement.php");
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
 ?>
