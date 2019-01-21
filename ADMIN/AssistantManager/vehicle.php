@@ -177,7 +177,7 @@
                                         <td>'.$row['color'].'</td>
                                         <td>'.$row['status'].'</td>
                                         <td class="text-center">
-                                          <a href="viewvehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a>
+                                          <a href="viewVehicle.php?plate='.$row['plateNumber'].'"><button class="btn btn-primary"><i class="menu-icon mdi mdi-eye-outline"></i> View</button></a>
                                           
                                           <button class="btn btn-darkblue" data-toggle="modal" data-target="#decline'.$row['ID'].'"><i class="menu-icon mdi mdi-history"></i>
                                           History</button>
@@ -215,7 +215,7 @@
                                                 }
                                               }
                                               echo'
-                                              <a href="viewvehicle.php?plate='.$row['plateNumber'].'#view" style="text-decoration:none; color: white;">
+                                              <a href="viewVehicle.php?plate='.$row['plateNumber'].'#view" style="text-decoration:none; color: white;">
                                               <div style="border: 4px solid #000099; border-radius: 5px; color: white; text-align: center; background-color:#000099;margin-bottom: 5px; margin-top: 5px;">
                                               View All
                                               </div></a>
