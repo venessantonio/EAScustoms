@@ -77,7 +77,7 @@
          
           <div class="col-md-4 col-sm-5">
                        <img src="images/Logo.png" class="logoo" alt="logo" style="width: 50px; height: 40px" />
-                       <a href="index.html" class="navbar-brand" >EAS Customs</a>
+                       <a href="index.php" class="navbar-brand" >EAS Customs</a>
           </div>
 
               <div class="col-md-8 col-sm-7 text-align-right">
