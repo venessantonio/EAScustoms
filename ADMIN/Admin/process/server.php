@@ -402,4 +402,31 @@ if(isset($_POST["update_Admin"])){
     header("Location: ../error.php");
   }
 }
+
+if(isset($_POST["add_makeseries"])){
+  $make = $connection->real_escape_string($_POST["make"]);
+  $series = $connection->real_escape_string($_POST["series"]);
+  
+  $query = $connection->prepare("INSERT INTO `make_series`(`make`, `series`) VALUES (?, ?)");
+   $query->bind_param('ss',$make, $series);
+  if($query->execute()){
+    header("Location: ../makeseriesmanagement.php");
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
+if(isset($_POST["update_makeseries"])){
+  $make = $connection->real_escape_string($_POST["make"]);
+  $series = $connection->real_escape_string($_POST["series"]);
+  $id = $connection->real_escape_string($_POST["id"]);
+  
+  $query = $connection->prepare("UPDATE `make_series` SET `make`=?,`series`=? WHERE id = ?");
+   $query->bind_param('ssi',$make, $series, $id);
+  if($query->execute()){
+    header("Location: ../makeseriesmanagement.php");
+  }else{
+    header("Location: ../error.php");
+  }
+}
 ?>
