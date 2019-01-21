@@ -154,10 +154,10 @@
                             echo '
                                 <tr>
                                 <td>'.$row['Name'].'</td>
-                                <td>'.$row['plateNumber'].'</td>
+                                <td><a href = "viewvehicle.php?plate='.$row['plateNumber'].'" style="color:black;">'.$row['plateNumber'].'</a></td>
                                 <td>'.$row['status'].'</td>
                                 <td>'; echo date('M d, Y',strtotime($date2)); echo '</td>
-                                 <td><a href = "basis2.php?date='.$row['date'].'" style="color:black;">'; echo date('M d, Y',strtotime($date)); echo '</a></td>
+                                <td><a href = "appointmentbasis.php?date='.$row['date'].'" style="color:black;">'; echo date('M d, Y',strtotime($date)); echo '</a></td>
                                 <td class="text-center">
                                 
                                   <div class="row">';

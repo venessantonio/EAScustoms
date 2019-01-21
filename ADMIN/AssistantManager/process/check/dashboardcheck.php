@@ -1,5 +1,5 @@
 <?php
-  $connection = new mysqli("localhost","eas","eas2018","eas");//make database connectio><n
+  $connection = new mysqli("localhost","root","","eas");//make database connectio><n
 // <?php require "../require/dataconf.php";>
 //Updating Overdue Appointment Request
 $checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `appointments` WHERE status = 'Accepted'");
@@ -24,6 +24,12 @@ $checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `appointme
 if($checkDashboard->execute()){
   $data = $checkDashboard->get_result();
   $box2 = $data->fetch_assoc();
+}
+
+$checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `chargeinvoice`");
+if($checkDashboard->execute()){
+  $data = $checkDashboard->get_result();
+  $box5 = $data->fetch_assoc();
 }
 
 

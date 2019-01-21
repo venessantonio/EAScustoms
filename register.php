@@ -1,4 +1,5 @@
 <?php include('process/process.php'); ?>
+<?php include('process/make.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -176,14 +177,19 @@
                                     </div>
                                     
                                     <div class="form-group">
-                                      <input type="text" class="form-control" id="make" placeholder="Enter Your Make" aria-describedby="make" name="make" >
-                                      <div id="make_msg" style="display: none; color: red;font-size: 0.9em;">Make is empty</div>
+                                     <select name="make" id="make" class="form-control action" onclick="myFunction()">
+                                      <option value="">Select Make</option>
+                                      <?php echo $make; ?>
+                                     </select>
                                       <small id="make" class="form-text text-muted">Eg. Toyota, Mitsubishi, Honda etc.</small>
+                                      <div id="make_msg" style="display: none; color: red;font-size: 0.9em;">Make is empty</div>
                                     </div>
-                                    
-                                    <div class="form-group">
-                                      <input class="form-control" type="text" class="form-control" name="series" id="series" placeholder="Series">
-                                      <div id="series_msg" style="display: none; color: red;font-size: 0.9em;">Series is empty</div>
+                                    <div class="form-group"> 
+                                     <select name="series" id="series" class="form-control action" >
+                                      <option value="">Select Series</option>
+                                     </select>
+                                     <div id="series_msg" style="display: none; color: red;font-size: 0.9em;">Series is empty</div>
+                                      <div id="yearModel_msg" style="display: none; color: red;font-size: 0.9em;">Year Model is empty</div>
                                     </div>
                                     
                                     <div class="form-group">
@@ -197,7 +203,7 @@
                                     </div>
                                     
                                     <div class="pull-right">
-                                        <a href="#" class="btn" id="reg_btn" style="background-color: #308ee0; color: white;"><i class="fas fa-user-alt"></i> &nbsp;Register</a>
+                                        <a href="#" class="btn disabled" id="reg_btn" style="background-color: #308ee0; color: white;"><i class="fas fa-user-alt"></i> &nbsp;Register</a>
                                     </div>
                                   
                                 </div>
@@ -269,6 +275,7 @@
 
      <!-- SCRIPTS -->
      <script src="js/jquery.js"></script>
+     <script src="js/makeseries.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>
