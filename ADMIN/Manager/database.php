@@ -1,9 +1,9 @@
 <?php
 class database{
 	public $host="localhost";
-	public $username="root";
-	public $pass="";
-	public $db_name="thesis";
+	public $username="eas";
+	public $pass="eas2018";
+	public $db_name="eas";
 	public $conn;
 	public $data;
 	public $service;

@@ -5,9 +5,9 @@
     
 //trial
     $DB_host = "localhost";
-    $DB_user = "root";
-    $DB_pass = "";
-    $DB_name = "thesis";
+    $DB_user = "eas";
+    $DB_pass = "eas2018";
+    $DB_name = "eas";
     try
     {
         $db_con = new PDO("mysql:host={$DB_host};dbname={$DB_name}",$DB_user,$DB_pass);
