@@ -144,7 +144,7 @@ $personalinfo -> personal_info();
                         
                         
                 <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="requeststatus.php" ><i class="far fa-calendar-check"></i> Request Status
+                  <a class="smoothScroll" href="requeststatus.php" ><i class="far fa-calendar-check"></i> Request Status
                   </a>
                   </li>
                 
@@ -162,7 +162,7 @@ $personalinfo -> personal_info();
      </section>
 
   <!-- Start of APPOINTMENT SECTION --> 
-    <div id="appointment-section" style="background-color:red;">
+    <div id="appointment-section" style="background-image: url(images/3.jpg);">
         <div class="container">
             
             <div class="row">
