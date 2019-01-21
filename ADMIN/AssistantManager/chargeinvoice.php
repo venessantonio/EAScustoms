@@ -174,8 +174,8 @@ $ci = $stmt -> get_result();
                 <div class="modal fade" id="addCi" tabindex="-1" role="dialog" aria-labelledby="addCi" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Sales Invoice</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -198,6 +198,7 @@ $ci = $stmt -> get_result();
                         <input type="text" id="noofscope" name = "noofscope"/>
                         <input type="button" value="set" onclick="generate()" />
                         <br>
+                        <br>    
                         <?php 
                         $sql2 = "SELECT * FROM spareparts";
                         $stmt2 = $connection->prepare($sql2); 
@@ -206,6 +207,7 @@ $ci = $stmt -> get_result();
                         ?>
                         Spare Parts:
                         <br>
+                        <br> 
                         <?php foreach($spareparts as $sparepart): ?>
                         <input type ="checkbox" name="spareParts[]" value="<?= $sparepart['id']; ?>"><?=  $sparepart['name']; ?> - <?=  $sparepart['price']; ?>
                         <?php endforeach; ?>
@@ -213,7 +215,7 @@ $ci = $stmt -> get_result();
                         </form>
                         </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i> Close</button>
 
                       </div>
                     </div>
