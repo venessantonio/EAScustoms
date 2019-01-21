@@ -66,8 +66,8 @@
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
         
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav" style="position:fixed;">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav" style="position:fixed; width:256px;">
         <hr class="style2">
             
           <li class="nav-item">
@@ -95,33 +95,28 @@
             </div>
           </li>
             
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="calendar.php">
               <i class="menu-icon mdi mdi-calendar"></i>
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
-            
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
-            </a>
-          </li> -->
 
           <li class="nav-item">
-            <a class="nav-link"  href="chargeinvoice.php">
-              <i class="menu-icon mdi mdi-receipt"></i>
-              <span class="menu-title" style="font-size:14px;">Sales Invoice</span>
+            <a class="nav-link" href="dailytaskform.php">
+              <i class="menu-icon mdi mdi-account-multiple"></i>
+              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
             </a>
           </li>
             
+<!--
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
             </a>
           </li>
+-->
             
           <li class="nav-item">
             <a class="nav-link" href="vehicle.php">
@@ -131,11 +126,14 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="sparepartsmanagement.php">
+            <a class="nav-link" href="servicesmanagement.php">
               <i class="menu-icon mdi mdi-wrench"></i>
-              <span class="menu-title" style="font-size:14px;">Spare Parts</span>
+              <span class="menu-title" style="font-size:14px;">Services</span>
             </a>
           </li>
+            
+            
+            
             
         </ul>
       </nav>

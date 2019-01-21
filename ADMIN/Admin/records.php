@@ -66,7 +66,7 @@
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
         
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
@@ -80,26 +80,31 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="menu-icon mdi mdi-inbox"></i>
-              <span class="menu-title" style="font-size:14px;">Appointment</span>
+              <span class="menu-title" style="font-size:14px;">Data Entry</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Request</a>
+                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointment</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
+                  <a class="nav-link" href="administratormanagement.php" style="font-size:14px;">Administrators</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="makeseriesmanagement.php" style="font-size:14px;">Make Series</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="sparepartsmanagement.php" style="font-size:14px;">Spare Parts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="servicesmanagement.php" style="font-size:14px;">Services</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="scopeofworkmanagement.php" style="font-size:14px;">Scope of Work</a>
                 </li>
               </ul>
             </div>
-          </li>
-            
-          <li class="nav-item">
-            <a class="nav-link" href="calendar.php">
-              <i class="menu-icon mdi mdi-calendar"></i>
-              <span class="menu-title" style="font-size:14px;">Calendar</span>
-            </a>
           </li>
             
           <!-- <li class="nav-item">
@@ -107,14 +112,14 @@
               <i class="menu-icon mdi mdi-file"></i>
               <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
             </a>
-          </li> -->
+          </li>
 
           <li class="nav-item">
             <a class="nav-link"  href="chargeinvoice.php">
               <i class="menu-icon mdi mdi-receipt"></i>
-              <span class="menu-title" style="font-size:14px;">Sales Invoice</span>
+              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
             </a>
-          </li>
+          </li> -->
             
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
@@ -129,11 +134,11 @@
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
             </a>
           </li>
-            
+
           <li class="nav-item">
-            <a class="nav-link" href="sparepartsmanagement.php">
-              <i class="menu-icon mdi mdi-wrench"></i>
-              <span class="menu-title" style="font-size:14px;">Spare Parts</span>
+            <a class="nav-link" href="CM.php">
+              <i class="menu-icon mdi mdi-file-document"></i>
+              <span class="menu-title" style="font-size:14px;">Content Management</span>
             </a>
           </li>
             
