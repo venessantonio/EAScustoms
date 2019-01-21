@@ -5,8 +5,8 @@
     
 //trial
     $DB_host = "localhost";
-    $DB_user = "root";
-    $DB_pass = "";
+    $DB_user = "eas";
+    $DB_pass = "eas2018";
     $DB_name = "eas";
     try
     {
