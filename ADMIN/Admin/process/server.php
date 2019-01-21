@@ -323,4 +323,83 @@ if(isset($_POST["changePass"])){
   }
 
 }
+
+if(isset($_POST["changePassAdm"])){
+  $per = $connection->real_escape_string($_POST["per-id"]);
+  $p1 = $connection->real_escape_string($_POST["p1"]);
+  $p2 = $connection->real_escape_string($_POST["p2"]);
+  if($p1 != $p2){
+    header("Location: ../error.php");
+  }
+  echo $per;
+  echo $user;
+  $password = password_hash($p1, PASSWORD_DEFAULT);
+  echo $password;
+  $query = $connection->prepare("UPDATE `users` SET `password` = '$password' WHERE `users`.`id` = '$per';");
+  if($query->execute()){
+    header("Location: ../administratormanagement.php");
+    
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
+if(isset($_POST["update_Admin"])){
+  $per = $connection->real_escape_string($_POST["per-id"]);
+  if($p1 != $p2){
+    header("Location: ../error.php");
+  }
+  echo $per;
+  echo $user;
+  $password = password_hash($p1, PASSWORD_DEFAULT);
+  echo $password;
+  $query = $connection->prepare("UPDATE `users` SET `password` = '$password' WHERE `users`.`id` = '$user';");
+  if($query->execute()){
+    header("Location: ../administratormanagement.php");
+    
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
+if(isset($_POST["add_account"])){
+  $first = $connection->real_escape_string($_POST["first"]);
+  $middle = $connection->real_escape_string($_POST["middle"]);
+  $last = $connection->real_escape_string($_POST["last"]);
+  $username = $connection->real_escape_string($_POST["username"]);
+  $p1 = $connection->real_escape_string($_POST["p1"]);
+  $p2 = $connection->real_escape_string($_POST["p2"]);
+  $type = $connection->real_escape_string($_POST["type"]);
+  if($p1 != $p2){
+    header("Location: ../error.php");
+  }
+  $password = password_hash($p1, PASSWORD_DEFAULT);
+  $query = $connection->prepare("INSERT INTO `users`(`username`, `password`,`type`, `firstName`, `middleName`, `lastName`)
+   VALUES (?,?,?,?,?,?)");
+   $query->bind_param('ssssss',$username, $password, $type, $first, $middle, $last);
+  if($query->execute()){
+    header("Location: ../administratormanagement.php");
+    
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
+if(isset($_POST["update_Admin"])){
+  $first = $connection->real_escape_string($_POST["first"]);
+  $middle = $connection->real_escape_string($_POST["middle"]);
+  $last = $connection->real_escape_string($_POST["last"]);
+  $username = $connection->real_escape_string($_POST["username"]);
+  $type = $connection->real_escape_string($_POST["type"]);
+  $status = $connection->real_escape_string($_POST["status"]);
+  $id = $connection->real_escape_string($_POST["id"]);
+  $query = $connection->prepare("UPDATE `users` SET `username`= ?,`status`= ?,`type`= ?,`firstName`= ?,`middleName`=?,`lastName`= ? WHERE id = ?");
+   $query->bind_param('ssssssi',$username, $status, $type, $first, $middle, $last, $id);
+  if($query->execute()){
+    header("Location: ../administratormanagement.php");
+    
+  }else{
+    header("Location: ../error.php");
+  }
+}
 ?>

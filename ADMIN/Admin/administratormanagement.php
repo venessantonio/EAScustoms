@@ -75,20 +75,6 @@
             </div>
           </li>
             
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link"  href="chargeinvoice.php">
-              <i class="menu-icon mdi mdi-receipt"></i>
-              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
-            </a>
-          </li> -->
-            
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
@@ -171,7 +157,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                         <label class="bmd-label-floating">Fist Name</label>
-                                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                         <input type="text" class="form-control" name="first"  placeholder="First Name" required>
                                         </div>
                                     </div>
@@ -206,7 +192,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                         <label class="bmd-label-floating">Confirm Password</label>
-                                        <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password" onkeyup="check();" required>
+                                        <input type="password" class="form-control" name="p2" id="confirm_password" placeholder="Confirm Password" onkeyup="check();" required>
                                         <span id="message">
                                         </div>
                                     </div>
@@ -326,7 +312,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                 <label class="bmd-label-floating">Fist Name</label>
-                                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                                <input type="hidden" name="id" value="'.$row['id'].'">
                                                 <input type="text" class="form-control" name="first" value="'.$row['firstName'].'" placeholder="'.$row['firstName'].'">
                                                 </div>
                                             </div>
@@ -347,7 +333,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                 <label class="bmd-label-floating">Username</label>
-                                                <input type="text" class="form-control" name="suffix" value="'.$row['username'].'" placeholder="'.$row['username'].'">
+                                                <input type="text" class="form-control" name="username" value="'.$row['username'].'" placeholder="'.$row['username'].'">
                                                 </div>
                                             </div>
                                             </div>
@@ -356,7 +342,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                 <label class="bmd-label-floating" for="typeselector">Type</label>
-                                                <select class="form-control" id="typeselector">
+                                                <select class="form-control" name="type" id="typeselector">
                                                     <option selected hidden>'.$type.'</option>
                                                     <option value="admin">Admin</option>
                                                     <option value="manager">Manager</option>
@@ -369,7 +355,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                 <label class="bmd-label-floating" for="typeselector">Status</label>
-                                                <select class="form-control" id="typeselector">
+                                                <select class="form-control" name="status" id="typeselector">
                                                     <option selected hidden>'.$status.'</option>
                                                     <option value="Active">Active</option>
                                                     <option value="Deactivated">Deactivate</option>
