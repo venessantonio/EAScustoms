@@ -158,7 +158,7 @@
                                       </div>
                                         
                                       <div class="modal-body">
-                                        <form action="makeseriesmanagement.php" method="post">
+                                        <form action="process/server.php" method="post">
                                               <small id="reminder" class="form-text text-muted">Please fill out the required fields.</small>
                                              <br>
                                               <div class="form-group">
@@ -171,7 +171,7 @@
                                                 <input type="text" class="form-control input-xs" id="price"  placeholder="price" name="price"
                                                 required="">
                                               </div>
-                                        </form>
+                                        
                                       </div>
                                         
                                       <div class="modal-footer">
@@ -180,6 +180,7 @@
 
                                         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="color:black;"><i class="menu-icon mdi mdi-close"></i> Cancel</button>
                                       </div>
+                                    </form>
                               </div>
                               
                               </div>
@@ -232,7 +233,7 @@
                             </div>
                             <div class="modal-body">
                             <!-- start -->
-                            <form action="sparepartsmanagement.php" method="POST">
+                            <form action="process/server.php" method="POST">
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="form-group">
@@ -253,7 +254,7 @@
                               <!-- end -->
                               </div>
                               <div class="modal-footer">
-                                  <button type="submit" class="btn btn-success" name="update-spareparts" style="float:right"><i class="menu-icon mdi mdi-account-convert"></i> Update</button>
+                                  <button type="submit" class="btn btn-success" name="update_spareparts" style="float:right"><i class="menu-icon mdi mdi-account-convert"></i> Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i> Cancel</button>
                                 <div class="clearfix"></div>
                               </form>
