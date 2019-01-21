@@ -251,16 +251,73 @@
                                     </button>
                                   </form>';
                           }else{
-                                  echo '  
-                                  <form action="process/server.php" method="POST">
-                                    <input type="hidden" name="app_id" value="'.$row['ID'].'">
-                                    <button type="submit" class="btn btn-success" name="start" style="float:right">
-                                      <i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start
-                                    </button>
-                                  </form>';
-                          }
+                             $date1 = date("Y-m-d", strtotime($row['date']));
+                             $date2 = date('Y-m-d');
+                            if($date1 == $date2){
+                                echo '  
+                                <form action="process/server.php" method="POST">
+                                  <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                  <button type="submit" name="start" class="btn btn-success" style="float:right">
+                                    <i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start
+                                  </button>
+                                </form>';
+                            }else{
+                                echo '  
+                                
+                                  <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                  <button class="btn btn-success" style="float:right" data-toggle="modal"  data-target="#continue'.$row['ID'].'">
+                                    <i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start Now
+                                  </button>
+
+
+                                  <!-- Reschedule Modal -->
+                                  <div class="modal fade" id="continue'.$row['ID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header" style="background-color: #4caf50; color: white; border: 3px solid #4caf50;">
+                                          <h5 class="modal-title" id="exampleModalCenterTitle">Start Now</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="modal-body">You are about to start an appointment that is not due.<br>
+                                          Select "Confirm" to Continue</div>
+                                        </div>
+                                        
+                                      
+                                        <div class="modal-footer" >
+                                          <form action="process/server.php" method="POST">
+                                            <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                            <button type="submit" name="start"class="btn btn-success"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i>Confirm</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
+                                          </form>
+                                
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <!-- end modal -->
+
+
+                               
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                ';
+                            }
                               
-                        
+                          }
                           
                         echo'
                                 <input type="hidden" name="app_id" value="'.$row['ID'].'">
@@ -387,9 +444,14 @@
                         <div class="row">
                           <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
                             <div class="col-md-2 offset-md-8" style="margin">
-                              <h5 style="margin-top: 20px;">
-                                <button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>
-                              </h5>
+                              <h5 style="margin-top: 20px;">';
+                              if($progress == 100){
+                               
+                              }else{
+                                echo '<button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>';
+                              }
+                                
+                              echo '</h5>
                             </div>
                           </div>
                           
@@ -542,30 +604,41 @@
                     ?>
                     
                     <?php   
-                    if($progress==100){ echo $row['stat'];
-                      if($progress_status =="In-progress" || $progress_status =="Accepted"){
+                    if($progress_status =="In-progress"){
+                      if($progress==100){
                         echo '
                         <form action="process/server.php" method="POST">
                           <input type="hidden" name="app" value="'.$id.'">
                           <button type="submit" name="finishrecord" class="btn btn-success" style="padding-button: 10px; float: right;
-                            width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text">
+                            width: 140px;" ><i class="menu-icon mdi mdi-clipboard-text">
                             </i>Finish</button>
                         </form>
                         ';
                       }else{
-                       echo'<form action="process/server.php" method="POST">
-                              <input type="hidden" name="app" value="'.$id.'">
-                              <button type="submit" disabled name="finishrecord" class="btn btn-primary" style="padding-button: 10px; float: right;
-                                width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text">
-                                </i>Done</button>
-                            </form>';
+                        echo '
+                        <form action="process/server.php" method="POST">
+                          <input type="hidden" name="app" value="'.$id.'">
+                          <button type="submit" disabled name="finishrecord" class="btn btn-success" style="padding-button: 10px; float: right;
+                            width: 140px;" ><i class="menu-icon mdi mdi-clipboard-text">
+                            </i>Finish</button>
+                        </form>
+                        ';
                       }
-                    }else{
-                      echo '
-                        <button type="button" disabled class="btn btn-success" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i>Finish</button>
-                      ';
                     }
-                    
+
+                    if($progress_status =="Accepted"){
+
+                    }
+
+                    if($progress_status =="Done"){
+                      echo'<form action="process/server.php" method="POST">
+                      <input type="hidden" name="app" value="'.$id.'">
+                      <button type="submit" disabled name="finishrecord" class="btn btn-primary" style="padding-button: 10px; float: right;
+                        width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text">
+                        </i>Done</button>
+                    </form>';
+                    }
+
                     ?>
                     
                  
