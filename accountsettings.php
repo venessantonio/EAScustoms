@@ -8,7 +8,7 @@
      $profile =new database;
      $profile->user_profile($username);
      $id = $_SESSION['id'];
-     $pdo = new PDO('mysql:host=localhost;dbname=thesis', 'root', '');
+     $pdo = new PDO('mysql:host=localhost;dbname=eas', 'eas', 'eas2018');
      $result = $pdo->query("select personalId from personalinfo where user_id = '$id'")->fetchColumn();
      $_SESSION['personalId'] = $result;
      $personalinfo =new database;
