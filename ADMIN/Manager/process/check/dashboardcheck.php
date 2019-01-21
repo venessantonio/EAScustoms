@@ -2,7 +2,7 @@
   $connection = new mysqli("localhost","root","","eas");//make database connectio><n
 // <?php require "../require/dataconf.php";>
 //Updating Overdue Appointment Request
-$checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `appointments` WHERE status = 'Accepted'");
+$checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `appointments` WHERE status = 'Accepted' AND date > now()");
 if($checkDashboard->execute()){
   $data = $checkDashboard->get_result();
   $box1 = $data->fetch_assoc();
@@ -26,7 +26,7 @@ if($checkDashboard->execute()){
   $box2 = $data->fetch_assoc();
 }
 
-$checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `chargeinvoice`");
+$checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `appointments` WHERE status = 'Accepted' AND DATE(date) =CURDATE()");
 if($checkDashboard->execute()){
   $data = $checkDashboard->get_result();
   $box5 = $data->fetch_assoc();

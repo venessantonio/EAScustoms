@@ -147,7 +147,7 @@
           <div class="row">
             <div class="col-lg-12 grid-margin  stretch-card">
               <div class="card">
-                <nav aria-label="breadcrumb">
+                  <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="calendar.php" style="font-size:18px;">Calendar</a></li>
                     <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;"><?php echo '(',date('F j, Y',strtotime ($row['date'])), '&nbsp-&nbsp',$row['Name'] ,')' ?></li>
@@ -167,7 +167,27 @@
                         if ($row['targetEndDate'] == $row['date']){
                     ?>
                     <form method = "post" action="addenddate.php?id=<?php echo $id;?>">      
-                        <p class="card-title" style="font-size:20px; float:right;" >Target End Date : <input type ="date" name="enddate" style="border-style: groove; border-radius: 5px; border-color:#f2f2f2"> <button class="btn btn-primary" type="submit" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button></p></form>
+                        <p class="card-title" style="font-size:20px; float:right;" >
+                        Target End Date : <input type ="date" name="enddate" style="border-style: groove; border-radius: 5px; border-color:#f2f2f2"> 
+                        <br>
+                            Bar Color: 
+                            <select name="color" class="form-control" id="color" style="border-style: groove; border-radius: 5px; border-color:#f2f2f2" required>
+                                                  <option value="">Choose</option>
+                                                  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+                                                  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
+                                                  <option style="color:#008000;" value="#008000">&#9724; Green</option>						  
+                                                  <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+                                                  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+                                                  <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+                                                  <option style="color:#000;" value="#000">&#9724; Black</option>
+                            </select> 
+                            
+                            
+                            
+                        <button class="btn btn-primary" type="submit" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button>
+                       
+                    
+                    </form>
                     <?php
                         }else{
                             ?><p class="card-title" style="font-size:20px; float:right;" > Target End Date : <?php echo date('F j, Y',strtotime ($row['targetEndDate']));?>

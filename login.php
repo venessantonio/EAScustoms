@@ -223,9 +223,6 @@ if (isset($_SESSION['username'])) {
               Don't have an account? Register here.
             </a>
                         <br>
-            <a class="txt2" href="#">
-              Forgot your password?
-            </a>
           </div>
                     
                     <div class="text-center p-t-15">

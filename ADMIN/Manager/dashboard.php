@@ -34,20 +34,19 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
-    
- <style>
+  <style>
      html{
    scroll-behavior:smooth; 
      }
-      td a { 
+       .detail:hover{
+         background-color:#FAF0E6;
+         cursor:pointer;
+     }
+       td a { 
        display: block; 
      }
      td a:hover{
          text-decoration: none;
-     }
-     .detail:hover{
-         background-color:#FAF0E6;
-         cursor:pointer;
      }
     </style>
 </head>
@@ -61,7 +60,7 @@
     <!-- partial:partials/_sidebar.html -->
         
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav" style="position:fixed; width:256px;">
+        <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
           <li class="nav-item">
@@ -95,22 +94,27 @@
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
+            
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="dailytaskform.php">
+              <i class="menu-icon mdi mdi-file"></i>
+              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            </a>
+          </li> -->
 
           <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
-              <i class="menu-icon mdi mdi-account-multiple"></i>
-              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Sales Invoice</span>
             </a>
           </li>
             
-<!--
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
             </a>
           </li>
--->
             
           <li class="nav-item">
             <a class="nav-link" href="vehicle.php">
@@ -120,25 +124,22 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="servicesmanagement.php">
+            <a class="nav-link" href="sparepartsmanagement.php">
               <i class="menu-icon mdi mdi-wrench"></i>
-              <span class="menu-title" style="font-size:14px;">Services</span>
+              <span class="menu-title" style="font-size:14px;">Spare Parts</span>
             </a>
           </li>
-            
-            
-            
             
         </ul>
       </nav>
         
-        
-<!-- partial -->
+     
+          <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
          
 
-        <!--  Start Calendar  -->
+      
          <div class="row">
          
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
@@ -188,14 +189,14 @@
                     <div class="float-left">
                       <i class="mdi mdi-check-circle text-info icon-lg"></i>
                     </div>
-                    <a href="#UpcomingAppointment" class="smoothScroll" style="color:black;">
+                    <a href="chargeinvoice.php" style="color:black;">
                     <div class="float-right">
-                      <p class="mb-0 text-right">Vehicles<br>Repaired</p>
+                      <p class="mb-0 text-right">New<br>Appointments today</p>
                       <div class="fluid-container">
                         <h3 class="font-weight-medium text-right mb-0"><?php echo $box5['count']?></h3>
                       </div>
                     </div>
-                    </a>
+                      </a>
                   </div>
                 </div>
               </div>
@@ -322,6 +323,7 @@
             </div>
           </div>
         </section>
+       
         <section id ="UpcomingAppointment">
            <div class="row">
             <div class="col-lg-12 grid-margin">
@@ -332,9 +334,6 @@
                     <table class="table table-bordered" id="doctables2" style="background-color: #212529; color:white; border-color:#212529;">
                       <thead>
                         <tr>
-                          <th>
-                            Full Name
-                          </th>
                           <th>
                             Plate Number
                           </th>
@@ -347,21 +346,19 @@
                         </tr>
                       </thead>
                       <tbody style="background-color:white; color:#212529;">
-                         <?php $query = $connection->prepare("SELECT CONCAT(personalinfo.firstName,' ', personalinfo.middleName, ' ', personalinfo.lastName) AS FullName, appointments.date, appointments.targetEndDate, appointments.id, vehicles.plateNumber FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted' ORDER BY appointments.date ASC"); 
+                         <?php $query = $connection->prepare("SELECT CONCAT(personalinfo.firstName,' ', personalinfo.middleName, ' ', personalinfo.lastName) AS FullName, appointments.date, appointments.targetEndDate, appointments.id, vehicles.plateNumber FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted' AND appointments.date > now() ORDER BY appointments.date ASC"); 
                             if ($query->execute()){
                                 $result=$query->get_result();
                                 while($appinprogress = $result->fetch_assoc()){
                                ?> 
                         <tr class="detail">
                           <td><a href ="records.php?id=<?php echo $appinprogress['id']?>" style="color:black">
-                           <?php echo $appinprogress['FullName']?>
-                              </a></td>
-                          <td><a href ="records.php?id=<?php echo $appinprogress['id']?>" style="color:black">
                            <?php echo $appinprogress['plateNumber']?>
                               </a></td>
-                          <td class="text-success"> <?php echo  date('F j, Y',strtotime($appinprogress['date']))?><a href ="records.php?id=<?php echo $appinprogress['id']?>" style="color:black">
+                          <td class="text-success"><a href ="records.php?id=<?php echo $appinprogress['id']?>" style="color:black">
+                              <?php echo  date('F j, Y',strtotime($appinprogress['date']))?>
                               </a></td>
-                          <td class="text-danger"><a href ="records.php?id=<?php echo $appinprogress['id']?>" style="color:black"> 
+                          <td class="text-danger"><a href ="records.php?id=<?php echo $appinprogress['id']?>" style="color:black">  
                             <?php
                             date_default_timezone_set('Asia/Manila');    
                             $now = time();
@@ -386,12 +383,14 @@
           </div>
         </section>
         
-         <section id ="VehiclesRepaired">
-          <div class="row">
+            
+            
+         <section id ="UpcomingAppointment">
+           <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <br><br><h1 class="card-title">Vehicles Repaired</h1>
+                  <br><br><h1 class="card-title">New Appointments today</h1>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="doctables3" style="background-color: #212529; color:white; border-color:#212529;">
                       <thead>
@@ -399,23 +398,17 @@
                           <th>
                             Plate Number
                           </th>
-                          <th>
-                            Release Date
-                          </th>
                         </tr>
                       </thead>
                       <tbody style="background-color:white; color:#212529;">
-                         <?php $query = $connection->prepare("SELECT chargeinvoice.id as id, vehicles.plateNumber as platenumber, vehicles.make as make, vehicles.series as series, personalInfo.firstName,personalInfo.lastName,chargeinvoice.date FROM chargeinvoice join vehicles on chargeinvoice.vehicleId = vehicles.id join personalInfo on chargeinvoice.personalId = personalInfo.personalId order by chargeinvoice.date desc"); 
+                         <?php $query = $connection->prepare("SELECT appointments.date, appointments.id, vehicles.plateNumber FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted' AND DATE(date) =CURDATE() ORDER BY appointments.date ASC"); 
                             if ($query->execute()){
                                 $result=$query->get_result();
                                 while($appinprogress = $result->fetch_assoc()){
                                ?> 
                         <tr class="detail">
-                          <td><a href ="viewVehicle.php?plate=<?php echo $appinprogress['platenumber']?>" style="color:black">
-                           <?php echo $appinprogress['platenumber']?>
-                              </a></td>
-                          <td class="text-success"><a href ="viewVehicle.php?plate=<?php echo $appinprogress['platenumber']?>" style="color:black">
-                              <?php echo  date('F j, Y',strtotime($appinprogress['date']))?>
+                          <td><a href ="records.php?id=<?php echo $appinprogress['id']?>" style="color:black">
+                           <?php echo $appinprogress['plateNumber']?>
                               </a></td>
                         </tr>
                            <?php }
@@ -552,5 +545,3 @@
 </html>
         
      
-        
-      

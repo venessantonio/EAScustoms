@@ -36,7 +36,7 @@
     <!-- partial:partials/_sidebar.html -->
     
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav" style="position:fixed; width:256px;">
+        <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
           <li class="nav-item">
@@ -70,22 +70,27 @@
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
+            
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="dailytaskform.php">
+              <i class="menu-icon mdi mdi-file"></i>
+              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            </a>
+          </li> -->
 
           <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
-              <i class="menu-icon mdi mdi-account-multiple"></i>
-              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Sales Invoice</span>
             </a>
           </li>
             
-<!--
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
             </a>
           </li>
--->
             
           <li class="nav-item">
             <a class="nav-link" href="vehicle.php">
@@ -95,20 +100,16 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="servicesmanagement.php">
+            <a class="nav-link" href="sparepartsmanagement.php">
               <i class="menu-icon mdi mdi-wrench"></i>
-              <span class="menu-title" style="font-size:14px;">Services</span>
+              <span class="menu-title" style="font-size:14px;">Spare Parts</span>
             </a>
           </li>
-            
-            
-            
             
         </ul>
       </nav>
 
-        
-        <!-- partial -->
+      <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
@@ -118,7 +119,7 @@
                 <div class="card-body">
                   <p class="card-title" style="font-size:20px;">Appointments</p>
                   <p class="card-description">
-                   
+                    List of Appointment Request
                   </p>
                     
                   <div class="table-responsive">
@@ -130,16 +131,15 @@
                             <th>Status</th>
                             <th>Date Sent</th>
                             <th>Date of Appointment Request</th>
-                           
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                       <?php
                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 
                         'Name',make,series,appointments.created as 'created', appointments.serviceId as 'service', appointments.otherService as 
-                        'others', yearModel,plateNumber,appointments.status,date, appointments.additionalMessage as 'message', adminDate
+                        'others', yearModel,plateNumber,appointments.status,date, appointments.additionalMessage as 'message', adminDate,rescheduledate
                          from appointments join personalinfo on appointments.personalId
-                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where (appointments.status = 'Pending' OR appointments.status = 'Rescheduled') AND (NOW() = date OR NOW() < date )");
+                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where (appointments.status = 'Pending' OR appointments.status = 'Rescheduled')");
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {
@@ -150,20 +150,16 @@
                             $dateTime2 = $row['created'];
                             $dateTimeSplit2 = explode(" ",$dateTime2);
                             $date2 = $dateTimeSplit2[0];
-                                
-                            
                             echo '
                                 <tr>
                                 <td>'.$row['Name'].'</td>
-                                <td><a href ="viewvehicle.php?plate='.$row['plateNumber'].'" style="color:black">'.$row['plateNumber'].'</a></td>
+                                <td><a href = "viewvehicle.php?plate='.$row['plateNumber'].'" style="color:black;">'.$row['plateNumber'].'</a></td>
                                 <td>'.$row['status'].'</td>
                                 <td>'; echo date('M d, Y',strtotime($date2)); echo '</td>
-                                <td><a href = "basis2.php?date='.$row['date'].'" style="color:black;">'; echo date('M d, Y',strtotime($date)); echo '</a></td>
-                                
-
+                                <td><a href = "appointmentbasis.php?date='.$row['date'].'" style="color:black;">'; echo date('M d, Y',strtotime($date)); echo '</a></td>  
                                 </tr>
 
-                               
+                         
                             ';
                             }
                         }else{
@@ -253,4 +249,3 @@ $('form.ajax').on('submit', function(){
 });
 <<<<<<< HEAD
 </script> -->
-    
