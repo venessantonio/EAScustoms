@@ -162,7 +162,7 @@ $personalinfo -> personal_info();
      </section>
 
   <!-- Start of APPOINTMENT SECTION --> 
-    <div id="appointment-section">
+    <div id="appointment-section" style="background-color:red;">
         <div class="container">
             
             <div class="row">
@@ -275,12 +275,12 @@ $personalinfo -> personal_info();
 
                     <div class="col-md-4 col-sm-4">
                          <div class="footer-thumb"> 
-                              <h2 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h2>
+                              <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
 
                               <div class="contact-info">
-                                   <p><i class="fa fa-phone"></i> 09257196568 / 09304992021</p>
-                                   <p><i class="fa fa-envelope-o"></i> <a href="#">eascustoms@yahoo.com</a></p>
-                                   <p><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a>
+                                   <p><i class="fas fa-phone"></i> 09257196568 / 09304992021</p>
+                                   <p><i class="far fa-envelope"></i> <a href="#">eascustoms@yahoo.com</a></p>
+                                   <p><i class="fab fa-facebook-square"></i> <a href="#">EAS Customs / @eascustoms75</a>
                               </div>
                          </div>
                     </div>
@@ -288,7 +288,7 @@ $personalinfo -> personal_info();
                     <div class="col-md-4 col-sm-4"> 
                          <div class="footer-thumb"> 
                               <div class="opening-hours">
-                                   <h2 class="wow fadeInUp" data-wow-delay="0.4s">Opening Hours</h2><br>
+                                   <h4 class="wow fadeInUp" data-wow-delay="0.4s">Opening Hours</h4><br>
                                    <p>Monday - Friday <span>09:00 AM - 05:00 PM</span></p>
                                    <p>Saturday <span>09:00 AM - 05:00 PM</span></p>
                                    <p>Sunday <span>Closed</span></p>

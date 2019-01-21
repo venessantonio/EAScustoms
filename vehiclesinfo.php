@@ -98,7 +98,7 @@
                <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav ">
                      <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p><i class="fas fa-user-circle"></i></span> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p><i class="fas fa-user-circle"></i> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                 </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
@@ -213,8 +213,8 @@
         </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-sm " name="vehicle_add" style="background-color: #B80011;color: white"><i class="fa fa-motorcycle" aria-hidden="true"></i> Add Vehicle</button>
-          <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" style="color:black;"><i class="fas fa-times-circle"></i> Cancel</button>
+          <button type="submit" class="btn" name="vehicle_add" style="background-color: #B80011; color: white"><i class="fa fa-car" aria-hidden="true"></i> Add Vehicle</button>
+          <button type="button" class="btn" data-dismiss="modal" style="color:black;"><i class="fas fa-times-circle"></i> Cancel</button>
         </div>
       </div>
       </form>
@@ -499,7 +499,7 @@
                     <div class="col-md-4 col-sm-4"> 
                          <div class="footer-thumb"> 
                               <div class="opening-hours">
-                                   <h2 class="wow fadeInUp" data-wow-delay="0.4s">Opening Hours</h2><br>
+                                   <h4 class="wow fadeInUp" data-wow-delay="0.4s">Opening Hours</h4><br>
                                    <p>Monday - Friday <span>09:00 AM - 05:00 PM</span></p>
                                    <p>Saturday <span>09:00 AM - 05:00 PM</span></p>
                                    <p>Sunday <span>Closed</span></p>
