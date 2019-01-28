@@ -169,7 +169,10 @@ $personalinfo -> personal_info();
      </section>
 
   <!-- Start of APPOINTMENT SECTION --> 
-    <div id="appointment-section" style="background-image: url(images/3.jpg);">
+    <div id="appointment-section" style="background-image: url(images/home.jpg); background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;">
         <div class="container">
             
             <div class="row">
@@ -264,10 +267,8 @@ $personalinfo -> personal_info();
               background: -moz-linear-gradient(-135deg, #B80011, #f06d06);
               background: linear-gradient(-135deg, #B80011, #f06d06);">
         
-                 <h3 align="center" style="margin-top:4%; color: white; font-size: 53px;">Hi! Welcome to EAS Customs</h3>
-                <p align="center" style="margin-top:4%; margin-bottom:4%; color: white; font-size: 25px;">This is where you can make an appointment, 
-                    view request, track your vehicles,
-                    manage personal information.</p>   
+                 <h3 align="center" style="margin-top:4%; color: white; font-size: 53px;">Hello! Welcome to EAS Customs</h3>
+                <p align="center" style="margin-top:4%; margin-bottom:4%; color: white; font-size: 20px;">This is where you can make an appointment, view request,<br> track your vehicles, and manage personal information.</p>   
             </div>      
         </div> 
     </div>

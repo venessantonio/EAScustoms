@@ -152,16 +152,18 @@ http://www.tooplate.com/view/2098-health
 
 
      <!-- ABOUT -->
-     <section id="about">
+     <section id="about" style="background-color: #fff; background: -webkit-linear-gradient(-135deg, #ffffff, #ffcc99); background: -o-linear-gradient(-135deg, #ffffff, #ffcc99); background: -moz-linear-gradient(-135deg, #ffffff, #ffcc99); background: linear-gradient(-135deg, #ffffff, #ffcc99);">
           <div class="container">
                <div class="row">
 
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-12 col-sm-12">
                          <div class="about-info">
-                              <h2 class="wow fadeInUp" data-wow-delay="0.6s">Welcome to EAS Customs</h2>
+                              <p class="wow fadeInUp" data-wow-delay="0.6s" style="text-align: center; font-size:50px; color: black; font-weight:bold; letter-spacing: 5px;">Welcome to EAS Customs</p>
+                             <br>
+                             <br>
                               <div class="wow fadeInUp" data-wow-delay="0.8s">
-                                   <p>EAS customs is a family-owned business located at #08 Regidor St., Pacdal Baguio City, Benguet. The shop was formerly known as “Toot’s Auto Repair Shop”. The business began as a small-time automotive repair shop in the year 2002. The shop catered mechanical works and was only using the garage of the owner’s house. “Toot’s Auto Repair Shop” was changed to “Enriques A. Simeon Auto Repair Shop” which was named after the owner of the company..</p>
-                                   <p>The shop is one of the few auto repair shops that specializes in American and European-made automobiles (eg. BMW, Opel, Ford, Mini Cooper, Mercedes Benz, Chevrolet, and Cadillac)​.</p>
+                                   <p style="text-align: justify;text-justify: inter-word; font-size:17px; color:#4d4d4d;">EAS customs is a family-owned business located at #08 Regidor St., Pacdal Baguio City, Benguet. The shop was formerly known as “Toot’s Auto Repair Shop”. The business began as a small-time automotive repair shop in the year 2002. The shop catered mechanical works and was only using the garage of the owner’s house. “Toot’s Auto Repair Shop” was changed to “Enriques A. Simeon Auto Repair Shop” which was named after the owner of the company.</p>
+                                   <p style="text-align: justify;text-justify: inter-word; font-size:17px; color:#4d4d4d;">The shop is one of the few auto repair shops that specializes in American and European-made automobiles (eg. BMW, Opel, Ford, Mini Cooper, Mercedes Benz, Chevrolet, and Cadillac).</p>
                               </div>
                               <figure class="profile wow fadeInUp" data-wow-delay="1s">
                               </figure>
@@ -180,7 +182,10 @@ http://www.tooplate.com/view/2098-health
                     <div class="col-md-12 col-sm-12">
                          <!-- SECTION TITLE -->
                          <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                              <h2>Services</h2>
+                             <br>
+                             <br>
+                             <br>
+                              <h2 style="text-align: center; letter-spacing: 5px;"><i class="fas fa-wrench" style="font-size:35px; color:#262626"></i> Services <i class="fas fa-wrench" style="font-size:35px; color:#262626"></i></h2>
                          </div>
                     </div>
 
@@ -278,6 +283,9 @@ http://www.tooplate.com/view/2098-health
                                    
                               </div>
                          </div>
+                         <br>
+                        <br>
+                        <br>
                     </div>
 
                </div>
@@ -285,14 +293,16 @@ http://www.tooplate.com/view/2098-health
      </section>
 
      <!-- LATEST CARS -->
-     <section id="fc" data-stellar-background-ratio="2.5">
+     <section id="fc" data-stellar-background-ratio="2.5" style="background:#fff3e6;">
           <div class="container">
                <div class="row">
 
                     <div class="col-md-12 col-sm-12">
                          <!-- SECTION TITLE -->
                          <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                              <h2>Latest Cars</h2>
+                             <br>
+                             <br>
+                             <h2 style="text-align: center; letter-spacing: 5px;"><i class="fas fa-car" style="font-size:35px; color:#262626"></i> Latest Cars <i class="fas fa-car" style="font-size:35px; color:#262626"></i></h2>
                          </div>
                     </div>
 
@@ -330,7 +340,11 @@ http://www.tooplate.com/view/2098-health
                                    <span>January 27, 2018</span>
                               </div>
                          </div>
+                        <br>
+                        <br>
+                        <br>
                     </div>
+                   
 
                </div>
           </div>
@@ -343,7 +357,8 @@ http://www.tooplate.com/view/2098-health
 
                     <div class="col-md-6 col-sm-6">
                          <div class="about-info">
-                              <h2 class="wow fadeInUp" data-wow-delay="0.1s">Our Team</h2>
+                              <h2 class="wow fadeInUp" data-wow-delay="0.1s" style="letter-spacing: 5px;"> Our Team</h2>
+                             <br>
                          </div>
                     </div>
 
@@ -390,13 +405,9 @@ http://www.tooplate.com/view/2098-health
      </section>
 
      <!-- FEEDBACKS -->
-     <section id="feedback" data-stellar-background-ratio="3">
+     <section id="feedback" data-stellar-background-ratio="3" style="background:#fff3e6;">
           <div class="container">
                <div class="row">
-
-                    <div class="col-md-6 col-sm-6">
-                         <img src="" class="img-responsive" alt="">
-                    </div>
 
                     <div class="col-md-6 col-sm-6">
                          <!-- CONTACT FORM HERE -->
@@ -404,7 +415,9 @@ http://www.tooplate.com/view/2098-health
 
                               <!-- SECTION TITLE -->
                               <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
-                                   <h2>Feedback</h2>
+                                  <br>
+                                  <br>
+                                   <h2 style="letter-spacing: 5px;">Feedback</h2>
                               </div>
 
                               <div class="wow fadeInUp" data-wow-delay="0.8s">
@@ -440,7 +453,7 @@ http://www.tooplate.com/view/2098-health
                                             <label for="Message">Message</label>
                                                 <textarea class="form-control" rows="5" id="message" name="message" placeholder="Message"></textarea>
                                                 <br>
-                                                <button type="submit" class="form-control" id="cf-submit" name="submit">Submit</button>
+                                                <button type="submit" class="form-control" id="cf-submit" name="submit" style="background:#333333; color:white;">Submit</button>
                                                 <br>
                                                 <br>
                                                 <br>
@@ -449,6 +462,10 @@ http://www.tooplate.com/view/2098-health
                                     </table>
                              </div>
                         </form>
+                    </div>
+                   
+                    <div class="col-md-6 col-sm-6">
+                         <img src="" class="img-responsive" alt="">
                     </div>
 
                </div>
