@@ -236,9 +236,10 @@
                 </div>
               </div>
             </div>
+            <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
               </form>
           </div>
-          <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+          
       
           </div>
         </div>

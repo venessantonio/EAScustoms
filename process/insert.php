@@ -9,8 +9,8 @@ if(isset($_POST["vehicle"]))
  $service = mysqli_real_escape_string($db, implode(',', $_POST['service']));
  $date = mysqli_real_escape_string($db, $_POST["date"]);
  $query = "
- INSERT INTO appointments(serviceId, vehicleId, personalId, otherService, date, status, notification )
- VALUES ('$service', '$vehicle', '$personalId', '$additionalMessage', '$date', 'Pending', '0')
+ INSERT INTO appointments(serviceId, vehicleId, personalId, otherService, date, status, notification, targetEndDate , adminDate )
+ VALUES ('$service', '$vehicle', '$personalId', '$additionalMessage', '$date', 'Pending', '0', '$date', 'client' )
  ";
  mysqli_query($db, $query);
 }

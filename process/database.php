@@ -123,12 +123,6 @@ class database{
 		return $this->appointment_active;
 	}
 	
-	//SELECT appointments.serviceId as services, appointments.personalId as personalId, appointments.otherService as otherServices, appointments.date as desiredDate, appointments.status AS status, appointments.created as created, vehicles.plateNumber as plateNumber, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel FROM appointments INNER JOIN vehicles ON appointments.personalId = vehicles.personalId WHERE appointments.personalId = "36" ORDER BY appointments.`created`
-
-	//SELECT * from appointments where status='Pending' AND personalId ='".$_SESSION['personalId']."'
-
-
-
 	public function appointment_service(){
 		$query=$this->conn->query("SELECT * from services");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
@@ -136,8 +130,6 @@ class database{
 		}
 		return $this->appointment_service;
 	}
-
-
 
 
 }
@@ -150,12 +142,13 @@ class database{
     $vehicleinforesult   = mysqli_query($db,$query1);
     $vehicleinforesultCheck = mysqli_num_rows($vehicleinforesult);
 
-     //Appointment Info
+
+    //Appointment Info
     $query2 = "SELECT * from personalinfo where user_id = '".$_SESSION['id']."'";
     $res1 = mysqli_query($db,$query2);
     $row1 = mysqli_fetch_assoc($res1);
     $personalId = $row1['personalId'];
-    $query3 = "SELECT concat(vehicles.make, ' ', vehicles.series, ' ', vehicles.yearModel) as car, appointments.id, vehicles.plateNumber, vehicles.series, appointments.date, appointments.status, appointments.targetEndDate, appointments.serviceId FROM appointments INNER JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted' AND  appointments.personalId = '".$personalId."'";
+    $query3 = "SELECT concat(vehicles.make, ' ', vehicles.series, ' ', vehicles.yearModel) as car, appointments.id, vehicles.plateNumber, vehicles.series, appointments.date, appointments.status, appointments.targetEndDate, appointments.serviceId FROM appointments INNER JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted' AND  appointments.personalId = '$personalId'";
     $appointmentinforesult   = mysqli_query($db,$query3);
     $appointmentinforesultCheck = mysqli_num_rows($appointmentinforesult);
 

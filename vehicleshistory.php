@@ -48,17 +48,14 @@ $personalinfo -> personal_info();
      <script src="js/jquery.js"></script>
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
-    
-    
+      
      <!-- DatePicker dont move to another line -->
 
-     <!-- Notification Jquery Library -->
-     
+     <!-- Notification Jquery Library -->    
      <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
      <script> 
       var $jq171 = jQuery.noConflict(true);
       </script>
-
 
      <script> 
       window.jQuery = $jq171;
@@ -144,8 +141,15 @@ $personalinfo -> personal_info();
                         
                         
                 <li class="dropdown">
-                  <a class="smoothScroll" href="requeststatus.php" ><i class="far fa-calendar-check"></i> Request Status
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" ><i class="far fa-calendar-check"></i> Request Status<span class="caret"></span>
                   </a>
+                  <ul class="dropdown-menu" id="dropdownaccount">
+                     <li><a  href="acceptedreq.php" style="font-size: 13px;z-index: 9999;">Accepted Request</a></li>
+                     <li><a  href="pendingreq" style="font-size: 13px;z-index: 9999;">Pending and Reschedule Request</a>
+                    </li>
+                     <li><a  href="declinedreq" style="font-size: 13px;z-index: 9999;">Declined Request</a>
+                    </li>
+                  </ul>
                   </li>
                 
              
@@ -195,7 +199,7 @@ $personalinfo -> personal_info();
                           echo "<td align = 'center'>No Value.</td> ";
                     ?>
                   <?php if (isset($row['date'])) {
-                          echo "<td align = 'center'>".$row['date']."</td>"; 
+                          echo "<td align = 'center'>".date("F d, Y",strtotime($row['date']))."</td>"; 
                         }else
                           echo "<td align = 'center'>No Value.</td> ";
                     ?>
@@ -218,7 +222,7 @@ $personalinfo -> personal_info();
                               <div class="form-group">
 
                                 <label for="date">Release Date</label>
-                                <p><?php echo $row['date']; ?></p>
+                                <p><?php echo date("F d, Y",strtotime($row['date'])); ?></p>
                               </div>
                               <div class="form-group">
                                 <label for="scopeWork">Scope of Work</label>
@@ -317,9 +321,9 @@ $personalinfo -> personal_info();
      </footer>
     
  <!-- SCRIPTS -->
+     <script src="js/notif.js"></script>
      <script src="js/notifinvoice.js"></script>
      <script src="js/makeseries.js"></script>
-     <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
      <script src="js/jquery.stellar.min.js"></script>
@@ -331,7 +335,6 @@ $personalinfo -> personal_info();
      <script src="js/jquery.dataTables.js"></script>
      <script src="js/dataTables.bootstrap4.js"></script>
      <script src="js/sb-admin-datatables.min.js"></script>
-
     <script src="vendors/js/vendor.bundle.base.js"></script>
     <script src="vendors/js/vendor.bundle.addons.js"></script>
  

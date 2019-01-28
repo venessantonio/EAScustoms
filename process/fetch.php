@@ -1,6 +1,6 @@
 <?php
 session_start();
-$db = mysqli_connect('localhost', 'root', '','eas');
+include_once 'databaseconnect.php';
 if(isset($_POST["view"]))
 {
  $personalId = $_SESSION['personalId'];
@@ -12,7 +12,7 @@ if(isset($_POST["view"]))
  $query = "SELECT appointments.status AS status, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, appointments.created as created, vehicles.plateNumber as plateNumber FROM appointments JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.personalId = '$personalId' ORDER BY created DESC LIMIT 5";
  $result = mysqli_query($db, $query);
  $output = '';
- //SELECT appointments.status AS status, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, appointments.created as created, vehicles.plateNumber as plateNumber FROM appointments INNER JOIN vehicles ON appointments.personalId = vehicles.personalId ORDER BY `appointments`.`created` DESC LIMIT 5
+
  if(mysqli_num_rows($result) > 0)
  {
 
@@ -21,7 +21,7 @@ if(isset($_POST["view"]))
    $output .=
    '
    <li>
-    <a href="requeststatus.php?status='.$row["status"].'">
+    <a href="'.$row["status"].'req.php?status='.$row["status"].'">
      <strong>Vehicle '.$row["plateNumber"].' '.$row["make"].' '.$row["series"].' '.$row["yearModel"].' </strong><br>
      <em>Status is now '.$row["status"].' check it here </em><br>
      <b>'.date("m/d/y h:i A",strtotime($row["created"])).'</b>
@@ -47,10 +47,11 @@ if(isset($_POST["view"]))
 }
 
 
+
 if(isset($_POST['view1'])){
 if($_POST["view1"] != '')
 {
-    $update_query = "UPDATE chargeinvoice SET notification = 1 WHERE notification=0";
+    $update_query = "UPDATE chargeinvoice SET notification = 1 WHERE notification=0 AND personalId='$personalId'";
     mysqli_query($db, $update_query);
 }
 $query = "SELECT * FROM chargeinvoice ORDER BY id DESC LIMIT 5";

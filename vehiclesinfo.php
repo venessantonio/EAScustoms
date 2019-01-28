@@ -118,8 +118,15 @@
                         
                         
                 <li class="dropdown">
-                  <a class="smoothScroll" href="requeststatus.php" ><i class="far fa-calendar-check"></i> Request Status
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" ><i class="far fa-calendar-check"></i> Request Status<span class="caret"></span>
                   </a>
+                  <ul class="dropdown-menu" id="dropdownaccount">
+                     <li><a  href="acceptedreq.php" style="font-size: 13px;z-index: 9999;">Accepted Request</a></li>
+                     <li><a  href="pendingreq" style="font-size: 13px;z-index: 9999;">Pending and Reschedule Request</a>
+                    </li>
+                     <li><a  href="declinedreq" style="font-size: 13px;z-index: 9999;">Declined Request</a>
+                    </li>
+                  </ul>
                   </li>
                 
              
@@ -235,7 +242,7 @@
           ?>
     <?php endif ?>
              
-    <table class="table table-hover table-bordered " id="doctables" >
+             <table class="table table-hover table-bordered " id="doctables" >
       <thead style="background-color: #212529;color: white;">
         <tr>
           <th style="text-align:center; font-size: 18px;">Plate Number</th>

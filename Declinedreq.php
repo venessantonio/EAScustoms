@@ -1,34 +1,23 @@
-<?php
+<?php 
     session_start();
-    include 'process/database.php';
     include 'process/info.php';
     include 'process/auth.php';
+    include 'process/server.php';
+    include 'process/database.php';
     $username=$_SESSION['username'];
     $profile =new database;
     $profile->user_profile($username);
-    $date_count =new database;
-    $date_count->date_count();
+    $appointmentinfo = new database;
+    $appointmentinfo -> appointment_info_activeschedule();
 
 
-  
-$mechanicalservice = new database ;
-$mechanicalservice -> mechanical_service();
-$electricalservice = new database ;
-$electricalservice -> electrical_service();
-$paintservice = new database ;
-$paintservice -> painting_service();
-$appointmentinfo = new database ;
-$appointmentinfo -> appointment_info_activeschedule();
-$personalinfo = new database ;
-$personalinfo -> personal_info();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-     <title>EAS Customs - Make an Appointment</title>
-     <link rel="icon" href="images/Logo.png">
-
+     <title>EAS Customs - Request Status</title>
+     
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
@@ -36,37 +25,39 @@ $personalinfo -> personal_info();
      <meta name="author" content="Tooplate">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
      <link rel="icon" href="images/Logo.png">
-     <link rel="stylesheet" href="css/bootstrap.min.css">
-     <link rel="stylesheet" href="css/magnific-popup.css">
-     <!-- Font Awesome Version 5.0 -->
-     <link rel="stylesheet" href="css/all.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
+     <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/animate.css">
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
-     <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
+     <!-- Font Awesome Version 5.0 -->
+     <link rel="stylesheet" href="css/all.css">
      <script src="js/jquery.js"></script>
+     
+     
+
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
-    
-    
+
+     <link rel="stylesheet" href="css/datepicker.css"  type="text/css"/> 
      <!-- DatePicker dont move to another line -->
 
      <!-- Notification Jquery Library -->
-     
      <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
      <script> 
       var $jq171 = jQuery.noConflict(true);
       </script>
-
 
      <script> 
       window.jQuery = $jq171;
      </script>
      <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
      <script src="js/jquery.js"></script>
+     
+
 
 </head>
+
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
      <!-- PRE LOADER -->
@@ -86,24 +77,78 @@ $personalinfo -> personal_info();
          
           <div class="col-md-4 col-sm-5">
                        <img src="images/Logo.png" class="logoo" alt="logo" style="width: 50px; height: 40px" />
-                       <a href="home.php" class="navbar-brand" >EAS Customs</a>
+                       <a href="index.html" class="navbar-brand" >EAS Customs</a>
           </div>
 
               <div class="col-md-8 col-sm-7 text-align-right">
                          <span class="phone-icon"><i class="fa fa-phone"></i>  09257196568 / 09304992021</span>
                          <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Sat)</span>
-                         <span class="email-icon"><i class="fa fa-facebook-square" aria-hidden="true"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
+                         <span class="email-icon"><i class="fab fa-facebook"></i> <a href="#">EAS Customs / @eascustoms75</a></span>
                     </div>
 
 
                     
         </div>
       </div>
+
+     
+
      </header>
+          <script type="text/javascript">
+           var unavailableDates  = [<?php
+           foreach($appointmentinfo->appointment_info as $appointmentinfo):
+           ?>"<?= date('j-m-Y', strtotime($appointmentinfo['date'])); ?>",
+          <?php     
+            endforeach;
+          ?>];
+           function unavailable(date) {
+           dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+           if ($jq171.inArray(dmy, unavailableDates) == -1) {
+            return [true, ""];
+            } else {
+            return [false, "", "Unavailable"];
+            }
+           }
 
+          $jq171(function(){
+            $jq171('#datepicker').datepicker({
+              dateFormat: 'yy-mm-dd',
+              minDate: 0,
+              beforeShowDay: $jq171.datepicker.noWeekends,
+              inline: true,
+              //nextText: '&rarr;',
+              //prevText: '&larr;',
+              showOtherMonths: true,
+              //dateFormat: 'dd MM yy',
+              dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+              beforeShowDay: unavailable, 
+              //showOn: "button",
+              //buttonImage: "img/calendar-blue.png",
+              //buttonImageOnly: true,
+            });
+          });
 
-     <!-- MENU -->
-     <section class="navbar navbar-default navbar-static-top" role="navigation" >
+           $jq171(function(){
+            $jq171('#datepicker2').datepicker({
+              dateFormat: 'yy-mm-dd',
+              minDate: 0,
+              beforeShowDay: $jq171.datepicker.noWeekends,
+              inline: true,
+              //nextText: '&rarr;',
+              //prevText: '&larr;',
+              showOtherMonths: true,
+              //dateFormat: 'dd MM yy',
+              dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+              beforeShowDay: unavailable, 
+              //showOn: "button",
+              //buttonImage: "img/calendar-blue.png",
+              //buttonImageOnly: true,
+            });
+          });
+          </script>
+
+    <!-- MENU -->
+      <section class="navbar navbar-default navbar-static-top" role="navigation" >
           <div class="container">
 
                <div class="navbar-header">
@@ -124,7 +169,7 @@ $personalinfo -> personal_info();
                <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav ">
                      <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" ><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fas fa-user-circle"></i> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fas fa-user-circle"></i> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
                   </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 13px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
@@ -167,116 +212,125 @@ $personalinfo -> personal_info();
 
           </div>
      </section>
-
-  <!-- Start of APPOINTMENT SECTION --> 
-    <div id="appointment-section" style="background-image: url(images/3.jpg);">
-        <div class="container">
-            
-            <div class="row">
-                  
-                <div class="col-xs-12 col-sm-12" style="width:100%; height:50%; padding:5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background-color: white; border-radius: 10px;">
-        
-                 <h3 align="center" style="margin-top:1%; margin-bottom:1%; color:black; font-size: 18px;">You have the following appointments</h3>
-                    
-                  <p align="center" style="margin-top:1%; margin-bottom:1%; color:black; font-size: 15px; text-decoration: underline;">  
-                          <?php
-
-                             if ($appointmentinforesultCheck > 0) {
-                              while ($homedash = mysqli_fetch_assoc($appointmentinforesult)) {
-                          ?>
-
-                
-                            <a data-toggle="modal" data-target="#viewAppointment<?php echo $homedash['id']; ?>"><?php echo  date('F j, Y',strtotime($homedash['date']))?></a>
-  
-                    </p>
-
-                    <p align="center" style="margin-top:1%; margin-bottom:1%; color: black; font-size: 13px;">
-                        You have <?php
-                                date_default_timezone_set('Asia/Manila');      
-                                $now = time();
-                                $your_date = strtotime($homedash['date']);
-                                $datediff = $your_date - $now;
-                                $days_remaining = floor($datediff/(60*60*24));
-                                echo $days_remaining;
-                                        ?>
-                        remaining days until your next appointment</p>
+    <div class="jumbotron">
+     <div class="container">  
+    <?php if (isset($_SESSION['success'])) : ?>
+          <?php 
+            echo $_SESSION['success']; 
+            unset($_SESSION['success']); 
+          ?>
+    <?php endif ?>
+    <?php if (isset($_SESSION['delete'])) : ?>
+          <?php 
+            echo $_SESSION['delete']; 
+              unset($_SESSION['delete']);
+          ?>
+      <?php endif ?>
+      </div>
     
-       <!--MODAL VIEWINFO VEHICLES-->
+    <div class="container">
+    <?php if (isset($_SESSION['appointment_delete'])) : ?>
+          <?php 
+            echo $_SESSION['appointment_delete']; 
+              unset($_SESSION['appointment_delete']);
+          ?>
+    <?php endif ?>
+    <?php if (isset($_SESSION['appointment_accepted'])) : ?>
+      <?php 
+        echo $_SESSION['appointment_accepted']; 
+          unset($_SESSION['appointment_accepted']);
+      ?>
+    <?php endif ?>
+        <?php if (isset($_SESSION['appointment_cancel_Pending'])) : ?>
+      <?php 
+        echo $_SESSION['appointment_cancel_Pending']; 
+          unset($_SESSION['appointment_cancel_Pending']);
+      ?>
+    <?php endif ?>
 
-        
-        <div class="modal fade" id="viewAppointment<?php echo $homedash['id']; ?>" role="dialog">
-          <div class="modal-dialog">
-          
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header" style="background-color:#000099; color: #ffffff; font-size:20px;"><?php echo  date('F j, Y',strtotime($homedash['date']))?>
-              </div>
-              <div class="modal-body">
-              <div class="row">
-                <div class="col-md-6 col-sm-6">
-                  <div class="form-group">
-                  <label for="plateNumber">Plate Number</label>
-                  <p><?php echo $homedash['plateNumber']; ?></p>
-                </div>
-                <div class="form-group">
-                  <label for="plateNumber">Car</label>
-                  <p><?php echo $homedash['car']; ?></p>
-                </div>
-                <div class="form-group">
-                  <label for="date">Target Finish Date</label>
-                  <p><?php echo $homedash['targetEndDate']; ?></p>
-                </div>
-                <div class="form-group">
-                  <label for="services">Services</label>
-                  <p><?php echo $homedash['serviceId']; ?></p>
-                </div>
-                </div>
+    <div class="row">    
+    <div class="col-xs-12 col-sm-12">
+    <div class="panel panel-default" id="headings" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+      <div class="panel-heading" style="background-color: #b80011;color: white; font-size: 18px;"><i class="fas fa-times-circle"></i> &nbsp;Declined Requests</div>
+      <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 450px;">   
+      <?php
+       if ($declinedRequestsresultCheck > 0) {
+        while ($appointmentdeclined = mysqli_fetch_assoc($declinedRequestsresult)) {
+      ?>
+      <div class="well well-sm" style="margin: 0;">
+      <div class="form-group">
+      <form method="POST" action="process/server.php">
+      <input type="hidden" name="appointmentId" value="<?= $appointmentdeclined['id']; ?>">
+      <button type="submit" name="appointmentDelete" class="close">&times;</button>
+      </form> 
+      </div> 
+      <b><?= $appointmentdeclined['plateNumber']; ?> <?= $appointmentdeclined['make']; ?> <?= $appointmentdeclined['series']; ?> <?= $appointmentdeclined['yearModel']; ?></b>
+      <div class="pull-right">
+      <label for="Declined">Status:</label>
+      <b style="color:red;"><?= $appointmentdeclined['status']; ?></b>
+      </div>
+      <hr style="padding-bottom: 10px;margin: 0px;">
+       <div class="row">
+       <div class="col-sm-6 col-md-6">
+       <label for="reason">Reason:</label>
+       <?= $appointmentdeclined['reason']; ?><hr style="padding: 0px;margin: 0px;">
+       <label for="created">Date Requested:</label>
+       <?= date("F d, Y h:i A",strtotime($appointmentdeclined['created'])); ?>
+      </div>
+      <div class="col-md-6 col-sm-6">
+      <br>
+      <br>
+      <div class="pull-right">
+      <button type="button" class="btn" style="margin-top: px; width: 140px; color:white; background-color:#308ee0" data-toggle="modal" data-target="#declinedcheduleModal<?= $appointmentdeclined['id']; ?>"><i class="fas fa-info-circle"></i> More Details</button>
 
-                </div> 
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn" data-dismiss="modal" style="color: black;"><i class="fas fa-times-circle"></i> Close</button>
-              </div>
+      </div> 
+      </div>
+      <div id="declinedcheduleModal<?= $appointmentdeclined['id']; ?>" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: #308ee0; color: white;">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h5 class="modal-title"><i class="fas fa-concierge-bell"></i> Service Request</h5>
             </div>
-            
+            <div class="modal-body">
+                <label for="created">Date Requested:</label>
+                <?= date("F d, Y h:i A",strtotime($appointmentdeclined['created'])); ?><hr style="padding: 0px;margin: 0px;">
+                <label for="services">Services Requested:</label><br>
+                <?= preg_replace("/[,]/" , "<br>",$appointmentdeclined['services']); ?><hr style="padding: 0px;margin: 0px;">   
+               <label for="otherServices">Other Services:</label>
+                <?= $appointmentdeclined['otherServices']; ?><hr style="padding: 0px;margin: 0px;">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fas fa-times-circle"></i> Close</button>
+            </div>
           </div>
         </div>
-        <?php 
+      </div>
+      </div>
+      </div>
+      <br>
+      <?php 
          }
-        }else{
-          echo '<td colspan="7"><nav aria-label="breadcrumb" align="center">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">You have no appointments</li>
-                  </ol>
-                </nav></td>';
+       }else {
+        echo '<ol class="breadcrumb" style="text-align: center;"> 
+              <li class="breadcrumb-item active" aria-current="page">NO DECLINED REQUESTS</li>
+            </ol>';
         }
-        ?>
-
-      
-            </div>      
-        </div> 
-            
-            <br>
-            <div class="row">
-                  
-                <div class="col-xs-12 col-sm-12" style="width:100%; padding:5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background-color: white; border-radius: 10px;   background: -webkit-linear-gradient(-135deg, #B80011, #f06d06);
-              background: -o-linear-gradient(-135deg, #B80011, #f06d06);
-              background: -moz-linear-gradient(-135deg, #B80011, #f06d06);
-              background: linear-gradient(-135deg, #B80011, #f06d06);">
-        
-                 <h3 align="center" style="margin-top:4%; color: white; font-size: 53px;">Hi! Welcome to EAS Customs</h3>
-                <p align="center" style="margin-top:4%; margin-bottom:4%; color: white; font-size: 25px;">This is where you can make an appointment, 
-                    view request, track your vehicles,
-                    manage personal information.</p>   
-            </div>      
-        </div> 
+      ?> 
+    
     </div>
     </div>
-   
-   <!-- END OF APPOINTMENT SECTION -->
+    </div>
+    </div>
+  </div>
+  </div>
 
-     <!-- FOOTER -->
-    <footer data-stellar-background-ratio="5">
+    <!-- END OF JUMBOTRON -->
+ 
+
+         <!-- FOOTER -->
+ <footer data-stellar-background-ratio="5">
           <div class="container">
                <div class="row">
 
@@ -295,7 +349,7 @@ $personalinfo -> personal_info();
                     <div class="col-md-4 col-sm-4"> 
                          <div class="footer-thumb"> 
                               <div class="opening-hours">
-                                   <h4 class="wow fadeInUp" data-wow-delay="0.4s">Opening Hours</h4><br>
+                                   <h4 class="wow fadeInUp" data-wow-delay="0.4s">Opening Hours</h4>
                                    <p>Monday - Friday <span>09:00 AM - 05:00 PM</span></p>
                                    <p>Saturday <span>09:00 AM - 05:00 PM</span></p>
                                    <p>Sunday <span>Closed</span></p>
@@ -328,10 +382,12 @@ $personalinfo -> personal_info();
                </div>
           </div>
      </footer>
-    
- <!-- SCRIPTS -->
+
+
+     
+
+     <!-- SCRIPTS -->
      <script src="js/notifinvoice.js"></script>
-     <script src="js/makeseries.js"></script>
      <script src="js/notif.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/jquery.sticky.js"></script>
@@ -340,22 +396,8 @@ $personalinfo -> personal_info();
      <script src="js/smoothscroll.js"></script>
      <script src="js/owl.carousel.min.js"></script>
      <script src="js/custom.js"></script>
-    <!-- FOR TABLE -->
-     <script src="js/jquery.dataTables.js"></script>
-     <script src="js/dataTables.bootstrap4.js"></script>
-     <script src="js/sb-admin-datatables.min.js"></script>
-
-    <script src="vendors/js/vendor.bundle.base.js"></script>
-    <script src="vendors/js/vendor.bundle.addons.js"></script>
- 
-
-     <script>
-      var table = $('#doctables').DataTable({
-      // PAGELENGTH OPTIONS
-      "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
-
-      });
-    </script>
+     <script src="js/script.js"></script>
+     
 
 </body>
 </html>
