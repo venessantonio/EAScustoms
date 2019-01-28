@@ -1,48 +1,136 @@
 $('document').ready(function(){
  var username_state = false;
+ var password_state = false;
  var email_state = false;
- var plateNumber_state = false;
  var firstName_state = false; 
  var middleName_state = false;
  var lastName_state = false; 
  var address_state = false;
  var contactNumber_state = false;
- var email_state = false;
- var username_state = false;
- var password_state = false;
+
+ var plateNumber_state = false;
+ var make_state = false;
+ var series_state = false;
+ var yearModel_state = false;
+ var color_state = false;
+
+
+$('#otherMake').change(function(){
+if ($('#otherMake').is(':checked')) {
+$("#others").fadeIn();
+$("#otherseries").fadeIn();
+$('#series').val('');
+$('#make').val('');
+return;
+};
+if(!$(this).is(':checked')){
+$("#others").fadeOut();
+$("#otherseries").fadeOut();
+$('#others').val('');
+$('#otherseries').val('');  
+};
+});
+
+
+
+
+
 
  //For Appointment
  $("#mechanical").click(function(){
         $("#mechanical_service").toggle();
-        $("#electical_service").hide();
+        $("#electrical_service").hide();
         $("#paint_service").hide();
-        $("#mechanical").addClass("active");
-
+        $("#customization").hide();
+        $("#body_Repair").hide();
+        $("#maintenance_service").hide();
     });
  $("#electrical").click(function(){
         $("#electrical_service").toggle();
         $("#mechanical_service").hide();
         $("#paint_service").hide();
-
+        $("#customization").hide();
+        $("#body_Repair").hide();
+        $("#maintenance_service").hide();
     });
  $("#painting").click(function(){
         $("#paint_service").toggle();
         $("#electrical_service").hide();
         $("#mechanical_service").hide();
+        $("#customization").hide();
+        $("#body_Repair").hide();
+        $("#maintenance_service").hide();
+
+    });
+ $("#bodyRepair").click(function(){
+        $("#body_Repair").toggle();
+        $("#electrical_service").hide();
+        $("#mechanical_service").hide();
+        $("#paint_service").hide();
+        $("#customization").hide();
+        $("#maintenance_service").hide();
+
+    });
+ $("#customize").click(function(){
+        $("#customization").toggle();
+        $("#electrical_service").hide();
+        $("#mechanical_service").hide();
+        $("#body_Repair").hide();
+        $("#paint_service").hide();
+        $("#maintenance_service").hide();
+
+
+    });
+ $("#maintenance").click(function(){
+        $("#maintenance_service").toggle();
+        $("#electrical_service").hide();
+        $("#mechanical_service").hide();
+        $("#body_Repair").hide();
+        $("#paint_service").hide();
+        $("#customization").hide();
+
+    });
+ 
+ $("#Pending").click(function(){
+        $("#pendingContent").toggle();
+        $("#activeContent").hide();
+        $("#rescheduleContent").hide();
+
+    });
+ $("#Active").click(function(){
+        $("#activeContent").toggle();
+        $("#pendingContent").hide();
+        $("#rescheduleContent").hide();
+
+    });
+ $("#Reschedule").click(function(){
+        $("#rescheduleContent").toggle();
+        $("#pendingContent").hide();
+        $("#activeContent").hide();
 
     });
 
-$('input[name="service"]').click(function () { getSelectedCheckBoxes('service'); 
+
+
+
+
+$('input[type="checkbox"]').click(function () { getSelectedCheckBoxes('service[]'); 
   }); 
+
+
   var getSelectedCheckBoxes = function (groupName) { 
-    var result = $('input[name="' + groupName + '"]:checked'); 
+    var result = $('input[name="' + groupName + '"]:checked');
+    var resultName = $('input[name="' + groupName + '"]:checked').attr("id"); //For reference only 
     if (result.length > 0) { 
     var resultString = result.length + " checkboxe(s) checked<br>"; 
     result.each(function () { 
+      //resultString += $(this).attr("id") + "<br/>"; 
       resultString += $(this).val() + "<br/>"; 
-    }); 
-     $('#serviceDisplay').html(resultString); 
+    });  
+     $('#serviceDisplay').fadeIn().html(resultString); 
+    
    } 
+
      else { 
     $('#serviceDisplay').html("No checkbox checked"); 
    } 
@@ -66,19 +154,21 @@ $('input[name="service"]').click(function () { getSelectedCheckBoxes('service');
       if (response == 'taken' ) {
         username_state = false;
         $('#username').parent().removeClass();
-        $('#username').parent().addClass("form_error");
+
+        $('#username').siblings("span").css("color","#D83D5A");
         $('#username').siblings("span").text('Username already exist');
         return;
       }else if (response == 'not_taken') {
         username_state = true;
         $('#username').parent().removeClass();
-        $('#username').parent().addClass("form_success");
+        $('#username').siblings("span").css("color","green");
         $('#username').siblings("span").text('Username available');
         return;
       }
     }
   });
- });    
+ }); 
+
   $('#email').on('blur', function(){
   var email = $('#email').val();
   if (email == '') {
@@ -101,8 +191,6 @@ $('input[name="service"]').click(function () { getSelectedCheckBoxes('service');
           return;
         }else if (response == 'not_taken') {
           email_state = true;
-          $('#email').parent().removeClass();
-          $('#email').parent().addClass("form_success");
           $('#email').siblings("span").text('Email available');
           return;
         }
@@ -128,13 +216,16 @@ $('#plateNumber').on('blur', function(){
         if (response == 'taken' ) {
           plateNumber_state = false;
           $('#plateNumber').parent().removeClass();
-          $('#plateNumber').parent().addClass("form_error");
-          $('#plateNumber').siblings("span").text('Plate Number already exist');
+          $('#plateNumber').siblings("span").css("color","#D83D5A");
+          $('#plateNumber').siblings("span").text('Plate Number already exist').fadeIn();
+          return;
         }else if (response == 'not_taken') {
           plateNumber_state = true;
           $('#plateNumber').parent().removeClass();
-          $('#plateNumber').parent().addClass("form_success");
-          $('#plateNumber').siblings("span").text('Plate number available');
+     
+          $('#plateNumber').siblings("span").css("color","green");
+          $('#plateNumber').siblings("span").text('Plate number available').fadeIn();
+          return;
         }
       }
   });
@@ -157,17 +248,52 @@ $('#contactNumber').on('blur', function(){
         if (response == 'taken' ) {
           contactNumber_state = false;
           $('#contactNumber').parent().removeClass();
-          $('#contactNumber').parent().addClass("form_error");
-          $('#contactNumber').siblings("span").text('Plate Number already exist');
+          //$('#contactNumber').css("border","1px solid #D83D5A");
+          $('#contactNumber_msg').hide();
+          $('#contactNumber').siblings("span").attr("id, contact").text('Contact Number already exist');
+          return;
         }else if (response == 'not_taken') {
           contactNumber_state = true;
           $('#contactNumber').parent().removeClass();
-          $('#contactNumber').parent().addClass("form_success");
-          $('#contactNumber').siblings("span").text('Plate number available');
+          //$('#contactNumber').css("border","1px solid green");
+          $('#contactNumber').siblings("span").attr("id, contact").css("color","green");
+          $('#contactNumber_msg').hide();
+          $('#contactNumber').siblings("span").attr("id, contact").text('Contact number available');
+          return;
         }
       }
   });
  });
+
+//Account Settings
+
+$('#accountpassword').blur(function() {
+  var accountpasswordpattern = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/i);
+  if(accountpasswordpattern.test($("#accountpassword").val())) {
+      $('#accountpasswordpat_msg').fadeOut("slow");
+      return;
+    } else 
+      $('#accountpasswordpat_msg').fadeIn("slow");
+      return;
+});
+
+$('#accountpassword, #accountconfirm_password').on('keyup', function () {
+  if ($('#accountpassword').val() == $('#accountconfirm_password').val()) {
+    $('#message').html('Matching').css('color', 'green');
+      $('#changepassbutton').removeClass();
+      $('#changepassbutton').prop('type', 'submit');
+      $('#changepassbutton').addClass('btn btn-primary btn-sm').fadeIn();
+      return;
+  } else 
+    $('#message').html('Not Matching').css('color', 'red');
+      $('#changepassbutton').removeClass();
+      $('#changepassbutton').prop('type', 'button');
+      $('#changepassbutton').addClass('btn btn-primary btn-sm disabled').fadeIn();
+    return;
+});
+
+//End of Account Settings
+
 
 
 
@@ -176,11 +302,12 @@ $('#password, #confirm_password').on('keyup', function () {
   if ($('#password').val() == $('#confirm_password').val()) {
     $('#message').html('Matching').css('color', 'green');
     password_state = true;
+    return;
   } else 
     $('#message').html('Not Matching').css('color', 'red');
+    password_state =false;
+    return;
 });
-
-
 
 // Check if input fields are empty
 
@@ -192,19 +319,21 @@ $('#firstName').blur(function() {
     
   }
   if (this.value != '' )
+    $('#firstName').css("border",""); 
     $('#firstName_msg').fadeOut();
     firstName_state = true;
     return;
 });
 
 $('#middleName').blur(function() {
-  if (this.value == '') {  
+  if (this.value == '') { 
     $('#middleName_msg').fadeIn("slow");
     middleName_state = false;
     return;
     
   }
   if (this.value != '' )
+    $('#middleName').css("border","");
     $('#middleName_msg').fadeOut();
     middleName_state = true;
     return;
@@ -212,12 +341,14 @@ $('#middleName').blur(function() {
 
 $('#lastName').blur(function() {
   if (this.value == '') {
+    //$('#lastName').css("border","1px solid #D83D5A");
     $('#lastName_msg').fadeIn("slow");
     lastName_state = false;
     return;
     
   }
   if (this.value != '' )
+    $('#lastName').css("border","");
     $('#lastName_msg').fadeOut();
     lastName_state = true;
     return;
@@ -226,11 +357,13 @@ $('#lastName').blur(function() {
 $('#address').blur(function() {
   if (this.value == '') {
     $('#address_msg').fadeIn("slow");
+    //$('#address').css("border","1px solid #D83D5A");
     addressName_state = false;
     return;
     
   }
   if (this.value != '' )
+    $('#address').css("border","");
     $('#address_msg').fadeOut();
     address_state = true;
     return;
@@ -239,11 +372,12 @@ $('#address').blur(function() {
 $('#contactNumber').blur(function() {
   if (this.value == '') {
     $('#contactNumber_msg').fadeIn("slow");
+    //$('#contactNumber').css("border","1px solid #D83D5A");
     contactNumber_state = false;
     return;
-    
   }
   if (this.value != '' )
+    $('#contactNumber').css("border","");
     $('#contactNumber_msg').fadeOut();
     contactNumber_state = true;
     return;
@@ -251,38 +385,75 @@ $('#contactNumber').blur(function() {
 
 $('#email').blur(function() {
   if (this.value == '') {
+    $('#email').parent().removeClass();
     $('#email_msg').fadeIn("slow");
+    //$('#email').parent().addClass("form_error");
     email_state = false;
     return;
   }
   if (this.value != '' )
+    $('#email').parent().removeClass();
     $('#email_msg').fadeOut();
+    $('#email').siblings("span").show();
     email_state = true;
     return;
 });
 
+//For Patterns in registration
 $('#email').blur(function() {
 var emailpattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
 
     if(emailpattern.test($("#email").val())) {
+      $('#email').parent().removeClass();
+     // $('#email').parent().addClass("form_success");
       $('#emailpat_msg').fadeOut("slow");
+      $('#email').siblings("span").show();
       email_state = true;
       return;
     } else 
+      $('#email').parent().removeClass();
+      //$('#email').parent().addClass("form_error");
       $('#emailpat_msg').fadeIn("slow");
+      $('#email').siblings("span").hide();
       email_state = false;
       return;
 });
+$('#plateNumber').blur(function() {
+var plateNumberpattern = new RegExp(/[A-Za-z]{3,}\s[0-9]{3,}$/i);
+
+    if(plateNumberpattern.test($("#plateNumber").val())) {
+      $('#plateNumber').parent().removeClass();
+      $('#plateNumberpat_msg').fadeOut("slow");
+      $('#plateNumber').siblings("span").show();
+      plateNumber_state = true;
+      return;
+    } else 
+      $('#plateNumber').parent().removeClass();
+      //$('#plateNumber').parent().addClass("form_error");
+      $('#plateNumberpat_msg').fadeIn("slow");
+      $('#plateNumber').siblings("span").hide();
+      plateNumber_state = false;
+      return;
+});
+
+
+
+
+//End of Pattern Validators
+
+
       
 
 $('#username').blur(function() {
   if (this.value == '') {
     $('#username_msg').fadeIn("slow");
+    $('#username').siblings("span").hide();
     username_state = false;
     return;
   }
   if (this.value != '' )
     $('#username_msg').fadeOut();
+    $('#username').siblings("span").show();
     username_state = true;
 });
 
@@ -317,17 +488,124 @@ $('#password').blur(function() {
       return;
     } else 
       $('#passwordpat_msg').fadeIn("slow");
-      password_state = false;
       return;
 });
 
 
 
+$('#contactNumber').blur(function() {
+  var contactNumberpattern = new RegExp(/^\d{1,10}$/i);
+  if(contactNumberpattern.test($("#contactNumber").val())) {
+      $('#contactNumberpat_msg').fadeOut("slow");
+      contactNumber_state = true;
+      return;
+    } else 
+      $('#contactNumberpat_msg').fadeIn("slow");
+      contactNumber_state = false;
+      return;
+});
+
+//If empty values given
+$('#plateNumber').blur(function() {
+  if (this.value == '') {
+    $('#plateNumber_msg').fadeIn("slow");
+    //$('#plateNumber').css("border","1px solid #D83D5A");
+    $('#plateNumber').siblings("span").hide();
+    plateNumber_state = false;
+    return;
+    
+  }
+  if (this.value != '' )
+    $('#plateNumber_msg').fadeOut();
+    $('#plateNumber').css("border","");
+    $('#plateNumber').siblings("span").show();
+    plateNumber_state = true;
+    return;
+});
+
+$('#make').blur(function() {
+  if (this.value == '') {
+    $('#make_msg').fadeIn("slow");
+    //$('#make').css("border","1px solid #D83D5A");
+    $('#make').siblings("span").hide();
+    make_state = false;
+    return;
+    
+  }
+  if (this.value != '' )
+    $('#make_msg').fadeOut();
+    $('#make').css("border","");
+    $('#make').siblings("span").show();
+    make_state = true;
+    return;
+});
+
+$('#series').blur(function() {
+  if (this.value == '') {
+    $('#series_msg').fadeIn("slow");
+    //$('#series').css("border","1px solid #D83D5A");
+    $('#series').siblings("span").hide();
+    series_state = false;
+    return;
+    
+  }
+  if (this.value != '' )
+    $('#series_msg').fadeOut();
+    $('#series').css("border","");
+    $('#series').siblings("span").show();
+    make_state = true;
+    return;
+});
+
+$('#yearModel').blur(function() {
+  if (this.value == '') {
+    $('#yearModel_msg').fadeIn("slow");
+   // $('#yearModel').css("border","1px solid #D83D5A");
+    $('#yearModel').siblings("span").hide();
+    yearModel_state = false;
+    return;
+    
+  }
+  if (this.value != '' )
+    $('#yearModel_msg').fadeOut();
+    $('#yearModel').css("border","");
+    $('#yearModel').siblings("span").show();
+    yearModel_state = true;
+    return;
+});
+
+$('#color').blur(function() {
+  if (this.value == '') {
+    $('#color_msg').fadeIn("slow");
+    //$('#color').css("border","1px solid #D83D5A");
+    $('#color').siblings("span").hide();
+    color_state = false;
+    return;
+    
+  }
+  if (this.value != '' )
+    $('#color_msg').fadeOut();
+    $('#color').css("border","");
+    $('#color').siblings("span").show();
+    color_state = true;
+    return;
+});
 
 
+$('#lastName,#firstName,#middleName,#username,#password,#email,#contactNumber,#address,#plateNumber,#make,#series,#yearModel,#color').blur(function() { 
+ if(username_state == true && password_state == true && firstName_state == true && middleName_state == true && lastName_state == true && address_state == true && contactNumber_state == true && email_state == true && password_state == true ){
+  $('#reg_btn').removeClass();
+  $('#reg_btn').addClass('btn btn-danger btn-sm').fadeIn();
+  
 
+ }else if(username_state == false || password_state == false || email_state == false || firstName_state == false || lastName_state == false || middleName_state == false || contactNumber_state == false || address_state == false || plateNumber_state == false || make_state == false || series_state == false || yearModel_state == false || color_state == false){
 
+  $('#reg_btn').addClass('btn btn-danger btn-sm disabled').fadeIn();
+  
 
+ }
+
+ });
 
 
  $('#reg_btn').on('click', function(){
@@ -344,9 +622,10 @@ $('#password').blur(function() {
   var make = $('#make').val();
   var series = $('#series').val();
   var color = $('#color').val();
-  if (username_state == false || email_state == false || firstName_state == false || middleName_state == false || lastName_state == false || contactNumber_state == false || address_state == false || email_state == false || username_state == false || password_state == false) {
-    $('#error_msg').html('<div class="alert alert-danger fade in align="center"><a href="#" class="close" data-dismiss="alert">&times;</a><i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> There are still errors in the form.</div>');
+  if (username_state == false && password_state == false && email_state == false && firstName_state == false && lastName_state == false && middleName_state == false && contactNumber_state == false && address_state == false  && plateNumber_state == false && make_state == false && series_state == false && yearModel_state == false && color_state == false ) {
+    $('#error_msg').html('<div class="alert alert-danger fade in align="center"><a href="#" class="close" data-dismiss="alert">&times;</a><i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong>Notice</strong> There are still errors in the form.</div>');  
   }else{
+      
       // proceed with form submission
       $.ajax({
         url: 'register.php',
@@ -369,10 +648,15 @@ $('#password').blur(function() {
         },
         success: function(data){
       alert('Register success');
-      //  window.location = "login.php?success=done";
+       window.location = "login.php?success=done";
      },
 
       });
   }
  });
+
 });
+
+
+
+

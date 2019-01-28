@@ -66,7 +66,7 @@
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
         
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
@@ -86,7 +86,10 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Request</a>
+                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Create Appointment</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="request.php" style="font-size:14px;">Request</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>

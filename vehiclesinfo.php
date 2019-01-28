@@ -235,7 +235,7 @@
           ?>
     <?php endif ?>
              
-             <table class="table table-hover table-bordered " id="doctables" >
+    <table class="table table-hover table-bordered " id="doctables" >
       <thead style="background-color: #212529;color: white;">
         <tr>
           <th style="text-align:center; font-size: 18px;">Plate Number</th>
