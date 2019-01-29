@@ -1,6 +1,7 @@
 <?php
 include 'process/databaseconnect.php';
-$query2 = "SELECT * from appointments join personalinfo on appointments.personalId = personalinfo.personalId where date = CURRENT_DATE and status = 'accepted' and ondaysms = 0";
+$query2 = "SELECT * from appointments join personalinfo on appointments.personalId = personalinfo.personalId where date = CURRENT_DATE 
+and status = 'accepted' and ondaysms = 0";
 $sendthreedays = $db->prepare($query2);
 
 $sendthreedays->execute();

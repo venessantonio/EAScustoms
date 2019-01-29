@@ -54,8 +54,6 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
-
-  
 </head>
 
 <body>
@@ -220,7 +218,7 @@
                             }
 
                             if($progress<100){
-                              $checkprogress = $connection->prepare("UPDATE `appointments` SET `status` = 'In-progress' WHERE `appointments`.`id` = $id;");
+                              $checkprogress = $connection->prepare("UPDATE `appointments` SET `status` = 'In-Progress' WHERE `appointments`.`id` = $id;");
                                $checkprogress->execute();
                             }
                           }
@@ -232,7 +230,7 @@
                         </div>
                       </div>
                     </div>
-                  
+
                     <!-- suggested task start -->
                     <?php 
                       if($row['stat'] == 'Accepted'){
@@ -460,7 +458,7 @@
                           <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
                             <div class="col-md-2 offset-md-8" style="margin">
                               <h5 style="margin-top: 20px;">';
-                              if($row['stat'] == 'In-progress'){
+                              if($row['stat'] == 'In-Progress'){
                                 echo '<button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>';
                               }
                               echo '</h5>
@@ -525,13 +523,9 @@
                                           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
                                             Delete
                                           </button>
-                                          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#taskExpanded'.$rows['id'].'" aria-expanded="false" aria-controls="taskExpanded'.$rows['id'].'">
-                                            Expand Task
-                                          </button>
                                         </td>
                                       </tr>
-                                      
-
+                                       
 
                                       <!-- delete Modal -->
                                       <div class="modal fade" id="exampleModalCenter'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -621,7 +615,7 @@
                     ?>
                     
                     <?php   
-                    if($progress_status =="In-progress"){
+                    if($progress_status =="In-Progress"){
                       if($progress==100){
                         echo '
                         <form action="process/server.php" method="POST">
