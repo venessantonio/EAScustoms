@@ -523,6 +523,9 @@
                                           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
                                             Delete
                                           </button>
+                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#details'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
+                                            Details
+                                          </button>
                                         </td>
                                       </tr>
                                        
@@ -547,6 +550,47 @@
                                               <button type="submit" name="delete-task" class="btn btn-danger"><i class="menu-icon mdi mdi-trash-text"></i>Delete</button>
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                                             </form>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- end -->
+
+                                      <!-- details Modal -->
+                                      <div class="modal fade" id="details'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header"  style="background-color: #0074D9; color: white; border: 3px solid #0074D9;">
+                                              <h5 class="modal-title" id="exampleModalLabel">Task Details</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                           
+                                              <div class="form-group">
+                                                      <div class="row"><!-- row-start -->
+                                                        <div class="col-md-4"><p>Service</p></div>
+                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['service'].'</h5></div>
+                                                      </div><!-- row-end -->
+                                                      <div class="row">
+                                                        <div class="col-md-4"><p>Status </p></div>
+                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['status'].'</h5></div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4"><p>Description </p></div>
+                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['description'].'</h5></div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4"><p>Scope </p></div>
+                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['scope'].'</h5></div>
+                                                      </div>
+                                                    </div>';
+                                             
+                                            echo'
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                                             </div>
                                           </div>
                                         </div>
