@@ -152,7 +152,7 @@ http://www.tooplate.com/view/2098-health
 
 
      <!-- ABOUT -->
-     <section id="about" style="background-color: #fff; background: -webkit-linear-gradient(-135deg, #ffffff, #ffcc99); background: -o-linear-gradient(-135deg, #ffffff, #ffcc99); background: -moz-linear-gradient(-135deg, #ffffff, #ffcc99); background: linear-gradient(-135deg, #ffffff, #ffcc99);">
+     <section id="about">
           <div class="container">
                <div class="row">
 
@@ -182,10 +182,7 @@ http://www.tooplate.com/view/2098-health
                     <div class="col-md-12 col-sm-12">
                          <!-- SECTION TITLE -->
                          <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                             <br>
-                             <br>
-                             <br>
-                              <h2 style="text-align: center; letter-spacing: 5px;"><i class="fas fa-wrench" style="font-size:35px; color:#262626"></i> Services <i class="fas fa-wrench" style="font-size:35px; color:#262626"></i></h2>
+                              <h2 style="letter-spacing: 5px;"> Services</h2>
                          </div>
                     </div>
 
@@ -293,7 +290,7 @@ http://www.tooplate.com/view/2098-health
      </section>
 
      <!-- LATEST CARS -->
-     <section id="fc" data-stellar-background-ratio="2.5" style="background:#fff3e6;">
+     <section id="fc" data-stellar-background-ratio="2.5">
           <div class="container">
                <div class="row">
 
@@ -302,7 +299,7 @@ http://www.tooplate.com/view/2098-health
                          <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
                              <br>
                              <br>
-                             <h2 style="text-align: center; letter-spacing: 5px;"><i class="fas fa-car" style="font-size:35px; color:#262626"></i> Latest Cars <i class="fas fa-car" style="font-size:35px; color:#262626"></i></h2>
+                             <h2 style="letter-spacing: 5px;"> Latest Cars</h2>
                          </div>
                     </div>
 
@@ -340,8 +337,6 @@ http://www.tooplate.com/view/2098-health
                                    <span>January 27, 2018</span>
                               </div>
                          </div>
-                        <br>
-                        <br>
                         <br>
                     </div>
                    
@@ -405,7 +400,7 @@ http://www.tooplate.com/view/2098-health
      </section>
 
      <!-- FEEDBACKS -->
-     <section id="feedback" data-stellar-background-ratio="3" style="background:#fff3e6;">
+     <section id="feedback" data-stellar-background-ratio="3">
           <div class="container">
                <div class="row">
 
