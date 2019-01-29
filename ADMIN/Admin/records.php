@@ -39,7 +39,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard</title>
+  <title>Records</title>
   <link rel="icon" href="images/Logo.png">
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
@@ -106,20 +106,6 @@
               </ul>
             </div>
           </li>
-            
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link"  href="chargeinvoice.php">
-              <i class="menu-icon mdi mdi-receipt"></i>
-              <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
-            </a>
-          </li> -->
             
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
@@ -219,18 +205,20 @@
                             $rowd = $values->fetch_assoc(); 
                               $allTask = $rowd['All'];
                             }
+
                             $finished_task = $connection->prepare("SELECT count(status) as 'All' FROM `task` WHERE appointmentID = $id AND status = 'Done'");
                             if($finished_task->execute()){
                             $values = $finished_task->get_result();
                             $rowb = $values->fetch_assoc(); 
                               $finishedTask = $rowb['All'];
                             }
-  
-                            $progress = ($finishedTask / $allTask)*100;
-                            // if($progress == '100'){
-                            //   $checkprogress = $connection->prepare("UPDATE `appointments` SET `status` = 'Done' WHERE `appointments`.`id` = $id;");
-                            //   $checkprogress->execute();
-                            // }
+
+                            if($finishedTask == 0 && $allTask == 0){
+                              $progress = 0;
+                            }else{
+                              $progress = ($finishedTask / $allTask)*100;
+                            }
+
                             if($progress<100){
                               $checkprogress = $connection->prepare("UPDATE `appointments` SET `status` = 'In-progress' WHERE `appointments`.`id` = $id;");
                                $checkprogress->execute();
@@ -245,6 +233,44 @@
                       </div>
                     </div>
                   
+                    <!-- suggested task start -->
+                    <?php 
+                      if($row['stat'] == 'Accepted'){
+
+                      }else{
+
+                        echo '<p>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                  Client Suggested Task
+                                </button>
+                              </p>
+                              <div class="collapse" id="collapseExample">
+                                <div class="card card-body">';
+                        $ClientSuggestedTask = $connection->prepare("SELECT * FROM appointments WHERE appointments.id = $id");
+                        if($ClientSuggestedTask->execute()){
+                          $values = $ClientSuggestedTask->get_result();
+                          while($rowb = $values->fetch_assoc()){
+                              $services = $rowb['serviceId'];
+                              $id = $rowb['id'];
+ 
+                              $task = explode(",", $services);
+                              for ($i = 0; $i < count($task); $i++) {
+                                echo  '<li>'.$task[$i].'</li>';
+                              }
+
+                              if($rowb['otherService'] != ""){
+                                $other = $rowb['otherService'];
+                                echo  '<li>'.$other.'</li>';
+                              }
+                          }
+                        }
+                        echo'
+                                </div>
+                              </div>';
+                      }
+                    ?>
+                    <!-- suggested task end -->
+
                     <?php 
                       if($row['stat'] == 'Accepted'){
                           if(empty($row['targetEndDate'])){
@@ -303,22 +329,6 @@
                                     </div>
                                   </div>
                                 <!-- end modal -->
-
-
-                               
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
                                 ';
                             }
                               
@@ -450,12 +460,9 @@
                           <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
                             <div class="col-md-2 offset-md-8" style="margin">
                               <h5 style="margin-top: 20px;">';
-                              if($progress == 100){
-                               
-                              }else{
+                              if($row['stat'] == 'In-progress'){
                                 echo '<button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>';
                               }
-                                
                               echo '</h5>
                             </div>
                           </div>
@@ -518,8 +525,13 @@
                                           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
                                             Delete
                                           </button>
+                                          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#taskExpanded'.$rows['id'].'" aria-expanded="false" aria-controls="taskExpanded'.$rows['id'].'">
+                                            Expand Task
+                                          </button>
                                         </td>
                                       </tr>
+                                      
+
 
                                       <!-- delete Modal -->
                                       <div class="modal fade" id="exampleModalCenter'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
