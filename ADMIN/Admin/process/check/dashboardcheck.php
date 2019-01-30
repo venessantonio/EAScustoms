@@ -15,7 +15,7 @@ if($checkDashboard->execute()){
 }
 
 
-$checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `appointments` WHERE status = 'In Progress'");
+$checkDashboard = $connection->prepare("SELECT COUNT(*) as count FROM `appointments` WHERE status = 'In-Progress'");
 if($checkDashboard->execute()){
   $data = $checkDashboard->get_result();
   $box3 = $data->fetch_assoc();
