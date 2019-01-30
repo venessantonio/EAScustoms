@@ -196,9 +196,17 @@
       <form action="accountsettings.php" method="POST">
       <input type="hidden" name="personalId" value='<?php echo $personalinfo['personalId']; ?>'>
       <div class="form-group">
-      <label for="password">Password:</label>
+
+      <label for="password">Existing Password:</label>
+      <input type="password" class="form-control" name="existingpassword" id="existingpassword" title="Type your Old password">
+      <span style="font-size: 0.9em"></span>
+
+      </div>
+
+      <div class="form-group">
+
+      <label for="password">New Password:</label>
       <input type="password" class="form-control" name="accountpassword" id="accountpassword" title="must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter">
-      
       <div id="passwordpat_msg" style="display: none; color: red;font-size: 0.9em"> Must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.</div>
       <div id="password_msg" style="display: none; color: red;font-size: 0.9em">password is empty</div>
       <span style="font-size: 0.9em"></span>
@@ -321,9 +329,9 @@
                             <p class="wow fadeInUp" data-wow-delay="0.4s" style="font-size:30px; color:#404040; font-weight: bold; letter-spacing: 2px;">Opening Hours</p>
                             <br> 
                             <div class="contact-info">
-                               <p><i class="far fa-calendar-alt" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Friday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
-                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
+                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
                                <p><i class="fas fa-calendar-times" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Sunday <span style="font-weight:bold;">Closed</span></p>
+                               <p><i class="fas fa-clock" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;GMT+8
 
                             </div> 
 

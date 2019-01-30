@@ -28,7 +28,7 @@ load_unseen_notification1('yes');
 });
 
 setInterval(function(){ 
-load_unseen_notification1();; 
+load_unseen_notification1();
 }, 6000);
 
 });  

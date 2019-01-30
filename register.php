@@ -189,7 +189,6 @@
                                       <option value="">Select Series</option>
                                      </select>
                                      <div id="series_msg" style="display: none; color: red;font-size: 0.9em;">Series is empty</div>
-                                      <div id="yearModel_msg" style="display: none; color: red;font-size: 0.9em;">Year Model is empty</div>
                                     </div>
                                     
                                     <div class="form-group">
@@ -198,7 +197,13 @@
                                     </div>
                                     
                                     <div class="form-group">
-                                      <input class="form-control" type="text" name="color" id="color" placeholder="Color">
+                                      <select class="form-control" name="color" id="color">
+                                        <option value="">Select Color</option>
+                                        <option value="volvo">Black</option>
+                                        <option value="saab">White</option>
+                                        <option value="fiat">Blue</option>
+                                        <option value="audi">Red</option>
+                                      </select>
                                       <div id="color_msg" style="display: none; color: red;font-size: 0.9em;">Color is empty</div>
                                     </div>
                                     
@@ -241,9 +246,9 @@
                             <p class="wow fadeInUp" data-wow-delay="0.4s" style="font-size:30px; color:#404040; font-weight: bold; letter-spacing: 2px;">Opening Hours</p>
                             <br> 
                             <div class="contact-info">
-                               <p><i class="far fa-calendar-alt" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Friday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
-                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
+                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
                                <p><i class="fas fa-calendar-times" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Sunday <span style="font-weight:bold;">Closed</span></p>
+                               <p><i class="fas fa-clock" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;GMT+8
 
                             </div> 
 

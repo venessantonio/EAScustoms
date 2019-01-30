@@ -36,6 +36,21 @@
     exit();
   }
 
+  if (isset($_POST['existingpassword_check'])) {
+    $existingpassword = password_hash($_POST['password'], PASSWORD_DEFAULT)
+    $sql1 = "SELECT personalinfo.user_id as user_id, users.id as id, users.password as password FROM personalinfo join users on personalinfo.user_id = users.id WHERE users.password='$existingpassword'";
+
+    $existingpassword2 = password_verify('rasmuslerdorf', $hash);
+    $sql = "SELECT * FROM users WHERE password='$existingpassword'";
+    $results = mysqli_query($db, $sql1);
+    if (mysqli_num_rows($results) > 0) {
+      echo "taken"; 
+    }else{
+      echo 'not_taken';
+    }
+    exit();
+  }
+
   if (isset($_POST['contactNumber_check'])) {
     $contactNumber = $_POST['contactNumber'];
     $sql = "SELECT * FROM personalinfo WHERE mobileNumber='$contactNumber'";
@@ -53,7 +68,6 @@
     $firstName = $_POST['firstName'];
     $middleName = $_POST['middleName'];
     $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
     $contactNumber = $_POST['contactNumber'];
     $address = $_POST['address'];
     $email = $_POST['email'];
@@ -68,8 +82,8 @@
       echo "exists";  
       exit();
     }else{
-     $query = "INSERT INTO users (username, password , status , type) 
-            VALUES ('$username','".password_hash($_POST['password'], PASSWORD_DEFAULT).",'active', 'client'')";
+      $query = "INSERT INTO users (username, password , status , type) 
+            VALUES ('$username', '".password_hash($_POST['password'], PASSWORD_DEFAULT)."' ,'Active', 'client')";
      $result1 = mysqli_query($db, $query);
      $query2 = "INSERT INTO personalinfo (user_id, firstName, middleName, lastName, address, email, mobileNumber) VALUES (LAST_INSERT_ID(),'$firstName', '$middleName', '$lastName', '$address', '$email', '$contactNumber')";
      $result2 = mysqli_query($db, $query2);

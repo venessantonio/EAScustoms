@@ -285,21 +285,22 @@ $personalinfo -> personal_info();
                             <?php endforeach; ?>   
                                                
 
+              
                           <script type="text/javascript">
                            var unavailableDates  = [<?php
                            foreach($appointmentinfo->appointment_info as $appointmentinfo):
-                           ?>"<?= date('y-m-d', strtotime($appointmentinfo['date'])); ?>"
+                           ?>"<?= date('y-m-d ', strtotime($appointmentinfo['date'])); ?>",
                           <?php     
                             endforeach;
                           ?>];
-                            function unavailable(date) {
-                                dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-                                if ($.inArray(dmy, unavailableDates) == -1) {
-                                    return [true, ""];
-                                } else {
-                                    return [false, "", "Unavailable"];
-                                }
+                           function unavailable(date) {
+                           dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+                           if ($jq171.inArray(dmy, unavailableDates) == -1) {
+                            return [true, ""];
+                            } else {
+                            return [false, "", "Unavailable"];
                             }
+                           }
 
                           $jq171(function(){
                             $jq171('#datepicker').datepicker({
@@ -320,6 +321,8 @@ $personalinfo -> personal_info();
                           });
 
                           </script>
+
+                      
                    <p style="text-align: justify; padding-left:15px; font-size:20px; color:#333333; font-weight: bold;"><i class="fas fa-calendar-check"></i> &nbsp;Select Date</p>
                     <hr style="border-color: #b80011; border-top: 2.5px solid #b80011;">
                     <div class="panel-body">
@@ -439,9 +442,9 @@ $personalinfo -> personal_info();
                             <p class="wow fadeInUp" data-wow-delay="0.4s" style="font-size:30px; color:#404040; font-weight: bold; letter-spacing: 2px;">Opening Hours</p>
                             <br> 
                             <div class="contact-info">
-                               <p><i class="far fa-calendar-alt" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Friday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
-                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
+                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
                                <p><i class="fas fa-calendar-times" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Sunday <span style="font-weight:bold;">Closed</span></p>
+                               <p><i class="fas fa-clock" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;GMT+8
 
                             </div> 
 

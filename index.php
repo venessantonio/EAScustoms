@@ -163,6 +163,7 @@ http://www.tooplate.com/view/2098-health
                              <br>
                               <div class="wow fadeInUp" data-wow-delay="0.8s">
                                    <p style="text-align: justify;text-justify: inter-word; font-size:17px; color:#4d4d4d;">EAS customs is a family-owned business located at #08 Regidor St., Pacdal Baguio City, Benguet. The shop was formerly known as “Toot’s Auto Repair Shop”. The business began as a small-time automotive repair shop in the year 2002. The shop catered mechanical works and was only using the garage of the owner’s house. “Toot’s Auto Repair Shop” was changed to “Enriques A. Simeon Auto Repair Shop” which was named after the owner of the company.</p>
+                                  <br>
                                    <p style="text-align: justify;text-justify: inter-word; font-size:17px; color:#4d4d4d;">The shop is one of the few auto repair shops that specializes in American and European-made automobiles (eg. BMW, Opel, Ford, Mini Cooper, Mercedes Benz, Chevrolet, and Cadillac).</p>
                               </div>
                               <figure class="profile wow fadeInUp" data-wow-delay="1s">
@@ -337,10 +338,7 @@ http://www.tooplate.com/view/2098-health
                                    <span>January 27, 2018</span>
                               </div>
                          </div>
-                        <br>
                     </div>
-                   
-
                </div>
           </div>
      </section>
@@ -364,8 +362,8 @@ http://www.tooplate.com/view/2098-health
                               <img src="images/eryl.png" class="img-responsive" alt="">
 
                                    <div class="team-info">
-                                        <h3>Chanealle Audune</h3>
-                                        <p>Assistant Manager</p>
+                                        <h3>Eryl Thaddeus Simeon</h3>
+                                        <p>Manager / Head Mechanic</p>
                                    </div>
 
                          </div>
@@ -376,8 +374,8 @@ http://www.tooplate.com/view/2098-health
                               <img src="images/eryl.png" class="img-responsive" alt="">
 
                                    <div class="team-info">
-                                        <h3>Eryl Simeon Thaddeus</h3>
-                                        <p>Manager / Head Mechanic</p>
+                                        <h3>Chanealle Audune</h3>
+                                        <p>Assistant Manager</p>
                                    </div>
 
                          </div>
@@ -391,7 +389,6 @@ http://www.tooplate.com/view/2098-health
                                         <h3>N/A</h3>
                                         <p>Supervisor</p>
                                    </div>
-
                          </div>
                     </div>
                     
@@ -404,20 +401,46 @@ http://www.tooplate.com/view/2098-health
           <div class="container">
                <div class="row">
 
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-12 col-sm-12">
                          <!-- CONTACT FORM HERE -->
                          <form id="appointment-form" role="form" method="post" action="process/feedback.php">
 
                               <!-- SECTION TITLE -->
                               <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
-                                  <br>
-                                  <br>
                                    <h2 style="letter-spacing: 5px;">Feedback</h2>
                               </div>
 
                               <div class="wow fadeInUp" data-wow-delay="0.8s">
-                                  <h3>We love to hear from you</h3>
-                                  <br>
+
+                             </div>
+                             
+                             
+                        </form>
+                    </div>
+                   
+                    <div class="col-md-6 col-sm-6">
+                         <img src="" class="img-responsive" alt="">
+                    </div>
+
+               </div>
+          </div>
+     </section>
+    
+     <!-- FEEDBACKS -->
+     <section id="feedback" data-stellar-background-ratio="3">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-12 col-sm-12">
+                         <!-- CONTACT FORM HERE -->
+                         <form id="appointment-form" role="form" method="post" action="process/feedback.php">
+
+                              <!-- SECTION TITLE -->
+                              <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
+                                   <h2 style="letter-spacing: 5px;">We love to hear from you</h2>
+                              </div>
+                             
+                                <div class="wow fadeInUp" data-wow-delay="0.8s">
                                     <table>
                                         <tr>
                                             <div class="col-md-12 col-sm-12">
@@ -503,9 +526,9 @@ http://www.tooplate.com/view/2098-health
                             <p class="wow fadeInUp" data-wow-delay="0.4s" style="font-size:30px; color:#404040; font-weight: bold; letter-spacing: 2px;">Opening Hours</p>
                             <br> 
                             <div class="contact-info">
-                               <p><i class="far fa-calendar-alt" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Friday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
-                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
+                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
                                <p><i class="fas fa-calendar-times" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Sunday <span style="font-weight:bold;">Closed</span></p>
+                               <p><i class="fas fa-clock" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;GMT+8
 
                             </div> 
 

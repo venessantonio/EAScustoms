@@ -419,25 +419,25 @@
           <div class="col-sm-12">
           <div class="form-group">
             <label for="plateNumber">Plate Number</label>
-            <input type="text" class="form-control input-xs" id="plateNumber" name="plateNumber" value="<?php echo $row['plateNumber']; ?>" >
+            <input type="text" class="form-control input-xs" id="plateNumber" name="plateNumber" value="<?php echo $row['plateNumber']; ?>" readonly>
           </div>
           </div>
            <div class="col-sm-6">
             <div class="form-group">
             <label for="make">Make</label>
-            <input type="text" class="form-control input-xs" id="make" name="make" value="<?php echo $row['make']; ?>" >
+            <input type="text" class="form-control input-xs" id="make" name="make" value="<?php echo $row['make']; ?>" readonly>
           </div>
           </div>
            <div class="col-sm-6">
             <div class="form-group">
             <label for="series">Series</label>
-            <input type="text" class="form-control input-xs" id="series" name="series" value="<?php echo $row['series']; ?>" >
+            <input type="text" class="form-control input-xs" id="series" name="series" value="<?php echo $row['series']; ?>" readonly>
           </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
             <label for="yearModel">Year Model</label>
-            <input type="number" class="form-control input-xs" id="yearModel" name="yearModel" value="<?php echo $row['yearModel']; ?>" >
+            <input type="number" class="form-control input-xs" id="yearModel" name="yearModel" value="<?php echo $row['yearModel']; ?>" readonly>
           </div>
           </div>
            <div class="col-sm-6">
@@ -508,9 +508,9 @@
                             <p class="wow fadeInUp" data-wow-delay="0.4s" style="font-size:30px; color:#404040; font-weight: bold; letter-spacing: 2px;">Opening Hours</p>
                             <br> 
                             <div class="contact-info">
-                               <p><i class="far fa-calendar-alt" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Friday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
-                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
+                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
                                <p><i class="fas fa-calendar-times" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Sunday <span style="font-weight:bold;">Closed</span></p>
+                               <p><i class="fas fa-clock" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;GMT+8
 
                             </div> 
 

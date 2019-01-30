@@ -179,7 +179,7 @@ $personalinfo -> personal_info();
                   
                 <div class="col-xs-12 col-sm-12" style="width:100%; height:50%; padding:5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background-color: white; border-radius: 10px;">
         
-                 <h3 align="center" style="margin-top:1%; margin-bottom:1%; color:black; font-size: 18px;">You have the following appointments</h3>
+                 <h3 align="center" style="margin-top:1%; margin-bottom:1%; color:black; font-size: 18px;">You have the Upcoming Appointments</h3>
                     
                   <p align="center" style="margin-top:1%; margin-bottom:1%; color:black; font-size: 15px; text-decoration: underline;">  
                           <?php
@@ -298,9 +298,9 @@ $personalinfo -> personal_info();
                             <p class="wow fadeInUp" data-wow-delay="0.4s" style="font-size:30px; color:#404040; font-weight: bold; letter-spacing: 2px;">Opening Hours</p>
                             <br> 
                             <div class="contact-info">
-                               <p><i class="far fa-calendar-alt" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Friday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
-                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
+                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
                                <p><i class="fas fa-calendar-times" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Sunday <span style="font-weight:bold;">Closed</span></p>
+                               <p><i class="fas fa-clock" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;GMT+8
 
                             </div> 
 

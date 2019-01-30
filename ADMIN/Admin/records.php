@@ -526,6 +526,14 @@
                                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#details'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
                                             Details
                                           </button>
+                                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#spare'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
+                                          Spare Parts
+                                        </button>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td colspan="5">
+                                          More Details
                                         </td>
                                       </tr>
                                        
@@ -597,6 +605,31 @@
                                       </div>
                                       <!-- end -->
 
+                                      <!-- spare part modal Modal -->
+                                      <div class="modal fade" id="spare'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header"  style="background-color: #F0AD4E; color: white; border: 3px solid #F0AD4E;">
+                                              <h5 class="modal-title" id="exampleModalLabel">Spare Parts</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              
+                                            </div>
+                                            <div class="modal-footer">
+                                            <form action="process/server.php" method="POST">
+                                              <input type="hidden" name="task_id" value="'.$rows['id'].'">
+                                              <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                              <button type="submit" name="app_spare" class="btn btn-warning"><i class="menu-icon mdi mdi-trash-text"></i>Add</button>
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                                            </form>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- end -->
                                       
                                     ';
                                   }                                

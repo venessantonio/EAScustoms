@@ -272,7 +272,7 @@
         <div class="row">
        <div class="col-sm-6 col-md-6">
         <br>
-       <label for="desiredDate">Date:</label>
+       <label for="desiredDate">Date of Appointment:</label>
        <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><br>
       </div>
 
@@ -296,7 +296,7 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-6 col-sm-6">
-                <label for="created">Date Requested:</label><br>
+                <label for="created">Date Sent:</label><br>
                 <?= date("F d, Y h:i A",strtotime($appointmentpending['created'])); ?>   
                <label for="otherServices">Other Services:</label><br>
                 <?= $appointmentpending['otherServices']; ?>
@@ -548,9 +548,9 @@
                             <p class="wow fadeInUp" data-wow-delay="0.4s" style="font-size:30px; color:#404040; font-weight: bold; letter-spacing: 2px;">Opening Hours</p>
                             <br> 
                             <div class="contact-info">
-                               <p><i class="far fa-calendar-alt" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Friday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
-                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
+                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
                                <p><i class="fas fa-calendar-times" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Sunday <span style="font-weight:bold;">Closed</span></p>
+                               <p><i class="fas fa-clock" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;GMT+8
 
                             </div> 
 

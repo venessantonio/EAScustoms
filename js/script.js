@@ -1,6 +1,7 @@
 $('document').ready(function(){
  var username_state = false;
  var password_state = false;
+ var existingpassword_state = false;
  var email_state = false;
  var firstName_state = false; 
  var middleName_state = false;
@@ -135,6 +136,35 @@ $('input[type="checkbox"]').click(function () { getSelectedCheckBoxes('service[]
     $('#serviceDisplay').html("No checkbox checked"); 
    } 
      }; 
+
+$('#existingpassword').on('blur', function(){
+  var existingpassword = $('#existingpassword').val();
+  if (existingpassword == '') {
+    existingpassword_state = false;
+    return;
+  }
+  $.ajax({
+      url: 'register.php',
+      type: 'post',
+      data: {
+        'existingpassword_check' : 1,
+        'existingpassword' : existingpassword,
+      },
+      success: function(response){
+        if (response == 'taken' ) {
+          existingpassword_state = false;
+          $('#existingpassword').parent().removeClass();
+          $('#existingpassword').parent().addClass("form_error");
+          $('#existingpassword').siblings("span").text('Check');
+          return;
+        }else if (response == 'not_taken') {
+          existingpassword_state = true;
+          $('#existingpassword').siblings("span").text('Wrong');
+          return;
+        }
+      }
+  });
+ });
  
 
 

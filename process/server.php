@@ -152,7 +152,7 @@ if (isset($_POST['login_user'])) {
               $_SESSION['Name'] = $row['Name'];
               header("Location: ADMIN/AssistantManager/dashboard.php");
               exit();
-            }else{
+            }elseif ($row['status'] == 'Active'){
                 //Login the user here
                 $_SESSION['type'] = $row['type'];
                 $_SESSION['username'] = $row['username'];
@@ -160,7 +160,9 @@ if (isset($_POST['login_user'])) {
                 $_SESSION['last_login_timestamp'] = time();  
                 header('location: home.php');
                 exit();
-              }
+            }else{
+                header('location: process/logout.php');
+            }
             }
           }
          }
@@ -215,6 +217,7 @@ if (isset($_POST['account_edit'])) {
   $personalId = mysqli_real_escape_string($db, $_POST['personalId']);
   $password = mysqli_real_escape_string($db, $_POST['accountpassword']);
   $confirmpassword = mysqli_real_escape_string($db, $_POST['accountconfirm_password']);
+  
    $query  = "UPDATE users SET password = '".password_hash($_POST['accountpassword'], PASSWORD_DEFAULT)."' WHERE id = '$personalId'";
     if (mysqli_query($db, $query) == true) {
     $_SESSION['changepassword'] = '<div class="alert alert-success fade in" align="center">

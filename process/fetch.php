@@ -58,7 +58,7 @@ $query = "SELECT * FROM chargeinvoice ORDER BY id DESC LIMIT 5";
 $result = mysqli_query($db, $query);
 $output = '';
 
-$status_query = "SELECT * FROM chargeinvoice WHERE notification=0";
+$status_query = "SELECT * FROM chargeinvoice WHERE notification=0 and personalId ='$personalId'";
 $result_query = mysqli_query($db, $status_query);
 $count = mysqli_num_rows($result_query);
 $data = array(

@@ -203,7 +203,7 @@ $personalinfo -> personal_info();
                         }else
                           echo "<td align = 'center'>No Value.</td> ";
                     ?>
-                    <td>
+                    <td style="text-align: center;">
                       <button type="button" class="btn" style="background-color:  #308ee0;color: white;" data-toggle="modal" data-target="#viewHistory<?php echo $row['vehicleId']; ?>"><i class="fa  fa-address-card" aria-hidden="true"></i> &nbsp;View Info</button>
 
       <!-- Modal ng CI-->
@@ -288,9 +288,9 @@ $personalinfo -> personal_info();
                             <p class="wow fadeInUp" data-wow-delay="0.4s" style="font-size:30px; color:#404040; font-weight: bold; letter-spacing: 2px;">Opening Hours</p>
                             <br> 
                             <div class="contact-info">
-                               <p><i class="far fa-calendar-alt" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Friday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
-                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
+                               <p><i class="fas fa-calendar-check" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Monday - Saturday <span style="font-weight:bold;">09:00 AM - 05:00 PM</span></p>
                                <p><i class="fas fa-calendar-times" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;Sunday <span style="font-weight:bold;">Closed</span></p>
+                               <p><i class="fas fa-clock" style="font-size:20px;color:#404040"></i> &nbsp;&nbsp;GMT+8
 
                             </div> 
 
