@@ -178,30 +178,25 @@ $personalinfo -> personal_info();
                 <div class="card-body">
                   <p class="card-title" style="font-size:20px;">Create appointment</p>
                 <form method="post" action="process/appointment_walkin_insert.php">
-                    
                   <div class="form-group">
-                 <select name="personalId" id="personalId" class="form-control action" onclick="myFunction()"> 
+                 <select name="personalId" id="personalId" class="form-control action" onclick="myFunction()" style="background-color:#ebecee; font-size:16px; color:#333333;">
                   <option value="">Select User</option>
                   <?php echo $make; ?>
                  </select><br>
-                      
-                 <select name="vehicleId" id="vehicleId" class="form-control action" >
+                 <select name="vehicleId" id="vehicleId" class="form-control action" style="background-color:#ebecee; font-size:16px; color:#333333;">
                   <option value="">Select Vehicle</option>
                  </select>
-                      
                 </div>
                  <div class="panel-body">
                          <div class ="services" >
-                          <ul style="text-align:justify; font-size:15px;list-style: none;">
+                          <ul style="text-align:justify; font-size:16px;list-style: none;">
                             <li><a role="button" id="mechanical" >Mechanical</a></li>
                             <li><a role="button" id="electrical">Electrical</a></li>
                             <li><a role="button" id="customize">Customize</a></li>
                             <li><a role="button" id="bodyRepair">Body Repair</a></li>
                             <li><a role="button" id="painting">Body Paint</a></li>
-                            <li><a role="button" id="maintenance">Maintenance</a></li>
                            </ul>
                           </div>
-                          <br>
                             <div class="service-detail" id="mechanical_service" style="display: none; text-align:justify;">    
                               <?php
                                foreach($mechanicalservice->mechanical_service as $mechanicalservice):
@@ -233,7 +228,7 @@ $personalinfo -> personal_info();
                                foreach($paintservice->painting_service as $paintservice){
                               ?>   
                                <input type="checkbox" name="service[]" id="<?= $paintservice['serviceName']; ?>"  value="<?= $paintservice['serviceName']; ?>"><?= $paintservice['serviceName']; 
-                                ?></input>
+                                ?>
                               <br><br>
                               <?php     
                                    }

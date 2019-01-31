@@ -26,6 +26,12 @@ $personalinfo -> personal_info();
 <html lang="en">
 
 <head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -66,6 +72,7 @@ $personalinfo -> personal_info();
      </script>
      <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
      <script type="text/javascript" src="js/jquery.js"></script>
+    
 </head>
 
 <body>
@@ -75,8 +82,8 @@ $personalinfo -> personal_info();
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
-    
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
@@ -152,7 +159,6 @@ $personalinfo -> personal_info();
             
         </ul>
       </nav>
-
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -177,26 +183,24 @@ $personalinfo -> personal_info();
                   <p class="card-title" style="font-size:20px;">Create appointment</p>
                 <form method="post" action="process/appointment_walkin_insert.php">
                   <div class="form-group">
-                 <select name="personalId" id="personalId" class="form-control action" onclick="myFunction()">
+                 <select name="personalId" id="personalId" class="form-control action" onclick="myFunction()" style="background-color:#ebecee; font-size:16px; color:#333333;">
                   <option value="">Select User</option>
                   <?php echo $make; ?>
                  </select><br>
-                 <select name="vehicleId" id="vehicleId" class="form-control action" >
+                 <select name="vehicleId" id="vehicleId" class="form-control action" style="background-color:#ebecee; font-size:16px; color:#333333;">
                   <option value="">Select Vehicle</option>
                  </select>
                 </div>
                  <div class="panel-body">
                          <div class ="services" >
-                          <ul style="text-align:justify; font-size:15px;list-style: none;">
+                          <ul style="text-align:justify; font-size:16px;list-style: none;">
                             <li><a role="button" id="mechanical" >Mechanical</a></li>
                             <li><a role="button" id="electrical">Electrical</a></li>
                             <li><a role="button" id="customize">Customize</a></li>
                             <li><a role="button" id="bodyRepair">Body Repair</a></li>
                             <li><a role="button" id="painting">Body Paint</a></li>
-                            <li><a role="button" id="maintenance">Maintenance</a></li>
                            </ul>
                           </div>
-                          <br>
                             <div class="service-detail" id="mechanical_service" style="display: none; text-align:justify;">    
                               <?php
                                foreach($mechanicalservice->mechanical_service as $mechanicalservice):
@@ -228,7 +232,7 @@ $personalinfo -> personal_info();
                                foreach($paintservice->painting_service as $paintservice){
                               ?>   
                                <input type="checkbox" name="service[]" id="<?= $paintservice['serviceName']; ?>"  value="<?= $paintservice['serviceName']; ?>"><?= $paintservice['serviceName']; 
-                                ?></input>
+                                ?>
                               <br><br>
                               <?php     
                                    }
