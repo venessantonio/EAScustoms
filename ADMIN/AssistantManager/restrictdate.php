@@ -134,7 +134,8 @@
                       <div class="card-body">    
                       <div class="container">
                         <form method = "post" action="rDate.php"> 
-                            <p class="card-title" style="font-size:20px; float:right;" >Select Date : <input type ="date" name="rdate" style="border-style: groove; border-radius: 5px; border-color:#f2f2f2" required> <button class="btn btn-primary" type="submit" name="submit"><i class="menu-icon mdi mdi-calendar-remove"></i> Restrict</button></p>
+                            <p class="card-title" style="font-size:20px; float:right;" >Select Date : <input type ="date" name="rdate" style="border-style: groove; border-radius: 5px; border-color:#f2f2f2" required>
+                                <button class="btn btn-primary" type="submit" name="submit" style="float:right;"><i class="menu-icon mdi mdi-calendar-remove"></i> Restrict</button></p>
                           </form>
                           
                       </div>
@@ -211,6 +212,27 @@
   <!-- Custom js for this page-->
   <script src="js/dashboard.js"></script>
   <!-- End custom js for this page-->
+    
+  <script src="js/jquery.dataTables.js"></script>
+  <script src="js/dataTables.bootstrap4.js"></script>
+  <script src="js/sb-admin-datatables.min.js"></script>
+  <script src="js/script.js"></script> 
+    
+    <script>
+  var table = $('#doctables').DataTable({
+    // PAGELENGTH OPTIONS
+    "lengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]]
+
+});
+</script>
+    
+      <script>
+  var table = $('#doctables1').DataTable({
+    // PAGELENGTH OPTIONS
+    "lengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]]
+
+});
+</script>
        
 </body>
 

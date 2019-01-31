@@ -178,14 +178,17 @@ $personalinfo -> personal_info();
                 <div class="card-body">
                   <p class="card-title" style="font-size:20px;">Create appointment</p>
                 <form method="post" action="process/appointment_walkin_insert.php">
+                    
                   <div class="form-group">
-                 <select name="personalId" id="personalId" class="form-control action" onclick="myFunction()">
+                 <select name="personalId" id="personalId" class="form-control action" onclick="myFunction()"> 
                   <option value="">Select User</option>
                   <?php echo $make; ?>
                  </select><br>
+                      
                  <select name="vehicleId" id="vehicleId" class="form-control action" >
                   <option value="">Select Vehicle</option>
                  </select>
+                      
                 </div>
                  <div class="panel-body">
                          <div class ="services" >
