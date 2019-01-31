@@ -117,7 +117,7 @@ if (isset($_POST['login_user'])) {
     if(count($errors)== 0){
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
-    $query = "SELECT *,concat(firstName, ' ', lastName ) as 'Name' FROM users  WHERE username = '$username'";
+    $query = "SELECT *,concat(firstName, ' ', lastName ) as 'Name' FROM users  WHERE status = 'Active' and username = '$username'";
     $result = mysqli_query($db, $query);
       if ($row = mysqli_fetch_assoc($result)){
         //De hash Password
