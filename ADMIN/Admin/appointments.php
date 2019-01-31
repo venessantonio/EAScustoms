@@ -26,6 +26,12 @@ $personalinfo -> personal_info();
 <html lang="en">
 
 <head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -188,7 +194,8 @@ $personalinfo -> personal_info();
                  </select>
                 </div>
                  <div class="panel-body">
-                         <div class ="services" >
+                     <div class ="services" >
+                        <div class="col-md-3 col-sm-3">
                           <ul style="text-align:justify; font-size:16px;list-style: none;">
                             <li><a role="button" id="mechanical" >Mechanical</a></li>
                             <li><a role="button" id="electrical">Electrical</a></li>
@@ -196,12 +203,16 @@ $personalinfo -> personal_info();
                             <li><a role="button" id="bodyRepair">Body Repair</a></li>
                             <li><a role="button" id="painting">Body Paint</a></li>
                            </ul>
-                          </div>
+                        </div>
+                      </div>
+                     
+                        <div class="col-md-8 col-sm-8">
+                            <ul style="text-align:justify; font-size:16px;list-style: none;">
                             <div class="service-detail" id="mechanical_service" style="display: none; text-align:justify;">    
                               <?php
                                foreach($mechanicalservice->mechanical_service as $mechanicalservice):
                               ?>  
-                               <div class="col-md-4 col-sm-4">
+                               <div class="col-md-5 col-sm-5">
                                <input type="checkbox" name="service[]" id="<?= $mechanicalservice['serviceName']; ?>"  value="<?= $mechanicalservice['serviceName']; ?>"><?= $mechanicalservice['serviceName']; ?><br>
                                </div>
                               <?php 
@@ -213,7 +224,7 @@ $personalinfo -> personal_info();
                               <?php
                                foreach($electricalservice->electrical_service as $electricalservice):
                               ?>
-                               <div class="col-md-5 col-sm-5">   
+                               <div class="col-md-5 cosl-sm-5">   
                                <input type="checkbox" name="service[]" id="<?= $electricalservice['serviceName']; ?>"  value="<?= $electricalservice['serviceName']; ?>"> 
                                <?= $electricalservice['serviceName']; ?>
                                <br> 
@@ -248,6 +259,8 @@ $personalinfo -> personal_info();
                                <input type="checkbox" name="service[]" value="Maintenance">Request for Maintenance.
                               <br><br> 
                          </div>
+                     </ul>
+                     </div>
                   </div>
 
                     <!-- Other Service -->
@@ -257,7 +270,7 @@ $personalinfo -> personal_info();
                         <textarea class="form-control" name="otherService" rows="5" id="additionalMessage" name="message" placeholder="Others" style="background-color:#ebecee;"></textarea>
                       </div>
                     
-                    <!-- Select Date -->                                       
+                    <!-- Select Date -->                                      
 
                           <script type="text/javascript">
                            var unavailableDates  = [<?php
