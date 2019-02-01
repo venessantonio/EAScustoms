@@ -108,13 +108,14 @@ class database{
 		return $this->appointment_info;
 	}
 
-	public function vehicle_info(){
-		$query=$this->conn->query("SELECT * from vehicles WHERE personalId = '".$_SESSION['personalId']."'");
+public function vehicle_info(){
+		$query=$this->conn->query("SELECT * from vehicles WHERE status = 'Active' and personalId = '".$_SESSION['personalId']."'");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
 			$this->vehicle_info[]=$row;
 		}
 		return $this->vehicle_info;
 	}
+	
 	public function appointment_serviceId(){
 		$query=$this->conn->query("SELECT * from services where status='Accepted' AND personalId ='".$_SESSION['personalId']."'");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
@@ -138,7 +139,7 @@ class database{
     $res = mysqli_query($db,$query);
     $row = mysqli_fetch_assoc($res);
     $personalId = $row['personalId'];
-    $query1 = "SELECT * from vehicles where personalId = '$personalId' ORDER BY created DESC";
+    $query1 = "SELECT * from vehicles where status = 'Active' and personalId = '$personalId' ORDER BY created DESC";
     $vehicleinforesult   = mysqli_query($db,$query1);
     $vehicleinforesultCheck = mysqli_num_rows($vehicleinforesult);
 

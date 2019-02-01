@@ -712,7 +712,7 @@
                                       <div class="form-group">
                                         <label for="exampleFormControlSelect2">Select Service</label>
                                         <select name="service" type="text" class="form-control  chzn-select" name="owner" tabindex="2" required> 
-                                          <option hidden selected name="service">Select Scope of Service</option>
+                                          <option hidden selected value="" >Select Scope of Service</option>
                                           ';
                                             $data = $connection->prepare("SELECT * FROM scope;");
                                             if($data->execute()){

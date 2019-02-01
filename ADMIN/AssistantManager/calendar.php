@@ -148,14 +148,8 @@ $events = $req->fetchAll();
                                       <br>
                                           <div id="calendar" class="col-centered">
                                           </div>
-                        
-         
-        <hr>
-        <br>
-                                 
-                                       
-                                       
-                                       
+                                            <hr>
+                                            <br>           
                                   </div>
                               </div>
                               </div>

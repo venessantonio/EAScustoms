@@ -169,7 +169,7 @@ $personalinfo -> personal_info();
      </section>
 
   <!-- Start of APPOINTMENT SECTION --> 
-    <div id="appointment-section" style="background-image: url(images/home.jpg); background-attachment: fixed;
+    <div id="appointment-section" style="background-image: url(images/home1.jpg); background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;">

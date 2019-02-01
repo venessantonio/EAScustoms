@@ -426,7 +426,46 @@
           </div>
         </section>
     
+        <section id ="DoneVehicles">
+           <div class="row">
+            <div class="col-lg-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <br><br><h1 class="card-title">Done Vehicles</h1>
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="doctables4" style="background-color: #212529; color:white; border-color:#212529;">
+                      <thead>
+                        <tr>
+                          <th>
+                            Plate Number
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody style="background-color:white; color:#212529;">
+                         <?php $query = $connection->prepare("SELECT appointments.date, appointments.id, vehicles.plateNumber FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted' AND DATE(date) =CURDATE() ORDER BY appointments.date ASC"); 
+                            if ($query->execute()){
+                                $result=$query->get_result();
+                                while($appinprogress = $result->fetch_assoc()){
+                               ?> 
+                        <tr class="detail">
+                          <td><a href ="records.php?id=<?php echo $appinprogress['id']?>" style="color:black">
+                           <?php echo $appinprogress['plateNumber']?>
+                              </a></td>
+                        </tr>
+                           <?php }
+                            }
+                          ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
     
+            
+            
             <div class="row">
             <div class="col-12 grid-margin">
               <div class="card">
@@ -531,6 +570,14 @@
  
     <script>
   var table = $('#doctables3').DataTable({
+    // PAGELENGTH OPTIONS
+    "lengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]]
+
+});
+</script>
+    
+<script>
+  var table = $('#doctables4').DataTable({
     // PAGELENGTH OPTIONS
     "lengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]]
 

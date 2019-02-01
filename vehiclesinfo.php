@@ -451,7 +451,10 @@
           </div>   
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn" name="vehiclesinfo_edit"style="background-color: #000099; color: white;"><i class="fas fa-edit"></i> Edit Vehicle</button>
+              <button type="submit" class="btn" name="vehiclesinfo_edit" style="background-color: #000099; color: white;"><i class="fas fa-edit"></i> Edit Vehicle</button>
+                
+                <button type="submit" class="btn" name="vehiclesinfo_deactivate" style="background-color: #f44336; color: white;"><i class="fa fa-user-times"></i> Deactivate</button>
+                
               <button type="button" class="btn" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel</button>
             </div>
           </div>

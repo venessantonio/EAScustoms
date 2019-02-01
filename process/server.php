@@ -117,7 +117,7 @@ if (isset($_POST['login_user'])) {
     if(count($errors)== 0){
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
-    $query = "SELECT *,concat(firstName, ' ', lastName ) as 'Name' FROM users  WHERE username = '$username'";
+    $query = "SELECT *,concat(firstName, ' ', lastName ) as 'Name' FROM users  WHERE status = 'Active' and username = '$username'";
     $result = mysqli_query($db, $query);
       if ($row = mysqli_fetch_assoc($result)){
         //De hash Password
@@ -205,6 +205,20 @@ if (isset($_POST['account_edit'])) {
     $_SESSION['success_edit'] = '<div class="alert alert-success fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong> Notice</strong> Changes saved Successfully.
+    </div>';
+
+     header('location: vehiclesinfo.php');
+     exit();
+    }
+  }
+
+if (isset($_POST['vehiclesinfo_deactivate'])) { 
+    $vehicleid = mysqli_real_escape_string($db, $_POST['vehicleid']);
+   $query1  = "UPDATE vehicles SET status = 'Deactivated' WHERE id = '$vehicleid'";
+    if (mysqli_query($db, $query1) == true) {
+    $_SESSION['success_deactivate'] = '<div class="alert alert-success fade in" align="center">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <strong> Notice</strong> Car has been deactivated.
     </div>';
 
      header('location: vehiclesinfo.php');
