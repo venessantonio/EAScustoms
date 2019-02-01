@@ -4,6 +4,12 @@ include 'process/authhome.php';
 include 'sendsms.php';
 include 'threedayssms.php';
 include 'onday.php';
+include 'process/databaseconnect.php'
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -190,41 +196,73 @@ http://www.tooplate.com/view/2098-health
                     <div class="col-md-4 col-sm-6">
                          <!-- NEWS THUMB -->
                          <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                              <a href="news-detail.html">
-                                   <img src="images/wassup1.jpg" class="img-responsive" alt="">
-                              </a>
-                              <div class="news-info">
-                                   <h3><a href="#">Body Paint</a></h3>
-                                   <p>Cars need make-overs too. Our shop offers painting of your cars</p>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='body_paint'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <h3>Body Paint</h3>
+                                   <p>'.$row['description'].'</p>
                                    
-                              </div>
+                            </div>
+                                ';
+                            }
+                        ?>
+                              
                          </div>
                     </div>
 
                     <div class="col-md-4 col-sm-6">
                          <!-- NEWS THUMB -->
                          <div class="news-thumb wow fadeInUp" data-wow-delay="0.6s">
-                              <a href="news-detail.html">
-                                   <img src="images/wassup2.jpg" class="img-responsive" alt="">
-                              </a>
-                              <div class="news-info">
-                                   <h3><a href="#">Body Repair</a></h3>
-                                   <p>This is when your car becomes our patient, and we the doctors, fixing your car's sickness</p>
-                              </div>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='body_repair'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <h3>Body Repair</h3>
+                                   <p>'.$row['description'].'</p>
+                                   
+                            </div>
+                                ';
+                            }
+                        ?>
                          </div>
                     </div>
 
                     <div class="col-md-4 col-sm-6">
                          <!-- NEWS THUMB -->
                          <div class="news-thumb wow fadeInUp" data-wow-delay="0.8s">
-                              <a href="#">
-                                   <img src="images/wassup3.jpg" class="img-responsive" alt="">
-                              </a>
-                              <div class="news-info">
-                                   <h3><a href="#">Customize</a></h3>
-                                   <p>Need to spice up your car? We can do that too.</p>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='customize'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <h3>Customize</h3>
+                                   <p>'.$row['description'].'</p>
                                    
-                              </div>
+                            </div>
+                                ';
+                            }
+                        ?>
                          </div>
                     </div>
 
@@ -244,42 +282,73 @@ http://www.tooplate.com/view/2098-health
                     <div class="col-md-4 col-sm-6">
                          <!-- NEWS THUMB -->
                          <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                              <a href="news-detail.html">
-                                   <img src="images/wassup4.jpg" class="img-responsive" alt="">
-                              </a>
-                              <div class="news-info">
-                                   <h3><a href="#">Electrical</a></h3>
-                                   <p>This is where yur car's electrical components are managed.</p>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='electrical'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <h3>Electrical</h3>
+                                   <p>'.$row['description'].'</p>
                                    
-                              </div>
+                            </div>
+                                ';
+                            }
+                        ?>
                          </div>
                     </div>
 
                     <div class="col-md-4 col-sm-6">
                          <!-- NEWS THUMB -->
                          <div class="news-thumb wow fadeInUp" data-wow-delay="0.6s">
-                              <a href="news-detail.html">
-                                   <img src="images/wassup5.jpg" class="img-responsive" alt="">
-                              </a>
-                              <div class="news-info">
-                                   <h3><a href="#">Maintenance</a></h3>
-                                   <p>Your cars need to be maintained and stay its best, we can handle that for you.</p>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='maintenance'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <h3>Maintenance</h3>
+                                   <p>'.$row['description'].'</p>
                                    
-                              </div>
+                            </div>
+                                ';
+                            }
+                        ?>
+                              
                          </div>
                     </div>
 
                     <div class="col-md-4 col-sm-6">
                          <!-- NEWS THUMB -->
                          <div class="news-thumb wow fadeInUp" data-wow-delay="0.8s">
-                              <a href="news-detail.html">
-                                   <img src="images/wassup6.jpg" class="img-responsive" alt="">
-                              </a>
-                              <div class="news-info">
-                                   <h3><a href="#">Mechanical</a></h3>
-                                   <p>We also do mechanical works for your car, because we want what's best for you.</p>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='mechanical'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <h3>Mechanical</h3>
+                                   <p>'.$row['description'].'</p>
                                    
-                              </div>
+                            </div>
+                                ';
+                            }
+                        ?>
                          </div>
                          <br>
                         <br>
@@ -307,36 +376,66 @@ http://www.tooplate.com/view/2098-health
                     <div class="col-md-4 col-sm-6">
                          <!-- NEWS THUMB -->
                          <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                              <a href="#">
-                                   <img src="images/c1.jpg" class="img-responsive" alt="">
-                              </a>
-                              <div class="news-info">
-                                   <span>March 08, 2018</span>
-                              </div>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='first'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <span>'.date('F j, Y',strtotime($row['date'])).'</span>
+                            </div>
+                                ';
+                            }
+                        ?>
                          </div>
                     </div>
 
                     <div class="col-md-4 col-sm-6">
                          <!-- NEWS THUMB -->
                          <div class="news-thumb wow fadeInUp" data-wow-delay="0.6s">
-                              <a href="#">
-                                   <img src="images/c2.jpg" class="img-responsive" alt="">
-                              </a>
-                              <div class="news-info">
-                                   <span>February 20, 2018</span>
-                              </div>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='second'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <span>'.date('F j, Y',strtotime($row['date'])).'</span>
+                            </div>
+                                ';
+                            }
+                        ?>
                          </div>
                     </div>
 
                     <div class="col-md-4 col-sm-6">
                          <!-- NEWS THUMB -->
                          <div class="news-thumb wow fadeInUp" data-wow-delay="0.8s">
-                              <a href="#">
-                                   <img src="images/c3.jpg" class="img-responsive" alt="">
-                              </a>
-                              <div class="news-info">
-                                   <span>January 27, 2018</span>
-                              </div>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='third'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <span>'.date('F j, Y',strtotime($row['date'])).'</span>
+                            </div>
+                                ';
+                            }
+                        ?>
                          </div>
                     </div>
                </div>
@@ -359,36 +458,72 @@ http://www.tooplate.com/view/2098-health
 
                     <div class="col-md-4 col-sm-6">
                          <div class="team-thumb wow fadeInUp" data-wow-delay="0.2s">
-                              <img src="images/eryl.png" class="img-responsive" alt="">
-
-                                   <div class="team-info">
-                                        <h3>Eryl Thaddeus Simeon</h3>
-                                        <p>Manager / Head Mechanic</p>
-                                   </div>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='manager'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <h3>Manager</h3>
+                                   <p>'.$row['description'].'</p>
+                                   
+                            </div>
+                                ';
+                            }
+                        ?>
 
                          </div>
                     </div>
 
                     <div class="col-md-4 col-sm-6">
                          <div class="team-thumb wow fadeInUp" data-wow-delay="0.4s">
-                              <img src="images/eryl.png" class="img-responsive" alt="">
-
-                                   <div class="team-info">
-                                        <h3>Chanealle Audune</h3>
-                                        <p>Assistant Manager</p>
-                                   </div>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='assi_man'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <h3>Assistant Manager</h3>
+                                   <p>'.$row['description'].'</p>
+                                   
+                            </div>
+                                ';
+                            }
+                        ?>
 
                          </div>
                     </div>
 
                     <div class="col-md-4 col-sm-6">
                          <div class="team-thumb wow fadeInUp" data-wow-delay="0.6s">
-                              <img src="images/eryl.png" class="img-responsive" alt="">
-
-                                   <div class="team-info">
-                                        <h3>N/A</h3>
-                                        <p>Supervisor</p>
-                                   </div>
+                         <?php
+                            $query = "SELECT * FROM `contents` WHERE `img_name` ='supervisor'";
+                            $result = mysqli_query($db, $query);
+                            while($row = mysqli_fetch_array($result)){
+                            echo '
+                            <tr>
+                                <td>
+                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                </td>
+                            <tr>
+                            <div class="news-info">
+                                   <h3>Supervisor</h3>
+                                   <p>'.$row['description'].'</p>
+                                   
+                            </div>
+                                ';
+                            }
+                        ?>
                          </div>
                     </div>
                     

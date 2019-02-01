@@ -1,9 +1,8 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
-<?php require "process/check/dashboardcheck.php";
+<?php require "process/check/dashboardcheck.php";?>
+<?php require "process/require/dataconf.php";?>
 
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -162,27 +161,20 @@
           date_default_timezone_set("Asia/Calcutta");
           //echo date_default_timezone_get();
           ?>
-
+          
           <?php
-            if(isset($_POST['submit'])!=""){
-                $name=$_FILES['photo']['name'];
-                $size=$_FILES['photo']['size'];
-                $type=$_FILES['photo']['type'];
-                $temp=$_FILES['photo']['tmp_name'];
-                $date = date('Y-m-d H:i:s');
-                // $caption1=$_POST['caption'];
-                // $link=$_POST['link'];
-                
-                // move_uploaded_file($temp,"files/".$name);
-
-               $query=$connection->query("INSERT INTO contents(image, description) VALUES ('$size','$name')");
-              if($query){
-               echo 'success';
+            if(isset($_POST['insert'])){
+              $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+              $name = $connection->real_escape_string($_POST["name"]);
+              $query = "UPDATE `contents` SET `image`= '$file' where `img_name` = '$name'  ";
+              if(mysqli_query($connection, $query)){
+                // echo "success";
               }else{
-                echo 'error';
+                echo "error";
               }
             }
-          ?>
+            ?>
+
 
          <!-- start -->
         <div class="col-lg-6 grid-margin stretch-card">
@@ -192,21 +184,31 @@
             <div class="col-md-4 col-sm-6">
             <!-- NEWS THUMB -->
               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                <a href="news-detail.html">
-                 <img src="images/wassup1.jpg" class="img-responsive" alt="">
-                </a>
+              <?php
+                $query = "SELECT image FROM `contents` WHERE `img_name` ='first'";
+                $result = mysqli_query($connection, $query);
+                while($row = mysqli_fetch_array($result)){
+                  echo '
+                  <tr>
+                    <td>
+                      <img style="width:100px; height:100px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                    </td>
+                  <tr>
+                    ';
+                }
+                ?>
                 <div class="news-info">
-                 <h3><a href="#">First</a></h3>
-                  <input type="file" name="photo" id="photo"  required="required">
+                 <h3>First</h3>
+                  <input type="file" name="image" id="image"  required="required">
 
                 
                 </div>
               </div>
             </div>
-          </form>
           </div>
-          <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
-          
+          <input type="hidden" name="name" value="first">
+          <button type="submit" class="btn btn-success" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+          </form>
           </div>
 
         </div>
@@ -219,21 +221,31 @@
             <div class="col-md-4 col-sm-6">
             <!-- NEWS THUMB -->
               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                <a href="news-detail.html">
-                 <img src="images/wassup1.jpg" class="img-responsive" alt="">
-                </a>
+              <?php
+                $query = "SELECT image FROM `contents` WHERE `img_name` ='second'";
+                $result = mysqli_query($connection, $query);
+                while($row = mysqli_fetch_array($result)){
+                  echo '
+                  <tr>
+                    <td>
+                      <img style="width:100px; height:100px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                    </td>
+                  <tr>
+                    ';
+                }
+                ?>
                 <div class="news-info">
-                 <h3><a href="#">Second</a></h3>
-                  <input type="file" name="photo" id="photo"  required="required">
+                 <h3>Second</h3>
+                  <input type="file" name="image" id="image"  required="required">
 
                 
                 </div>
               </div>
             </div>
-          </form>
           </div>
-          <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
-          
+          <input type="hidden" name="name" value="second">
+          <button type="submit" class="btn btn-success" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+          </form>
           </div>
         </div>
         <!-- end -->
@@ -247,21 +259,32 @@
             <div class="col-md-4 col-sm-6">
             <!-- NEWS THUMB -->
               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                <a href="news-detail.html">
-                 <img src="images/wassup1.jpg" class="img-responsive" alt="">
-                </a>
+              <?php
+                $query = "SELECT image FROM `contents` WHERE `img_name` ='third'";
+                $result = mysqli_query($connection, $query);
+                while($row = mysqli_fetch_array($result)){
+                  echo '
+                  <tr>
+                    <td>
+                      <img style="width:100px; height:100px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                    </td>
+                  <tr>
+                    ';
+                }
+                ?>
                 <div class="news-info">
-                 <h3><a href="#">Third</a></h3>
-                  <input type="file" name="photo" id="photo"  required="required">
+                 <h3>Third</h3>
+                  <input type="file" name="image" id="image"  required="required">
 
              
                 </div>
               </div>
             </div>
-        </form>
+
           </div>
-          <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
-            
+          <input type="hidden" name="name" value="third">
+          <button type="submit" class="btn btn-success" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+          </form>
           </div>
         </div>
         <!-- end -->

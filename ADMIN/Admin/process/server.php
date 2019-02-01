@@ -210,10 +210,14 @@ if(isset($_POST["changeUser"])){
 
 if(isset($_POST["add-task"])){
   $app_id = $connection->real_escape_string($_POST["app_id"]);
-  $service = $connection->real_escape_string($_POST["service"]);
-  $p1 = $connection->real_escape_string($_POST["p1"]);
-  $p2 = $connection->real_escape_string($_POST["p2"]);
-  $addTask = $connection->prepare("INSERT INTO `task`(`appointmentID`, `service`, `modified`) VALUES ($app_id, '$service', now());");
+  $splitter = $connection->real_escape_string($_POST["service"]);
+  $task = explode("|", $splitter);
+  $scope = $task[0];
+  $service = $task[1];
+
+  // echo 'Scope: '.$scope.'<br>'.'Service: '.$service;
+  $remarks = $connection->real_escape_string($_POST["remarks"]);
+  $addTask = $connection->prepare("INSERT INTO `task`(`appointmentID`, `service`, `description`,`scope`, `modified`) VALUES ($app_id, '$service','$remarks','$scope', now());");
   if($addTask->execute()){
     header("Location: ../records.php?id=$app_id");
   }else{

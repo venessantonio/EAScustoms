@@ -1,9 +1,7 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
-<?php require "process/check/dashboardcheck.php";
-
-
-?>
+<?php require "process/check/dashboardcheck.php";?>
+<?php require "process/require/dataconf.php";?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -169,25 +167,18 @@
           ?>
 
           <?php
-            if(isset($_POST['submit'])!=""){
-                $name=$_FILES['photo']['name'];
-                $size=$_FILES['photo']['size'];
-                $type=$_FILES['photo']['type'];
-                $temp=$_FILES['photo']['tmp_name'];
-                $date = date('Y-m-d H:i:s');
-                // $caption1=$_POST['caption'];
-                // $link=$_POST['link'];
-                
-                // move_uploaded_file($temp,"files/".$name);
-
-               $query=$connection->query("INSERT INTO contents(image, description) VALUES ('$size','$name')");
-              if($query){
-               echo 'success';
+            if(isset($_POST['insert'])){
+              $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+              $name = $connection->real_escape_string($_POST["name"]);
+              $description = $connection->real_escape_string($_POST["description"]);
+              $query = "UPDATE `contents` SET `image`= '$file', `description` = '$description' where `img_name` = '$name'  ";
+              if(mysqli_query($connection, $query)){
+                // echo "success";
               }else{
-                echo 'error';
+                echo "error";
               }
             }
-          ?>
+            ?>
 
 
          <!-- start -->
@@ -198,21 +189,34 @@
             <div class="col-md-4 col-sm-6">
             <!-- NEWS THUMB -->
               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                <a href="news-detail.html">
-                 <img src="images/wassup1.jpg" class="img-responsive" alt="">
-                </a>
+              <?php
+                $query = "SELECT image FROM `contents` WHERE `img_name` ='body_paint'";
+                $result = mysqli_query($connection, $query);
+                while($row = mysqli_fetch_array($result)){
+                  echo '
+                  <tr>
+                    <td>
+                      <img style="width:100px; height:100px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                    </td>
+                  <tr>
+                    ';
+                }
+                ?>
                 <div class="news-info">
-                 <h3><a href="#">Body Paint</a></h3>
-                  <input type="file" name="photo" id="photo"  required="required">
-                    
-                  <p>Cars need make-overs too. Our shop offers painting of your cars <br>
-                    <br></p>
+                 <h3>Body Paint</h3>
+                  <input type="file" name="image" id="image"  required="required">
+                  <label>Description:</label>
+                  <input type="text" class="form-control" name="description">
+                  <!-- <p>Cars need make-overs too. Our shop offers painting of your cars <br>
+                    <br></p> -->
                 </div>
               </div>
             </div>
-             </form>
+             
           </div>
-          <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+          <input type="hidden" name="name" value="body_paint">
+          <button type="submit" class="btn btn-success" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+          </form>
           </div>
        
         </div>
@@ -225,50 +229,70 @@
             <div class="col-md-4 col-sm-6">
             <!-- NEWS THUMB -->
               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                <a href="news-detail.html">
-                 <img src="images/wassup1.jpg" class="img-responsive" alt="">
-                </a>
+              <?php
+                $query = "SELECT image FROM `contents` WHERE `img_name` ='body_repair'";
+                $result = mysqli_query($connection, $query);
+                while($row = mysqli_fetch_array($result)){
+                  echo '
+                  <tr>
+                    <td>
+                      <img style="width:100px; height:100px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                    </td>
+                  <tr>
+                    ';
+                }
+                ?>
                 <div class="news-info">
-                 <h3><a href="#">Body Repair</a></h3>
-                  <input type="file" name="photo" id="photo"  required="required">
-
-                  <p>This is when your car becomes our patient, and we the doctors, fixing your car's sickness</p>
+                 <h3>Body Repair</h3>
+                 <input type="file" name="image" id="image"  required="required">
+                 <label>Description:</label>
+                  <input type="text" class="form-control" name="description">
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
-              </form>
           </div>
-          
-      
-          </div>
-        </div>
-        <!-- end -->
-
-        <!-- start -->
-        <div class="col-lg-6 grid-margin stretch-card">
-          <div class="card">
-          <div class="card-body">
-          
-          <form enctype="multipart/form-data"  action="" id="wb_Form1" name="form" method="post">
-            <div class="col-md-4 col-sm-6">
-            <!-- NEWS THUMB -->
-              <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                <a href="news-detail.html">
-                 <img src="images/wassup1.jpg" class="img-responsive" alt="">
-                </a>
-                <div class="news-info">
-                 <h3><a href="#">Customize</a></h3>
-                  <input type="file" name="photo" id="photo"  required="required">
-
-                  <p>Need to spice up your car? We can do that too.</p>
-                </div>
-              </div>
-            </div>
+          <input type="hidden" name="name" value="body_repair">
+          <button type="submit" class="btn btn-success" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
           </form>
           </div>
-          <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+        </div>
+        <!-- end -->
+
+        <!-- start -->
+        <div class="col-lg-6 grid-margin stretch-card">
+          <div class="card">
+          <div class="card-body">
           
+          <form enctype="multipart/form-data"  action="" id="wb_Form1" name="form" method="post">
+            <div class="col-md-4 col-sm-6">
+            <!-- NEWS THUMB -->
+              <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
+              <?php
+                $query = "SELECT image FROM `contents` WHERE `img_name` ='customize'";
+                $result = mysqli_query($connection, $query);
+                while($row = mysqli_fetch_array($result)){
+                  echo '
+                  <tr>
+                    <td>
+                      <img style="width:100px; height:100px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                    </td>
+                  <tr>
+                    ';
+                }
+                ?>
+                <div class="news-info">
+                 <h3>Customize</h3>
+                  <input type="file" name="image" id="image"  required="required">
+                  <label>Description:</label>
+                  <input type="text" class="form-control" name="description">
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <input type="hidden" name="name" value="customize">
+          <button type="submit" class="btn btn-success" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+          </form>
           </div>
         </div>
         <!-- end -->
@@ -281,21 +305,32 @@
             <div class="col-md-4 col-sm-6">
             <!-- NEWS THUMB -->
               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                <a href="news-detail.html">
-                 <img src="images/wassup1.jpg" class="img-responsive" alt="">
-                </a>
+              <?php
+                $query = "SELECT image FROM `contents` WHERE `img_name` ='electrical'";
+                $result = mysqli_query($connection, $query);
+                while($row = mysqli_fetch_array($result)){
+                  echo '
+                  <tr>
+                    <td>
+                      <img style="width:100px; height:100px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                    </td>
+                  <tr>
+                    ';
+                }
+                ?>
                 <div class="news-info">
-                 <h3><a href="#">Electrical</a></h3>
-                  <input type="file" name="photo" id="photo"  required="required">
-
-                  <p>This is where yur car's electrical components are managed.</p>
+                 <h3>Electrical</h3>
+                  <input type="file" name="image" id="image"  required="required">
+                  <label>Description:</label>
+                  <input type="text" class="form-control" name="description">
                 </div>
               </div>
             </div>
-         </form>
           </div>
-          <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
-           
+          <input type="hidden" name="name" value="electrical">
+          <button type="submit" class="btn btn-success" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+          </form>
+
           </div>
         </div>
         <!-- end -->
@@ -308,21 +343,31 @@
             <div class="col-md-4 col-sm-6">
             <!-- NEWS THUMB -->
               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                <a href="news-detail.html">
-                 <img src="images/wassup1.jpg" class="img-responsive" alt="">
-                </a>
+              <?php
+                $query = "SELECT image FROM `contents` WHERE `img_name` ='maintenance'";
+                $result = mysqli_query($connection, $query);
+                while($row = mysqli_fetch_array($result)){
+                  echo '
+                  <tr>
+                    <td>
+                      <img style="width:100px; height:100px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                    </td>
+                  <tr>
+                    ';
+                }
+                ?>
                 <div class="news-info">
-                 <h3><a href="#">Maintenance</a></h3>
-                  <input type="file" name="photo" id="photo"  required="required">
-
-                  <p>Your cars need to be maintained and stay its best, we can handle that for you.</p>
+                 <h3>Maintenance</h3>
+                  <input type="file" name="image" id="image"  required="required">
+                  <label>Description:</label>
+                  <input type="text" class="form-control" name="description">
                 </div>
               </div>
             </div>
-              </form>
           </div>
-          <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
-           
+          <input type="hidden" name="name" value="maintenance">
+          <button type="submit" class="btn btn-success" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+          </form>
           </div>
         </div>
         <!-- end -->
@@ -335,21 +380,32 @@
             <div class="col-md-4 col-sm-6">
             <!-- NEWS THUMB -->
               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                <a href="news-detail.html">
-                 <img src="images/wassup1.jpg" class="img-responsive" alt="">
-                </a>
+              <?php
+                $query = "SELECT image FROM `contents` WHERE `img_name` ='mechanical'";
+                $result = mysqli_query($connection, $query);
+                while($row = mysqli_fetch_array($result)){
+                  echo '
+                  <tr>
+                    <td>
+                      <img style="width:100px; height:100px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                    </td>
+                  <tr>
+                    ';
+                }
+                ?>
                 <div class="news-info">
-                 <h3><a href="#">Mechanical</a></h3>
-                  <input type="file" name="photo" id="photo"  required="required">
-
-                  <p style="">We also do mechanical works for your car, because we want what's best for you.</p>
+                 <h3>Mechanical</h3>
+                  <input type="file" name="image" id="image"  required="required">
+                  <label>Description:</label>
+                  <input type="text" class="form-control" name="description">
                 </div>
               </div>
             </div>
-           </form>
+
           </div>
-          <button type="submit" class="btn btn-success" value="SUBMIT" name="submit"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button>  
-         
+          <input type="hidden" name="name" value="mechanical">
+          <button type="submit" class="btn btn-success" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+          </form>    
           </div>
         </div>
         <!-- end -->

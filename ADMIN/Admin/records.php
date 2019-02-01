@@ -470,11 +470,25 @@
                             <table class="table table-bordered table-dark" id="doctables">
                               <thead>
                                 <tr class="grid">
-                                  <th scope="col" style="font-size:15px;">Task</th>
-                                  <th scope="col" style="font-size:15px;">Status</th>
-                                  <th scope="col" style="font-size:15px;">Start Date</th>
-                                  <th scope="col" style="font-size:15px;">End Date</th>
-                                  <th scope="col" style="font-size:15px;">Action</th>
+                                  <th scope="col" style="font-size:15px;">
+                                    <div class="row">
+                                      <div class="col-2">
+                                        Task
+                                      </div>
+                                      <div class="col-1">
+                                        Status
+                                      </div>
+                                      <div class="col-2">
+                                        Date Start
+                                      </div>
+                                      <div class="col-2">
+                                        Date End
+                                      </div>
+                                      <div class="col-5">
+                                        Action
+                                      </div>
+                                    </div>
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody class="table-primary" style="color:black;">
@@ -484,59 +498,97 @@
                                 if($table->execute()){
                                   $content = $table->get_result();
                                   while($rows = $content->fetch_assoc()){
+                                      if(strlen($rows['scope'])>20){
+                                        $scope = substr($rows['scope'],0,20).'...';
+                                      }else{
+                                        $scope = $rows['scope'];
+                                      }
+                                      
                                     echo '
-                                    <tr class="text-center">
-                                        <td>'.$rows['service'].'</td>
-                                        <td>'.$rows['status'].'</td>
-                                        <td>
-                                        ';
-                                        if(empty($rows['dateStart'])){
-                                          echo '<form action="process/server.php" method="POST">
-                                                  <input type="hidden" name="task_id" value="'.$rows['id'].'">
-                                                  <input type="hidden" name="app_id" value="'.$row['ID'].'">
-                                                  <button class="btn btn-success" type="submit" name="startTask"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start Task</button>
-                                                </form>
-                                                ';
-                                        }else{
-                                          echo date('F j, Y',strtotime($rows['dateStart']));
-                                        }
-                                        echo '
-                                        </td>
-                                        <td>';
-                                        if(empty($rows['dateStart'])){
-                                          echo '<button class="btn btn-success" disabled><i class="menu-icon mdi mdi-arrow-right-drop-circle"></i> Finish Task</button>';
-                                        }elseif(empty($rows['dateEnd'])){
-                                          echo '
-                                                <form action="process/server.php" method="POST">
-                                                  <input type="hidden" name="task_id" value="'.$rows['id'].'">
-                                                  <input type="hidden" name="app_id" value="'.$row['ID'].'">
-                                                  <button class="btn btn-success" type="submit" name="finishTask">Finish Task</button>
-                                                </form>
-                                                ';
-                                        }else{
-                                          echo date('F j, Y',strtotime($rows['dateEnd']));
-                                        }
-                                        echo '
-                                        </td>
-                                        <td>
-                                          <!-- Button trigger modal -->
-                                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
-                                            Delete
-                                          </button>
-                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#details'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
-                                            Details
-                                          </button>
-                                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#spare'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
-                                          Spare Parts
-                                        </button>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td colspan="5">
-                                          More Details
-                                        </td>
-                                      </tr>
-                                       
+                                        <tr>
+                                            <div class="row">
+                                              <div col-12>
+                                              <td colspan="5">
+                                                <div class="row">
+                                                  <div class="col-md-2 col-sml-12 text-center"><p>'.$scope.'</p></div>
+                                                  <div class="col-md-1 col-sml-12 text-center">'.$rows['status'].'</div>
+                                                  <div class="col-md-2 col-sml-12 text-center">
+
+                                            ';
+                                            if(empty($rows['dateStart'])){
+                                              echo '<form action="process/server.php" method="POST">
+                                                      <input type="hidden" name="task_id" value="'.$rows['id'].'">
+                                                      <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                                      <button class="btn btn-success" type="submit" name="startTask"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start Task</button>
+                                                    </form>
+                                                    ';
+                                            }else{
+                                              echo date('F j, Y',strtotime($rows['dateStart']));
+                                            }
+                                            echo '</div><div class="col-md-2 col-sml-12  text-center">';
+                                            if(empty($rows['dateStart'])){
+                                              echo '<button class="btn btn-success" disabled><i class="menu-icon mdi mdi-arrow-right-drop-circle"></i> Finish Task</button>';
+                                            }elseif(empty($rows['dateEnd'])){
+                                              echo '
+                                                    <form action="process/server.php" method="POST">
+                                                      <input type="hidden" name="task_id" value="'.$rows['id'].'">
+                                                      <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                                      <button class="btn btn-success" type="submit" name="finishTask">Finish Task</button>
+                                                    </form>
+                                                    ';
+                                            }else{
+                                              echo date('F j, Y',strtotime($rows['dateEnd']));
+                                            }
+                                            echo '
+                                                </div>
+                                                <div class="col-md-5 col-sml-12">
+                                                  <div class="row">
+                                                    <div class="col-4 col-sm-4"
+                                                      <!-- Button trigger modal -->
+                                                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
+                                                        Delete
+                                                      </button>
+                                                    </div>
+                                                    <div class="col-4 col-sm-4">
+                                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#details'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
+                                                        Details
+                                                      </button>
+                                                    </div>
+                                                    <div class="col-4 col-sm-4">
+                                                      <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#multiCollapseExample1'.$rows['id'].'" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="menu-icon mdi mdi-table-edit"></i>
+                                                        Spare Parts
+                                                      </button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                </div>
+                                              </div>
+                                              <div class="col-12">
+                                                <div class="collapse multi-collapse" id="multiCollapseExample1'.$rows['id'].'">
+                                                  <hr>
+                                                    <div class="card card-body">
+                                                      <div class="row">
+                                                        <div class="col-10"><h4 class="card-title">Bordered table</h4></div>
+                                                        <div class="col-2">
+                                                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#spare'.$rows['id'].'" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="menu-icon mdi mdi-table-edit"></i>
+                                                            Add Spare Parts
+                                                          </button>
+                                                        </div>
+                                                        <div class="col-10 offset-1">
+                                                          <div class="row">
+
+
+
+                                                          </div>
+                                                        </div>
+                                                      </div> 
+                                                    </div>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                          </td>
+                                        </tr>
 
                                       <!-- delete Modal -->
                                       <div class="modal fade" id="exampleModalCenter'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -578,21 +630,22 @@
                                            
                                               <div class="form-group">
                                                       <div class="row"><!-- row-start -->
-                                                        <div class="col-md-4"><p>Service</p></div>
+                                                        <div class="col-md-4"><p>Service Type</p></div>
                                                         <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['service'].'</h5></div>
                                                       </div><!-- row-end -->
+                                                      <div class="row">
+                                                        <div class="col-md-4"><p>Scope </p></div>
+                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['scope'].'</h5></div>
+                                                      </div>
                                                       <div class="row">
                                                         <div class="col-md-4"><p>Status </p></div>
                                                         <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['status'].'</h5></div>
                                                       </div>
                                                       <div class="row">
-                                                        <div class="col-md-4"><p>Description </p></div>
+                                                        <div class="col-md-4"><p>Remarks </p></div>
                                                         <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['description'].'</h5></div>
                                                       </div>
-                                                      <div class="row">
-                                                        <div class="col-md-4"><p>Scope </p></div>
-                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['scope'].'</h5></div>
-                                                      </div>
+
                                                     </div>';
                                              
                                             echo'
@@ -659,18 +712,23 @@
                                       <div class="form-group">
                                         <label for="exampleFormControlSelect2">Select Service</label>
                                         <select name="service" type="text" class="form-control  chzn-select" name="owner" tabindex="2" required> 
-                                          <option hidden selected name="service">Select Service</option>
+                                          <option hidden selected name="service">Select Scope of Service</option>
                                           ';
-                                            $data = $connection->prepare("SELECT * FROM services;");
+                                            $data = $connection->prepare("SELECT * FROM scope;");
                                             if($data->execute()){
                                                 $values = $data->get_result();
                                                 while( $row = $values->fetch_assoc()){
-                                                  echo '<option value="'.$row['serviceName'].'">'.$row['serviceName'].'</option>';
+                                                  echo '<option value="'.$row['subScope'].'|'.$row['scopeWork'].'">'.$row['scopeWork'].' ('.$row['subScope'].')</option>';
                                                }
                                                 
                                             }
                                           echo'
                                         </select>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Remarks</label>
+                                        <textarea class="form-control" name="remarks"></textarea>
                                       </div>
                                     </div>
                             

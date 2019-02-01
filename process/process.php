@@ -37,8 +37,9 @@
   }
 
   if (isset($_POST['existingpassword_check'])) {
-    $existingpassword = password_hash($_POST['password'], PASSWORD_DEFAULT)
-    $sql1 = "SELECT personalinfo.user_id as user_id, users.id as id, users.password as password FROM personalinfo join users on personalinfo.user_id = users.id WHERE users.password='$existingpassword'";
+    $existingpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $sql1 = "SELECT personalinfo.user_id as 'user_id', users.id as 'id', users.password as 'password' FROM 
+    personalinfo join users on personalinfo.user_id = users.id WHERE users.password= '$existingpassword'";
 
     $existingpassword2 = password_verify('rasmuslerdorf', $hash);
     $sql = "SELECT * FROM users WHERE password='$existingpassword'";
