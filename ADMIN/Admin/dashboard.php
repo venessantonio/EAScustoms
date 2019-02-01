@@ -255,7 +255,7 @@
                         </tr>
                       </thead>
                       <tbody style="background-color:white; color:#212529;">
-                         <?php $query = $connection->prepare("SELECT CONCAT(personalinfo.firstName,' ', personalinfo.middleName, ' ', personalinfo.lastName) AS FullName, appointments.date, appointments.targetEndDate, appointments.id, vehicles.plateNumber FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'In-progress' ORDER BY appointments.date ASC"); 
+                         <?php $query = $connection->prepare("SELECT CONCAT(personalinfo.firstName,' ', personalinfo.middleName, ' ', personalinfo.lastName) AS FullName, appointments.date, appointments.targetEndDate, appointments.id as 'ID', vehicles.plateNumber, appointments.status as 'status' FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'In-progress' ORDER BY appointments.date ASC"); 
                             if ($query->execute()){
                                 $result=$query->get_result();
                                 while($appinprogress = $result->fetch_assoc()){
@@ -266,7 +266,35 @@
                           </td>
                           <td>
                             <div class="progress">
-                              <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                              <?php
+                                $id = $appinprogress['ID'];
+                                $progress = 0;
+                                if($appinprogress['status'] != 'Accepted'){
+                                  $allTask;
+                                  $finishedTask;
+                                  $all_task = $connection->prepare("SELECT count(id) as 'All' FROM `task` WHERE appointmentId = $id");
+                                  if($all_task->execute()){
+                                  $values = $all_task->get_result();
+                                  $rowd = $values->fetch_assoc(); 
+                                    $allTask = $rowd['All'];
+                                  }
+                                  $finished_task = $connection->prepare("SELECT count(status) as 'All' FROM `task` WHERE appointmentID = $id AND status = 'Done'");
+                                  if($finished_task->execute()){
+                                  $values = $finished_task->get_result();
+                                  $rowb = $values->fetch_assoc(); 
+                                    $finishedTask = $rowb['All'];
+                                  }
+                                  
+                                  
+                                  if($finishedTask == 0 && $allTask == 0){
+                                    $progress = 0;
+                                  }else{
+                                    $progress = ($finishedTask / $allTask)*100;
+                                  }
+                                
+                                }   
+                              ?>
+                              <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: <?php echo $progress;?>%" aria-valuenow="25" aria-valuemin="0"
                                 aria-valuemax="100"></div>
                             </div>
                           </td>
