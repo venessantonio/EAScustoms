@@ -1,6 +1,6 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";
-$sql = "SELECT chargeinvoice.id as id, vehicles.plateNumber as platenumber, vehicles.make as make, vehicles.series as series, personalInfo.firstName,personalInfo.lastName,chargeinvoice.date FROM chargeinvoice join vehicles on chargeinvoice.vehicleId = vehicles.id join personalInfo on chargeinvoice.personalId = personalInfo.personalId order by chargeinvoice.date desc";
+$sql = "SELECT chargeinvoice.id as cId, plateNumber,make,series,owner,chargeinvoice.date as cDate FROM chargeinvoice join appointments on chargeinvoice.appointmentId = appointments.id join vehicles on appointments.vehicleId = vehicles.id order by chargeinvoice.date desc";
 $stmt = $connection->prepare($sql); 
 $stmt->execute(); 
 $ci = $stmt -> get_result();
@@ -73,7 +73,7 @@ $ci = $stmt -> get_result();
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
         
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
@@ -93,10 +93,7 @@ $ci = $stmt -> get_result();
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Create Appointment</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="request.php" style="font-size:14px;">Request</a>
+                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Request</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
@@ -150,8 +147,8 @@ $ci = $stmt -> get_result();
         </ul>
       </nav>
       
-            <div class="main-panel">
-               <div class="content-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
           <div class="row">
             
             <div class="col-lg-12 stretch-card">
@@ -225,9 +222,7 @@ $ci = $stmt -> get_result();
                   </div>
                 </div>
                     
-                  
-                  
-                  <div class="table-responsive">
+                <div class="table-responsive">
                   <table class="table table-bordered table-dark" id="doctables">
                       <thead>
                         <tr class="grid">
@@ -243,13 +238,13 @@ $ci = $stmt -> get_result();
                       <tbody class="table-primary" style="color:black;">
                           <?php foreach($ci as $chargeInvoice): ?>
                               <tr>
-                                <td><?= $chargeInvoice['platenumber']; ?></td>
+                                <td><?= $chargeInvoice['plateNumber']; ?></td>
                                 <td><?= $chargeInvoice['make']; ?></td>
                                 <td><?= $chargeInvoice['series']; ?></td>
-                                <td><?= $chargeInvoice['firstName']; ?>  <?= $chargeInvoice['lastName']; ?></td>
-                                <td><?= $chargeInvoice['date']; ?></td>
+                                <td><?= $chargeInvoice['owner']; ?></td>
+                                <td><?= $chargeInvoice['cDate']; ?></td>
                                   <td>
-                                      <a href="print.php?id=<?= $chargeInvoice['id'];?>"><input type='submit'value='Full Details' name='submit' class="btn btn-primary"></a>
+                                      <a href="print.php?id=<?= $chargeInvoice['cId'];?>"><input type='submit'value='Full Details' name='submit' class="btn btn-primary"></a>
                                   </td>
                               </tr>
                         <?php endforeach; ?>
@@ -257,8 +252,54 @@ $ci = $stmt -> get_result();
                     </table>
                       <br>
                   </div>
-                
+
+
+                <!-- Done -->
+                <?php 
+                  $sql2 = "SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 
+                  'owner',make,series,appointments.created as 'created', appointments.serviceId as 'service', appointments.otherService as 
+                  'others', yearModel,plateNumber,appointments.status,date, appointments.additionalMessage as 'message', adminDate,rescheduledate, appointments.modified as 'modified'
+                   from appointments join personalinfo on appointments.personalId
+                  = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where (appointments.status = 'Done')";
+                  $stmt2 = $connection->prepare($sql2); 
+                  $stmt2->execute(); 
+                  $ci2 = $stmt2 -> get_result();
+                ?>
+                <div class="row">
+                    <div class="col-11">
+                        <p class="card-title" style="font-size:20px;">Done Appoinment</p>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table table-bordered table-dark" id="doctables2">
+                      <thead>
+                        <tr class="grid">
+                            
+                            <th>Name</th>
+                            <th>Plate Number</th>
+                            <th>Date Finished</th>
+                            <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-primary" style="color:black;">
+                          <?php foreach($ci2 as $chargeInvoice2): ?>
+                              <tr>
+                                <td><?= $chargeInvoice2['owner']; ?></td>
+                                <td><?= $chargeInvoice2['plateNumber']; ?></td>
+                                <td><?= $chargeInvoice2['modified']; ?></td>
+                                <td></td>
+                                  
+                              </tr>
+                        <?php endforeach; ?>
+                      </tbody>
+                    </table>
+                      <br>
                   </div>
+                
+                </div>
+
               </div>
             </div>
 
@@ -292,6 +333,13 @@ $ci = $stmt -> get_result();
     
 <script>
   var table = $('#doctables').DataTable({
+    // PAGELENGTH OPTIONS
+    "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
+
+});
+</script>
+<script>
+  var table = $('#doctables2').DataTable({
     // PAGELENGTH OPTIONS
     "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
 

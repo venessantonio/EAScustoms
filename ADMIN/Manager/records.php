@@ -39,7 +39,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard</title>
+  <title>Records</title>
   <link rel="icon" href="images/Logo.png">
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
@@ -54,8 +54,6 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
-
-  
 </head>
 
 <body>
@@ -67,7 +65,7 @@
     <!-- partial:partials/_sidebar.html -->
         
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav" style="position:fixed; width:256px;">
+        <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
           <li class="nav-item">
@@ -101,22 +99,27 @@
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
+            
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="dailytaskform.php">
+              <i class="menu-icon mdi mdi-file"></i>
+              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            </a>
+          </li> -->
 
           <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
-              <i class="menu-icon mdi mdi-account-multiple"></i>
-              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Sales Invoice</span>
             </a>
           </li>
             
-<!--
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
             </a>
           </li>
--->
             
           <li class="nav-item">
             <a class="nav-link" href="vehicle.php">
@@ -126,14 +129,11 @@
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="servicesmanagement.php">
+            <a class="nav-link" href="sparepartsmanagement.php">
               <i class="menu-icon mdi mdi-wrench"></i>
-              <span class="menu-title" style="font-size:14px;">Services</span>
+              <span class="menu-title" style="font-size:14px;">Spare Parts</span>
             </a>
           </li>
-            
-            
-            
             
         </ul>
       </nav>
@@ -212,20 +212,22 @@
                             $rowd = $values->fetch_assoc(); 
                               $allTask = $rowd['All'];
                             }
+
                             $finished_task = $connection->prepare("SELECT count(status) as 'All' FROM `task` WHERE appointmentID = $id AND status = 'Done'");
                             if($finished_task->execute()){
                             $values = $finished_task->get_result();
                             $rowb = $values->fetch_assoc(); 
                               $finishedTask = $rowb['All'];
                             }
-  
-                            $progress = ($finishedTask / $allTask)*100;
-                            // if($progress == '100'){
-                            //   $checkprogress = $connection->prepare("UPDATE `appointments` SET `status` = 'Done' WHERE `appointments`.`id` = $id;");
-                            //   $checkprogress->execute();
-                            // }
+
+                            if($finishedTask == 0 && $allTask == 0){
+                              $progress = 0;
+                            }else{
+                              $progress = ($finishedTask / $allTask)*100;
+                            }
+
                             if($progress<100){
-                              $checkprogress = $connection->prepare("UPDATE `appointments` SET `status` = 'In-progress' WHERE `appointments`.`id` = $id;");
+                              $checkprogress = $connection->prepare("UPDATE `appointments` SET `status` = 'In-Progress' WHERE `appointments`.`id` = $id;");
                                $checkprogress->execute();
                             }
                           }
@@ -237,7 +239,45 @@
                         </div>
                       </div>
                     </div>
-                  
+
+                    <!-- suggested task start -->
+                    <?php 
+                      if($row['stat'] == 'Accepted'){
+
+                      }else{
+
+                        echo '<p>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                  Client Suggested Task
+                                </button>
+                              </p>
+                              <div class="collapse" id="collapseExample">
+                                <div class="card card-body">';
+                        $ClientSuggestedTask = $connection->prepare("SELECT * FROM appointments WHERE appointments.id = $id");
+                        if($ClientSuggestedTask->execute()){
+                          $values = $ClientSuggestedTask->get_result();
+                          while($rowb = $values->fetch_assoc()){
+                              $services = $rowb['serviceId'];
+                              $id = $rowb['id'];
+ 
+                              $task = explode(",", $services);
+                              for ($i = 0; $i < count($task); $i++) {
+                                echo  '<li>'.$task[$i].'</li>';
+                              }
+
+                              if($rowb['otherService'] != ""){
+                                $other = $rowb['otherService'];
+                                echo  '<li>'.$other.'</li>';
+                              }
+                          }
+                        }
+                        echo'
+                                </div>
+                              </div>';
+                      }
+                    ?>
+                    <!-- suggested task end -->
+
                     <?php 
                       if($row['stat'] == 'Accepted'){
                           if(empty($row['targetEndDate'])){
@@ -296,22 +336,6 @@
                                     </div>
                                   </div>
                                 <!-- end modal -->
-
-
-                               
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
                                 ';
                             }
                               
@@ -443,12 +467,9 @@
                           <div class="col-md-2"><p><p class="card-title" style="font-size:20px;">Task List</p></div>
                             <div class="col-md-2 offset-md-8" style="margin">
                               <h5 style="margin-top: 20px;">';
-                              if($progress == 100){
-                               
-                              }else{
+                              if($row['stat'] == 'In-Progress'){
                                 echo '<button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 140px;" data-toggle="modal" data-target="#exampleModalCenter"><i class="menu-icon mdi mdi-clipboard-text"></i> Add Task</button>';
                               }
-                                
                               echo '</h5>
                             </div>
                           </div>
@@ -458,11 +479,25 @@
                             <table class="table table-bordered table-dark" id="doctables">
                               <thead>
                                 <tr class="grid">
-                                  <th scope="col" style="font-size:15px;">Task</th>
-                                  <th scope="col" style="font-size:15px;">Status</th>
-                                  <th scope="col" style="font-size:15px;">Start Date</th>
-                                  <th scope="col" style="font-size:15px;">End Date</th>
-                                  <th scope="col" style="font-size:15px;">Action</th>
+                                  <th scope="col" style="font-size:15px;">
+                                    <div class="row">
+                                      <div class="col-2">
+                                        Task
+                                      </div>
+                                      <div class="col-1">
+                                        Status
+                                      </div>
+                                      <div class="col-2">
+                                        Date Start
+                                      </div>
+                                      <div class="col-2">
+                                        Date End
+                                      </div>
+                                      <div class="col-5">
+                                        Action
+                                      </div>
+                                    </div>
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody class="table-primary" style="color:black;">
@@ -472,47 +507,97 @@
                                 if($table->execute()){
                                   $content = $table->get_result();
                                   while($rows = $content->fetch_assoc()){
+                                      if(strlen($rows['scope'])>20){
+                                        $scope = substr($rows['scope'],0,20).'...';
+                                      }else{
+                                        $scope = $rows['scope'];
+                                      }
+                                      
                                     echo '
-                                    <tr class="text-center">
-                                        <td>'.$rows['service'].'</td>
-                                        <td>'.$rows['status'].'</td>
-                                        <td>
-                                        ';
-                                        if(empty($rows['dateStart'])){
-                                          echo '<form action="process/server.php" method="POST">
-                                                  <input type="hidden" name="task_id" value="'.$rows['id'].'">
-                                                  <input type="hidden" name="app_id" value="'.$row['ID'].'">
-                                                  <button class="btn btn-success" type="submit" name="startTask"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start Task</button>
-                                                </form>
-                                                ';
-                                        }else{
-                                          echo date('F j, Y',strtotime($rows['dateStart']));
-                                        }
-                                        echo '
-                                        </td>
-                                        <td>';
-                                        if(empty($rows['dateStart'])){
-                                          echo '<button class="btn btn-success" disabled><i class="menu-icon mdi mdi-arrow-right-drop-circle"></i> Finish Task</button>';
-                                        }elseif(empty($rows['dateEnd'])){
-                                          echo '
-                                                <form action="process/server.php" method="POST">
-                                                  <input type="hidden" name="task_id" value="'.$rows['id'].'">
-                                                  <input type="hidden" name="app_id" value="'.$row['ID'].'">
-                                                  <button class="btn btn-success" type="submit" name="finishTask">Finish Task</button>
-                                                </form>
-                                                ';
-                                        }else{
-                                          echo date('F j, Y',strtotime($rows['dateEnd']));
-                                        }
-                                        echo '
-                                        </td>
-                                        <td>
-                                          <!-- Button trigger modal -->
-                                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
-                                            Delete
-                                          </button>
-                                        </td>
-                                      </tr>
+                                        <tr>
+                                            <div class="row">
+                                              <div col-12>
+                                              <td colspan="5">
+                                                <div class="row">
+                                                  <div class="col-md-2 col-sml-12 text-center"><p>'.$scope.'</p></div>
+                                                  <div class="col-md-1 col-sml-12 text-center">'.$rows['status'].'</div>
+                                                  <div class="col-md-2 col-sml-12 text-center">
+
+                                            ';
+                                            if(empty($rows['dateStart'])){
+                                              echo '<form action="process/server.php" method="POST">
+                                                      <input type="hidden" name="task_id" value="'.$rows['id'].'">
+                                                      <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                                      <button class="btn btn-success" type="submit" name="startTask"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start Task</button>
+                                                    </form>
+                                                    ';
+                                            }else{
+                                              echo date('F j, Y',strtotime($rows['dateStart']));
+                                            }
+                                            echo '</div><div class="col-md-2 col-sml-12  text-center">';
+                                            if(empty($rows['dateStart'])){
+                                              echo '<button class="btn btn-success" disabled><i class="menu-icon mdi mdi-arrow-right-drop-circle"></i> Finish Task</button>';
+                                            }elseif(empty($rows['dateEnd'])){
+                                              echo '
+                                                    <form action="process/server.php" method="POST">
+                                                      <input type="hidden" name="task_id" value="'.$rows['id'].'">
+                                                      <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                                      <button class="btn btn-success" type="submit" name="finishTask">Finish Task</button>
+                                                    </form>
+                                                    ';
+                                            }else{
+                                              echo date('F j, Y',strtotime($rows['dateEnd']));
+                                            }
+                                            echo '
+                                                </div>
+                                                <div class="col-md-5 col-sml-12">
+                                                  <div class="row">
+                                                    <div class="col-4 col-sm-4"
+                                                      <!-- Button trigger modal -->
+                                                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
+                                                        Delete
+                                                      </button>
+                                                    </div>
+                                                    <div class="col-4 col-sm-4">
+                                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#details'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
+                                                        Details
+                                                      </button>
+                                                    </div>
+                                                    <div class="col-4 col-sm-4">
+                                                      <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#multiCollapseExample1'.$rows['id'].'" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="menu-icon mdi mdi-table-edit"></i>
+                                                        Spare Parts
+                                                      </button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                </div>
+                                              </div>
+                                              <div class="col-12">
+                                                <div class="collapse multi-collapse" id="multiCollapseExample1'.$rows['id'].'">
+                                                  <hr>
+                                                    <div class="card card-body">
+                                                      <div class="row">
+                                                        <div class="col-10"><h4 class="card-title">Bordered table</h4></div>
+                                                        <div class="col-2">
+                                                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#spare'.$rows['id'].'" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="menu-icon mdi mdi-table-edit"></i>
+                                                            Add Spare Parts
+                                                          </button>
+                                                        </div>
+                                                        <div class="col-10 offset-1">
+                                                          <div class="row">
+
+
+
+                                                          </div>
+                                                        </div>
+                                                      </div> 
+                                                    </div>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                          </td>
+                                        </tr>
 
                                       <!-- delete Modal -->
                                       <div class="modal fade" id="exampleModalCenter'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -540,6 +625,73 @@
                                       </div>
                                       <!-- end -->
 
+                                      <!-- details Modal -->
+                                      <div class="modal fade" id="details'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header"  style="background-color: #0074D9; color: white; border: 3px solid #0074D9;">
+                                              <h5 class="modal-title" id="exampleModalLabel">Task Details</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                           
+                                              <div class="form-group">
+                                                      <div class="row"><!-- row-start -->
+                                                        <div class="col-md-4"><p>Service Type</p></div>
+                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['service'].'</h5></div>
+                                                      </div><!-- row-end -->
+                                                      <div class="row">
+                                                        <div class="col-md-4"><p>Scope </p></div>
+                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['scope'].'</h5></div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4"><p>Status </p></div>
+                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['status'].'</h5></div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-md-4"><p>Remarks </p></div>
+                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['description'].'</h5></div>
+                                                      </div>
+
+                                                    </div>';
+                                             
+                                            echo'
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- end -->
+
+                                      <!-- spare part modal Modal -->
+                                      <div class="modal fade" id="spare'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header"  style="background-color: #F0AD4E; color: white; border: 3px solid #F0AD4E;">
+                                              <h5 class="modal-title" id="exampleModalLabel">Spare Parts</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              
+                                            </div>
+                                            <div class="modal-footer">
+                                            <form action="process/server.php" method="POST">
+                                              <input type="hidden" name="task_id" value="'.$rows['id'].'">
+                                              <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                              <button type="submit" name="app_spare" class="btn btn-warning"><i class="menu-icon mdi mdi-trash-text"></i>Add</button>
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                                            </form>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- end -->
                                       
                                     ';
                                   }                                
@@ -569,18 +721,23 @@
                                       <div class="form-group">
                                         <label for="exampleFormControlSelect2">Select Service</label>
                                         <select name="service" type="text" class="form-control  chzn-select" name="owner" tabindex="2" required> 
-                                          <option hidden selected name="service">Select Service</option>
+                                          <option hidden selected value="" >Select Scope of Service</option>
                                           ';
-                                            $data = $connection->prepare("SELECT * FROM services;");
+                                            $data = $connection->prepare("SELECT * FROM scope;");
                                             if($data->execute()){
                                                 $values = $data->get_result();
                                                 while( $row = $values->fetch_assoc()){
-                                                  echo '<option value="'.$row['serviceName'].'">'.$row['serviceName'].'</option>';
+                                                  echo '<option value="'.$row['subScope'].'|'.$row['scopeWork'].'">'.$row['scopeWork'].' ('.$row['subScope'].')</option>';
                                                }
                                                 
                                             }
                                           echo'
                                         </select>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Remarks</label>
+                                        <textarea class="form-control" name="remarks"></textarea>
                                       </div>
                                     </div>
                             
@@ -602,7 +759,7 @@
                     ?>
                     
                     <?php   
-                    if($progress_status =="In-progress"){
+                    if($progress_status =="In-Progress"){
                       if($progress==100){
                         echo '
                         <form action="process/server.php" method="POST">
