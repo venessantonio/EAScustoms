@@ -164,14 +164,24 @@
                                               <div class="form-group">
                                                 <label for="name">Name</label>
                                                 <input type="text" class="form-control input-xs" id="name"  placeholder="name" name="name"
-                                                required="">
+                                                required=""  autocomplete="off">
                                               </div>
                                               <div class="form-group">
                                                 <label for="Price">Price</label>
                                                 <input type="text" class="form-control input-xs" id="price"  placeholder="price" name="price"
-                                                required="">
+                                                required=""  autocomplete="off">
                                               </div>
-                                        
+                                              <div class="form-group">
+                                                <label for="Price">Brand</label>
+                                                <input type="text" class="form-control input-xs"  placeholder="brand" name="brand"
+                                                required=""  autocomplete="off">
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="Price">Description</label>
+                                                <textarea type="text" class="form-control input-xs"  placeholder="decsription" name="desc"
+                                                required=""  autocomplete="off"></textarea>
+                                              </div>
+
                                       </div>
                                         
                                       <div class="modal-footer">
@@ -200,6 +210,15 @@
                             Series
                           </th>
                           <th style="font-size:18px;">
+                            Brand
+                          </th>
+                          <th style="font-size:18px;">
+                            Status
+                          </th>
+                          <th style="font-size:18px;">
+                            Description
+                          </th>
+                          <th style="font-size:18px;">
                             Action
                           </th>
                         </tr>
@@ -213,6 +232,9 @@
                             echo '<tr>
                                         <td>'.$row['name'].'</td>
                                         <td>'.$row['price'].'</td>
+                                        <td>'.$row['brandName'].'</td>
+                                        <td>'.$row['status'].'</td>
+                                        <td>'.$row['description'].'</td>
                                         <td class="text-center"> 
                                           <button type="submit" class="btn btn-success"  data-toggle="modal"  data-target="#updateSpareParts'.$row['id'].'"><i class="menu-icon mdi mdi-account-edit"></i> Edit</button>
                                           
@@ -235,22 +257,51 @@
                             <!-- start -->
                             <form action="process/server.php" method="POST">
                               <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-10">
                                   <div class="form-group">
                                     <label class="bmd-label-floating">Name</label>
-                                    <input type="text" class="form-control" name="name" value="'.$row['name'].'" placeholder="'.$row['name'].'">
+                                    <input type="text" class="form-control" name="name" value="'.$row['name'].'" placeholder="'.$row['name'].'"  autocomplete="off">
                                   </div>
                                 </div>
                               </div>
                               <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-10">
                                   <div class="form-group">
                                     <label class="bmd-label-floating">Price</label>
-                                    <input type="text" class="form-control" name="price" value="'.$row['price'].'" placeholder="'.$row['price'].'">
+                                    <input type="text" class="form-control" name="price" value="'.$row['price'].'" placeholder="'.$row['price'].'"  autocomplete="off">
                                     <input type="hidden" class="form-control" name="id" value="'.$row['id'].'" placeholder="'.$row['id'].'">
                                   </div>
+                                </div>
                               </div>
-                            </div>
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <div class="form-group">
+                                    <label class="bmd-label-floating">Description</label>
+                                    <input type="text" class="form-control" name="desc" value="'.$row['description'].'" placeholder="'.$row['description'].'"  autocomplete="off">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <div class="form-group">
+                                    <label class="bmd-label-floating">Brand</label>
+                                    <input type="text" class="form-control" name="brand" value="'.$row['brandName'].'" placeholder="'.$row['brandName'].'" autocomplete="off">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <div class="form-group">
+                                    <label class="bmd-label-floating">Brand</label>
+                                    <select class="form-control" name="status">
+                                      <option selected hidden value="'.$row['status'].'">'.$row['status'].'</option>
+                                      <option value="Available">Available</option>
+                                      <option value="Unavailable">Unavailable</option>
+                                    
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
                               <!-- end -->
                               </div>
                               <div class="modal-footer">

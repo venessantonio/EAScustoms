@@ -586,9 +586,44 @@
                                                         </div>
                                                         <div class="col-10 offset-1">
                                                           <div class="row">
+                                                            <div class="col-12 row text-center">
+                                                              <div class="col-1" style="border-style: groove"></div>
+                                                              <div class="col-2" style="border-style: groove">Part Name</div>
 
-
-
+                                                              <div class="col-1" style="border-style: groove">Price</div>
+                                                              <div class="col-2" style="border-style: groove">Brand</div>
+                                                              <div class="col-4" style="border-style: groove">Remarks</div>
+                                                              <div class="col-2" style="border-style: groove">Action</div>
+                                                            </div>
+                                                            <div class="col-12 row">
+                                                            ';
+                                                              $getSpareParts = $connection->prepare('select spareparts.name as "Name", taskspare.remarks as
+                                                               "Remarks", spareparts.brandName as "Brand", spareparts.price as "Price" from task inner join
+                                                                taskspare on task.id = taskspare.taskID inner join spareparts on taskspare.partID = spareparts.id
+                                                                 where task.id = '.$rows['id'].'');
+                                                              if($getSpareParts->execute()){
+                                                                  $values = $getSpareParts->get_result();
+                                                                  $counter = 1;
+                                                                  while( $rowsGetParts = $values->fetch_assoc()){
+                                                                   echo '
+                                                                    <div class="col-1 text-center" style="border-style: groove;">'.$counter.'</div>
+                                                                    <div class="col-2" style="border-style: groove">'.$rowsGetParts['Name'].'</div>
+                                                                    <div class="col-1" style="border-style: groove; float:left;">'.$rowsGetParts['Price'].'</div>
+                                                                    <div class="col-2" style="border-style: groove">'.$rowsGetParts['Brand'].'</div>
+                                                                    <div class="col-4" style="border-style: groove">'.$rowsGetParts['Remarks'].'</div>
+                                                                    <div class="col-2 text-center" style="border-style: groove"> 
+                                                                      <label class="badge badge-success" style="margin: 2px 2px 2px 2px;"  data-toggle="modal" data-target="#spare'.$rows['id'].'" aria-expanded="false" aria-controls="multiCollapseExample1">edit</label>
+                                                                      <label class="badge badge-danger" style="margin: 2px 2px 2px 2px;"  data-toggle="modal" data-target="#spare'.$rows['id'].'" aria-expanded="false" aria-controls="multiCollapseExample1">delete</label>
+                                                                    </div>
+                                                                   ';
+                                                                   $counter++;
+                                                                }
+                                                                  
+                                                              }else{
+                                                                echo ' <div class="col-12 text-center" style="border-style: groove;">No spareparts added..</div>';
+                                                              }
+                                                            echo'
+                                                            </div>
                                                           </div>
                                                         </div>
                                                       </div> 
@@ -647,7 +682,7 @@
                                                 <select type="text" class="form-control  chzn-select" name="spare" tabindex="2" required> 
                                                   <option hidden selected value="" >Select Spareparts</option>
                                                   ';
-                                                    $data = $connection->prepare("SELECT * FROM spareParts;");
+                                                    $data = $connection->prepare("SELECT * FROM spareParts where status = 'Available';");
                                                     if($data->execute()){
                                                         $values = $data->get_result();
                                                         while( $row = $values->fetch_assoc()){
@@ -668,6 +703,7 @@
                                             </div>
                                             <div class="modal-footer">
                                               <input type="hidden" name="app_id" value="'.$id.'">
+                                              <input type="hidden" name="taskId" value="'.$rows['id'].'">
                                               <button type="submit" name="taskSpare" class="btn btn-warning"><i class="menu-icon mdi mdi-trash-text"></i>Add</button>
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                                             </form>

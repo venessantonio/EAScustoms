@@ -436,9 +436,11 @@ if(isset($_POST["update_makeseries"])){
 if(isset($_POST["add_spareparts"])){
   $name = $connection->real_escape_string($_POST["name"]);
   $price = $connection->real_escape_string($_POST["price"]);
+  $desc = $connection->real_escape_string($_POST["desc"]);
+  $brand = $connection->real_escape_string($_POST["brand"]);
   
-  $query = $connection->prepare("INSERT INTO `spareparts`(`name`, `price` ) VALUES (?, ?)");
-   $query->bind_param('ss',$name, $price);
+  $query = $connection->prepare("INSERT INTO `spareparts`(`name`, `price`, `brandName`, `description` ) VALUES (?, ?, ?, ?)");
+   $query->bind_param('ssss',$name, $price, $brand, $desc);
   if($query->execute()){
     header("Location: ../sparepartsmanagement.php");
   }else{
@@ -449,12 +451,13 @@ if(isset($_POST["add_spareparts"])){
 if(isset($_POST["taskSpare"])){
   $app = $connection->real_escape_string($_POST["app_id"]);
   $part = $connection->real_escape_string($_POST["spare"]);
+  $task = $connection->real_escape_string($_POST["taskId"]);
   $remarks = $connection->real_escape_string($_POST["remarks"]);
 
   echo 'Appoinment ID: '.$app.'<br>'.'Part ID: '.$part.'<br>'.'Remarks: '.$remarks;
   
-  $query = $connection->prepare("INSERT INTO `taskspare`(`appointmentID`, `partID`, `remarks`, `created`) VALUES (?, ?, ?, now())");
-   $query->bind_param('iis',$app, $part, $remarks);
+  $query = $connection->prepare("INSERT INTO `taskspare`(`taskID`, `partID`, `remarks`, `created`) VALUES (?, ?, ?, now())");
+   $query->bind_param('iis',$task, $part, $remarks);
   if($query->execute()){
     header("Location: ../records.php?id=$app");
   }else{
@@ -465,10 +468,13 @@ if(isset($_POST["taskSpare"])){
 if(isset($_POST["update_spareparts"])){
   $name = $connection->real_escape_string($_POST["name"]);
   $price = $connection->real_escape_string($_POST["price"]);
+  $brand = $connection->real_escape_string($_POST["brand"]);
+  $desc = $connection->real_escape_string($_POST["desc"]);
+  $status = $connection->real_escape_string($_POST["status"]);
   $id = $connection->real_escape_string($_POST["id"]);
   
-  $query = $connection->prepare("UPDATE `spareparts` SET `name`=?,`price`=? WHERE id = ?");
-   $query->bind_param('ssi',$name, $price, $id);
+  $query = $connection->prepare("UPDATE `spareparts` SET `name`=?,`price`=?, `description` = ?, `brandName` = ?, `status` = ? WHERE id = ?");
+   $query->bind_param('sssssi',$name, $price, $desc, $brand, $status, $id);
   if($query->execute()){
     header("Location: ../sparepartsmanagement.php");
   }else{
