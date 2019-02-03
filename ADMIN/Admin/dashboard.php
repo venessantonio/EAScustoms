@@ -122,11 +122,32 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="CM.php">
               <i class="menu-icon mdi mdi-file-document"></i>
               <span class="menu-title" style="font-size:14px;">Content Management</span>
             </a>
+          </li> -->
+
+           <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+            <i class="menu-icon mdi mdi-file-document"></i>
+              <span class="menu-title" style="font-size:14px;">Contents</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic2">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                  <a class="nav-link" href="CM.php" style="font-size:14px;">Service</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="CM2.php" style="font-size:14px;">Latest Car</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="CM3.php" style="font-size:14px;">Our Team</a>
+                </li>
+              </ul>
+            </div>
           </li>
             
         </ul>
