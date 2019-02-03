@@ -543,20 +543,15 @@
                                                 </div>
                                                 <div class="col-md-5 col-sml-12">
                                                   <div class="row">
-                                                    <div class="col-4 col-sm-4"
+                                                    <div class="col-4 col-sm-4 offset-2"
                                                       <!-- Button trigger modal -->
                                                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
                                                         Delete
                                                       </button>
                                                     </div>
                                                     <div class="col-4 col-sm-4">
-                                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#details'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
+                                                      <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#multiCollapseExample1'.$rows['id'].'"><i class="menu-icon mdi mdi-table-edit"></i>
                                                         Details
-                                                      </button>
-                                                    </div>
-                                                    <div class="col-4 col-sm-4">
-                                                      <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#multiCollapseExample1'.$rows['id'].'" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="menu-icon mdi mdi-table-edit"></i>
-                                                        Spare Parts
                                                       </button>
                                                     </div>
                                                   </div>
@@ -568,7 +563,22 @@
                                                   <hr>
                                                     <div class="card card-body">
                                                       <div class="row">
-                                                        <div class="col-10"><h4 class="card-title">Bordered table</h4></div>
+                                                      <div class="form-group">
+                                                        <div class="row"><!-- row-start -->
+                                                          <div class="col-md-4"><p>Service Type</p></div>
+                                                          <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['service'].'</h5></div>
+                                                        </div><!-- row-end -->
+                                                        <div class="row">
+                                                          <div class="col-md-4"><p>Scope </p></div>
+                                                          <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['scope'].'</h5></div>
+                                                        </div>
+                                                        <div class="row">
+                                                          <div class="col-md-4"><p>Remarks </p></div>
+                                                          <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['description'].'</h5></div>
+                                                        </div>
+        
+                                                      </div>
+                                                        <div class="col-10"><h4 class="card-title">Spare Parts</h4></div>
                                                         <div class="col-2">
                                                           <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#spare'.$rows['id'].'" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="menu-icon mdi mdi-table-edit"></i>
                                                             Add Spare Parts
@@ -616,48 +626,6 @@
                                       </div>
                                       <!-- end -->
 
-                                      <!-- details Modal -->
-                                      <div class="modal fade" id="details'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                          <div class="modal-content">
-                                            <div class="modal-header"  style="background-color: #0074D9; color: white; border: 3px solid #0074D9;">
-                                              <h5 class="modal-title" id="exampleModalLabel">Task Details</h5>
-                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                            </div>
-                                            <div class="modal-body">
-                                           
-                                              <div class="form-group">
-                                                      <div class="row"><!-- row-start -->
-                                                        <div class="col-md-4"><p>Service Type</p></div>
-                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['service'].'</h5></div>
-                                                      </div><!-- row-end -->
-                                                      <div class="row">
-                                                        <div class="col-md-4"><p>Scope </p></div>
-                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['scope'].'</h5></div>
-                                                      </div>
-                                                      <div class="row">
-                                                        <div class="col-md-4"><p>Status </p></div>
-                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['status'].'</h5></div>
-                                                      </div>
-                                                      <div class="row">
-                                                        <div class="col-md-4"><p>Remarks </p></div>
-                                                        <div class="col-md-8"><h5 style="margin-top: -1%">:&nbsp '.$rows['description'].'</h5></div>
-                                                      </div>
-
-                                                    </div>';
-                                             
-                                            echo'
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <!-- end -->
-
                                       <!-- spare part modal Modal -->
                                       <div class="modal fade" id="spare'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -669,13 +637,38 @@
                                               </button>
                                             </div>
                                             <div class="modal-body">
+
+                                            <!-- start -->
+                                            <form action="process/server.php" method="POST">
+                                            <div class="form-group">
+        
+                                              <div class="form-group">
+                                                <label for="exampleFormControlSelect2">Select Service</label>
+                                                <select type="text" class="form-control  chzn-select" name="spare" tabindex="2" required> 
+                                                  <option hidden selected value="" >Select Spareparts</option>
+                                                  ';
+                                                    $data = $connection->prepare("SELECT * FROM spareParts;");
+                                                    if($data->execute()){
+                                                        $values = $data->get_result();
+                                                        while( $row = $values->fetch_assoc()){
+                                                          echo '<option value="'.$row['id'].'">'.$row['name'].' ('.$row['brandName'].') - P '.$row['price'].'</option>';
+                                                       }
+                                                        
+                                                    }
+                                                  echo'
+                                                </select>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="exampleFormControlSelect2">Remarks</label>
+                                                <textarea class="form-control" name="remarks"></textarea>
+                                              </div>
+                                            </div>
+                                            <!-- end -->
                                               
                                             </div>
                                             <div class="modal-footer">
-                                            <form action="process/server.php" method="POST">
-                                              <input type="hidden" name="task_id" value="'.$rows['id'].'">
-                                              <input type="hidden" name="app_id" value="'.$row['ID'].'">
-                                              <button type="submit" name="app_spare" class="btn btn-warning"><i class="menu-icon mdi mdi-trash-text"></i>Add</button>
+                                              <input type="hidden" name="app_id" value="'.$id.'">
+                                              <button type="submit" name="taskSpare" class="btn btn-warning"><i class="menu-icon mdi mdi-trash-text"></i>Add</button>
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                                             </form>
                                             </div>

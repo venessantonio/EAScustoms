@@ -446,6 +446,22 @@ if(isset($_POST["add_spareparts"])){
   }
 }
 
+if(isset($_POST["taskSpare"])){
+  $app = $connection->real_escape_string($_POST["app_id"]);
+  $part = $connection->real_escape_string($_POST["spare"]);
+  $remarks = $connection->real_escape_string($_POST["remarks"]);
+
+  echo 'Appoinment ID: '.$app.'<br>'.'Part ID: '.$part.'<br>'.'Remarks: '.$remarks;
+  
+  $query = $connection->prepare("INSERT INTO `taskspare`(`appointmentID`, `partID`, `remarks`, `created`) VALUES (?, ?, ?, now())");
+   $query->bind_param('iis',$app, $part, $remarks);
+  if($query->execute()){
+    header("Location: ../records.php?id=$app");
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
 if(isset($_POST["update_spareparts"])){
   $name = $connection->real_escape_string($_POST["name"]);
   $price = $connection->real_escape_string($_POST["price"]);
