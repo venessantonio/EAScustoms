@@ -190,7 +190,7 @@
             <!-- NEWS THUMB -->
               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
               <?php
-                $query = "SELECT image FROM `contents` WHERE `img_name` ='body_paint'";
+                $query = "SELECT * FROM `contents` WHERE `img_name` ='body_paint'";
                 $result = mysqli_query($connection, $query);
                 while($row = mysqli_fetch_array($result)){
                   echo '
@@ -199,17 +199,17 @@
                       <img style="width:100px; height:100px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                     </td>
                   <tr>
+                    <div class="news-info">
+                      <h3>Body Paint</h3>
+                        <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
+                        <label>Description:</label>
+                        <input type="text" class="form-control" name="description" value="'.$row['description'].'">
+                        <!-- <p>Cars need make-overs too. Our shop offers painting of your cars <br>
+                          <br></p> -->
+                    </div>
                     ';
                 }
                 ?>
-                <div class="news-info">
-                 <h3>Body Paint</h3>
-                  <input type="file" name="image" id="image"  required="required">
-                  <label>Description:</label>
-                  <input type="text" class="form-control" name="description">
-                  <!-- <p>Cars need make-overs too. Our shop offers painting of your cars <br>
-                    <br></p> -->
-                </div>
               </div>
             </div>
              
