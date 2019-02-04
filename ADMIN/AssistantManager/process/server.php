@@ -24,7 +24,7 @@ $dates = $date;
     echo $dates,$color;
 
   if($action=='accept'){
-    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted', `modified` = now(), `color` = '$color', `date` = '$dates' WHERE `appointments`.`id` = $id;");
+    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted', `modified` = now(), `color` = '#4caf50', `date` = '$dates' WHERE `appointments`.`id` = $id;");
   }else{
     if($action=='deny'){
       $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Reschedule', `modified` = now() WHERE `appointments`.`id` =  $id");
@@ -148,7 +148,7 @@ if(isset($_POST["start"])){
 
   $app = $connection->real_escape_string($_POST["app_id"]);
 
-  $query1 = $connection->prepare("UPDATE `appointments` SET `status`= 'In-Progress',`modified`= now() WHERE appointments.id = $app");
+  $query1 = $connection->prepare("UPDATE `appointments` SET `status`= 'In-Progress',`modified`= now(),  `color` = '#0071c5' WHERE appointments.id = $app");
   $query1->execute();
 
   $data = $connection->prepare("SELECT * FROM appointments WHERE status = 'In-Progress' AND appointments.id = $app");
@@ -378,6 +378,23 @@ if(isset($_POST["add_spareparts"])){
    $query->bind_param('ss',$name, $price);
   if($query->execute()){
     header("Location: ../sparepartsmanagement.php");
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
+if(isset($_POST["taskSpare"])){
+  $app = $connection->real_escape_string($_POST["app_id"]);
+  $part = $connection->real_escape_string($_POST["spare"]);
+  $task = $connection->real_escape_string($_POST["taskId"]);
+  $remarks = $connection->real_escape_string($_POST["remarks"]);
+
+  echo 'Appoinment ID: '.$app.'<br>'.'Part ID: '.$part.'<br>'.'Remarks: '.$remarks;
+  
+  $query = $connection->prepare("INSERT INTO `taskspare`(`taskID`, `partID`, `remarks`, `created`) VALUES (?, ?, ?, now())");
+   $query->bind_param('iis',$task, $part, $remarks);
+  if($query->execute()){
+    header("Location: ../records.php?id=$app");
   }else{
     header("Location: ../error.php");
   }

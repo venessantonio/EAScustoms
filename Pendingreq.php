@@ -145,6 +145,23 @@
               //buttonImageOnly: true,
             });
           });
+           $jq171(function(){
+            $jq171('#datepicker3').datepicker({
+              dateFormat: 'yy-mm-dd',
+              minDate: 0,
+              beforeShowDay: $jq171.datepicker.noWeekends,
+              inline: true,
+              //nextText: '&rarr;',
+              //prevText: '&larr;',
+              showOtherMonths: true,
+              //dateFormat: 'dd MM yy',
+              dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+              beforeShowDay: unavailable, 
+              //showOn: "button",
+              //buttonImage: "img/calendar-blue.png",
+              //buttonImageOnly: true,
+            });
+          });
           </script>
 
     <!-- MENU -->
@@ -192,10 +209,12 @@
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#" ><i class="far fa-calendar-check"></i> Request Status<span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
-                     <li><a  href="acceptedreq.php" style="font-size: 13px;z-index: 9999;">Accepted Request</a></li>
-                     <li><a  href="pendingreq" style="font-size: 13px;z-index: 9999;">Pending and Reschedule Request</a>
+                     <li><a  href="Acceptedreq.php" style="font-size: 13px;z-index: 9999;">Accepted Request</a></li>
+                     <li><a  href="Pendingreq.php" style="font-size: 13px;z-index: 9999;">Pending Request</a>
                     </li>
-                     <li><a  href="declinedreq" style="font-size: 13px;z-index: 9999;">Declined Request</a>
+                     <li><a  href="Declinedreq.php" style="font-size: 13px;z-index: 9999;">Declined Request</a>
+                    </li>
+                    <li><a  href="Rescheduledreq.php" style="font-size: 13px;z-index: 9999;">Rescheduled Request</a>
                     </li>
                   </ul>
                   </li>
@@ -272,7 +291,7 @@
         <div class="row">
        <div class="col-sm-6 col-md-6">
         <br>
-       <label for="desiredDate">Date of Appointment:</label>
+       <label for="desiredDate">Date:</label>
        <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><br>
       </div>
 
@@ -296,7 +315,7 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-6 col-sm-6">
-                <label for="created">Date Sent:</label><br>
+                <label for="created">Date Requested:</label><br>
                 <?= date("F d, Y h:i A",strtotime($appointmentpending['created'])); ?>   
                <label for="otherServices">Other Services:</label><br>
                 <?= $appointmentpending['otherServices']; ?>
@@ -346,16 +365,28 @@
        }  elseif($appointmentpending['status'] == "Rescheduled"){
       ?>  
         <div class="pull-right">
-        <label for="Pending">Status:</label>
+        <label for="Pending" >Status:</label>
         <b style="color:red;"><?= $appointmentpending['status']; ?></b>
         </div><hr style="padding: 0px;margin: 0px;">
         <div class="row">
        <div class="col-sm-6 col-md-6">
        <br>
-       <label for="desiredDate">Date:</label>
-       <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><hr style="padding: 0px;margin: 0px;">
-       <label for="desiredDate">Reason:</label>
-       <?= $appointmentpending['reason']; ?><br><br>
+       <label for="desiredDate" style="color: #0066cc;">Date of Appointment:</label>
+       <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><br><br>
+
+       <label for="dateSuggested" style="color: #0066cc;">Date Suggested:</label><br>
+        <?php $dates =explode("|", $appointmentpending['rescheduledate']); ?>
+        <?php
+        for($i =0; $i < count($dates); $i++){
+         echo date("F j, Y",strtotime($dates[$i])).'<br>';
+        }
+        ?><br>
+       <label for="reason" style="color: #0066cc;">Reason:</label><br>
+       <hr style="padding: 0px;margin: 0px;">
+       <?= $appointmentpending['reason']; ?>
+
+
+
       </div>
       <div class="col-md-6 col-sm-6">
       <br><br><br>
@@ -421,9 +452,9 @@
             <div class="modal-body">
                 <label for="date">Desired date to be Rescheduled:</label>
                 <input type="hidden" name="appointmentId" value="<?= $appointmentpending['id']; ?>">
-                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker" name="date[]" class="form-control" required></b><br>
-                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker2" name="date[]" class="form-control"></b><br>
-                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker3" name="date[]" class="form-control"></b><br>
+                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker" name="date[]" class="form-control" placeholder="Date1" required></b><br>
+                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker2" name="date[]" class="form-control" placeholder="Date2*"></b><br>
+                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker3" name="date[]" class="form-control" placeholder="Date3*"></b><br>
 
                 <label for="reasonStated">Reason:</label><br>
                 <textarea class="form-control" name="reasonStated" rows="5" ></textarea>   
@@ -484,7 +515,7 @@
                 <?php $dates =explode("|", $appointmentpending['rescheduledate']); ?>
                 <?php
                 for($i =0; $i < count($dates); $i++){
-                 echo '<input type="radio" name="date" value='.$dates[$i].'>'.date("F d, Y",strtotime($dates[$i])).'<br>';
+                 echo '<input type="radio" name="date" value='.$dates[$i].'>'.date("F j, Y",strtotime($dates[$i])).'<br>';
                 }
                 ?>
                   <h5>Would you like to choose this date for your appointment?</h5>
@@ -576,10 +607,6 @@
                </div>
           </div>
      </footer>
-
-
-     
-
      <!-- SCRIPTS -->
      <script src="js/notifinvoice.js"></script>
      <script src="js/notif.js"></script>

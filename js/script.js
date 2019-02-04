@@ -2,6 +2,7 @@ $('document').ready(function(){
  var username_state = false;
  var password_state = false;
  var existingpassword_state = false;
+ var changepassword_state = false;
  var email_state = false;
  var firstName_state = false; 
  var middleName_state = false;
@@ -31,6 +32,13 @@ $('#others').val('');
 $('#otherseries').val('');  
 };
 });
+
+// Change password button state
+if (changepassword_state = true) {
+$('#changepassbutton').prop('type', 'submit');
+$('#changepassbutton').addClass('btn btn-primary btn-sm').fadeIn();
+return;
+};
 
 
 
@@ -137,35 +145,7 @@ $('input[type="checkbox"]').click(function () { getSelectedCheckBoxes('service[]
    } 
      }; 
 
-$('#existingpassword').on('blur', function(){
-  var existingpassword = $('#existingpassword').val();
-  if (existingpassword == '') {
-    existingpassword_state = false;
-    return;
-  }
-  $.ajax({
-      url: 'register.php',
-      type: 'post',
-      data: {
-        'existingpassword_check' : 1,
-        'existingpassword' : existingpassword,
-      },
-      success: function(response){
-        if (response == 'taken' ) {
-          existingpassword_state = false;
-          $('#existingpassword').parent().removeClass();
-          $('#existingpassword').parent().addClass("form_error");
-          $('#existingpassword').siblings("span").text('Check');
-          return;
-        }else if (response == 'not_taken') {
-          existingpassword_state = true;
-          $('#existingpassword').siblings("span").text('Wrong');
-          return;
-        }
-      }
-  });
- });
- 
+
 
 
  $('#username').on('blur', function(){
@@ -297,6 +277,11 @@ $('#contactNumber').on('blur', function(){
   });
  });
 
+
+
+
+
+
 //Account Settings
 
 $('#accountpassword').blur(function() {
@@ -309,22 +294,68 @@ $('#accountpassword').blur(function() {
       return;
 });
 
+
+
+
+
+
+
+//Password Validators Settings
+
+//$('#accountpassword, #accountconfirm_password').on('keyup', function () {
 $('#accountpassword, #accountconfirm_password').on('keyup', function () {
   if ($('#accountpassword').val() == $('#accountconfirm_password').val()) {
     $('#message').html('Matching').css('color', 'green');
       $('#changepassbutton').removeClass();
-      $('#changepassbutton').prop('type', 'submit');
-      $('#changepassbutton').addClass('btn btn-primary btn-sm').fadeIn();
+      changepassword_state = true;
       return;
   } else 
     $('#message').html('Not Matching').css('color', 'red');
       $('#changepassbutton').removeClass();
       $('#changepassbutton').prop('type', 'button');
       $('#changepassbutton').addClass('btn btn-primary btn-sm disabled').fadeIn();
-    return;
+      return;
 });
 
-//End of Account Settings
+
+
+
+
+$('#existingpassword').on('keyup', function(){
+  var existingpassword = $('#existingpassword').val();
+  if (existingpassword == '') {
+    existingpassword_state = false;
+    return;
+  }
+  $.ajax({
+      url: 'accountsettings.php',
+      type: 'post',
+      data: {
+        'existingpassword_check' : 1,
+        'existingpassword' : existingpassword,
+      },
+      success: function(response){
+        if (response == 'taken' ) {
+          existingpassword_state = true;
+          
+          $('#existingpassword').siblings("span").addClass("form_success");
+          $('#existingpassword').siblings("span").text('Correct');
+          return;
+        }else if (response == 'not_taken') {
+          existingpassword_state = false;
+          $('#existingpassword').siblings("span").addClass("form_error");
+          $('#existingpassword').siblings("span").text('Incorrect Password');
+          return;
+        }
+      }
+
+  });
+ });
+
+
+
+
+
 
 
 
@@ -511,6 +542,19 @@ $('#password').blur(function() {
   if (this.value != '' )
     $('#password_msg').fadeOut();
     password_state = true;
+    return;
+});
+
+$('#accountpassword').keyup(function() {
+  if (this.value == '') {
+    $('#changepassbutton').addClass('btn btn-primary btn-sm disabled').fadeIn();
+    $('#password_msg').fadeIn("slow");
+    changepassword_state = false;
+    return;
+  }
+  if (this.value != '' )
+    $('#password_msg').fadeOut();
+    changepassword_state = true;
     return;
 });
 

@@ -141,10 +141,19 @@ $events = $req->fetchAll();
                               <div class="container">
 
                                     <div class="pull-center form-inline">
-                                    </div>
+                                        <div style="float:left; width:50%;">
+                                       <p class="card-title" style="font-size:20px;">
+                                            <span style="color:#4caf50; font-size:15px">&#9724; Accepted</span>  
+                                            <span style="color:#0071c5; font-size:15px">&#9724; In-progress</span>
+                                        </p>
+                                        </div>
+                                   
+                                        <div style="float:right;width:50%;">
                                    <p class="card-title" style="font-size:20px; float:right;" ><button onclick="location.href='restrictdate.php'" class="btn btn-success" type="submit" name="submit"><i class="menu-icon mdi mdi-calendar-remove"></i> Restrict Date</button></p>
-                                          
-                                   <div class="col-md-12">
+                                        </div>
+                                    </div>      
+                                   
+                                  <div class="col-md-12">
                                       <br>
                                           <div id="calendar" class="col-centered">
                                           </div>

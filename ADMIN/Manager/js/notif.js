@@ -13,7 +13,7 @@
       $('#dropdownnotif').html(data.notification);
       if(data.unseen_notification > 0)
       {
-       $('.count').html(data.unseen_notification);
+       $('.label label-pill label-danger count').html(data.unseen_notification);
       }
      }
     });
@@ -23,7 +23,7 @@
    
    $('#appointment_form').on('submit', function(event){
     event.preventDefault();
-    if($('#vehicle').val() != '' && $('#service').val() != '' && $('#datepicker').val() != '')
+    if($('#vehicle').val() != '' && $('#additionalMessage').val() != '' && $('#service').val() != '' && $('#datepicker').val() != '')
     {
      var form_data = $(this).serialize();
      $.ajax({
@@ -32,9 +32,8 @@
       data:form_data,
       success:function(data)
       {
-      alert("Appointment Successful");
-      $('#appointment_form')[0].reset();
-      load_unseen_notification();
+       $('#appointment_form')[0].reset();
+       load_unseen_notification();
       }
      });
     }
@@ -44,8 +43,8 @@
     }
    });
    
-   $(document).on('click', '.dropdown-toggle', function(){
-    $('.count').html('');
+   $(document).on('click', '.nav-link count-indicator dropdown-toggle', function(){
+    $('.label label-pill label-danger count').html('');
     load_unseen_notification('yes');
    });
    

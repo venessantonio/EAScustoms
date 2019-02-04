@@ -83,13 +83,6 @@ class database{
 		return $this->service;
 	}
 
-    public function date_count(){
-		$query=$this->conn->query('SELECT date, COUNT(date) as dateCount FROM appointments where status = "Accepted" GROUP BY date');
-		while($row=$query->fetch_array(MYSQLI_ASSOC)){
-			$this->date_count[]=$row;
-		}
-		return $this->date_count;
-	}
 
 	
 	public function personal_info(){
@@ -175,6 +168,12 @@ public function vehicle_info(){
 	$personalid = $row['personalId'];   
 	$query1 = "SELECT vehicles.id as vehicleId, vehicles.plateNumber as plateNumber, vehicles.make as make, vehicles.series as series, vehicles.yearModel as yearModel, chargeinvoice.date as date,  chargeinvoice.TotalPrice as totalPrice, chargeinvoice.modified as modified, chargeinvoice.id as scopeId, chargeinvoice.sparePartsId as spareParts from chargeinvoice join vehicles on vehicles.id = chargeinvoice.vehicleId where chargeinvoice.personalId = '$personalid' ORDER BY chargeinvoice.created DESC";
 	$res = mysqli_query($db,$query1);
+
+	    $queryRescheduledRequests = "SELECT appointments.id as id, appointments.serviceId as services, appointments.personalId as personalId, appointments.otherService as otherServices, appointments.date as desiredDate, appointments.status AS status, appointments.rescheduledate as rescheduledate, appointments.created as created, appointments.additionalMessage as reason, appointments.adminDate as adminDate, vehicles.plateNumber as plateNumber, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, vehicles.color AS color FROM appointments JOIN vehicles ON appointments.vehicleId = vehicles.id JOIN personalinfo on appointments.personalId = personalinfo.personalId WHERE appointments.personalId = '$personalId' AND appointments.status = 'Rescheduled' ORDER BY appointments.`created` DESC";
+    $rescheduledRequestsresult  = mysqli_query($db,$queryRescheduledRequests);
+    $rescheduledRequestsresultCheck = mysqli_num_rows($rescheduledRequestsresult);
+
+    
 
 
     

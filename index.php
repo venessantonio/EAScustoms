@@ -203,7 +203,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style="width:100%; height:32%;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -228,7 +228,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style="width:100%; height:32%;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -252,7 +252,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style="width:100%; height:32%;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -289,7 +289,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style="width:100%; height:32%;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -313,7 +313,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style="width:100%; height:32%;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -338,7 +338,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style="width:100%; height:32%;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -383,7 +383,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style="width:100%; height:32%;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -405,7 +405,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style="width:100%; height:32%;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -427,7 +427,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style="width:100%; height:32%;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -445,7 +445,7 @@ http://www.tooplate.com/view/2098-health
      <!-- TEAM -->
      <section id="team" data-stellar-background-ratio="1">
           <div class="container">
-               <div class="row">
+               <div class="row"  >
 
                     <div class="col-md-6 col-sm-6">
                          <div class="about-info">
@@ -465,7 +465,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style=height:63.5% width:100%" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -489,7 +489,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style=height:63.5% width:100%" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">
@@ -513,7 +513,7 @@ http://www.tooplate.com/view/2098-health
                             echo '
                             <tr>
                                 <td>
-                                <img class="img-responsive" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
+                                <img class="img-responsive" style=height:63.5% width:100%" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                 </td>
                             <tr>
                             <div class="news-info">

@@ -192,10 +192,12 @@
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#" ><i class="far fa-calendar-check"></i> Request Status<span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
-                     <li><a  href="acceptedreq.php" style="font-size: 13px;z-index: 9999;">Accepted Request</a></li>
-                     <li><a  href="pendingreq" style="font-size: 13px;z-index: 9999;">Pending and Reschedule Request</a>
+                     <li><a  href="Acceptedreq.php" style="font-size: 13px;z-index: 9999;">Accepted Request</a></li>
+                     <li><a  href="Pendingreq.php" style="font-size: 13px;z-index: 9999;">Pending Request</a>
                     </li>
-                     <li><a  href="declinedreq" style="font-size: 13px;z-index: 9999;">Declined Request</a>
+                     <li><a  href="Declinedreq.php" style="font-size: 13px;z-index: 9999;">Declined Request</a>
+                    </li>
+                    <li><a  href="Rescheduledreq.php" style="font-size: 13px;z-index: 9999;">Rescheduled Request</a>
                     </li>
                   </ul>
                   </li>
@@ -258,127 +260,58 @@
 
       <!-- PENDING ANG RESCHEDULED -->        
       <?php
-       if ($pendingRequestsresultCheck > 0) {
-        while ($appointmentpending = mysqli_fetch_assoc($pendingRequestsresult)) {
+       if ($rescheduledRequestsresultCheck > 0) {
+        while ($appointmentrescheduled = mysqli_fetch_assoc($rescheduledRequestsresult)) {
       ?>
       <div class="well well-sm" style="margin: 0;"> 
       <br> 
-      <b><?= $appointmentpending['plateNumber']; ?> <?= $appointmentpending['make']; ?> <?= $appointmentpending['series']; ?> <?= $appointmentpending['yearModel']; ?></b>
-      <?php if ($appointmentpending['status'] == "Pending"){ ?>
+      <b><?= $appointmentrescheduled['plateNumber']; ?> <?= $appointmentrescheduled['make']; ?> <?= $appointmentrescheduled['series']; ?> <?= $appointmentrescheduled['yearModel']; ?></b>
         <div class="pull-right">
-        <label for="Pending">Status:</label>
-        <b style="color:orange;"><?= $appointmentpending['status']; ?></b>
-        </div>
-        <div class="row">
-       <div class="col-sm-6 col-md-6">
-        <br>
-       <label for="desiredDate">Date:</label>
-       <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><br>
-      </div>
-
-      <div class="col-md-6 col-sm-6">
-      <br><br><br>
-      <div class="pull-right">
-      <button type="button" class="btn" style="margin-top: 2px; width: 140px; color:white; background-color:#308ee0;" data-toggle="modal" data-target="#pendingModal<?= $appointmentpending['id']; ?>"><i class="fas fa-info-circle"></i> More Details</button>
-          
-      <button type="button" class="btn" style="margin-top: 2px; width: 140px; color:black;" data-toggle="modal" data-target="#cancelpendingModal<?= $appointmentpending['id']; ?>"><i class="far fa-calendar-times"></i> Cancel </button>
-          
-
-      </div> 
-      <div id="pendingModal<?= $appointmentpending['id']; ?>" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header" style="background-color:#308ee0; color: white;">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h5 class="modal-title"><i class="fas fa-concierge-bell"></i> Service Request</h5>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-md-6 col-sm-6">
-                <label for="created">Date Requested:</label><br>
-                <?= date("F d, Y h:i A",strtotime($appointmentpending['created'])); ?>   
-               <label for="otherServices">Other Services:</label><br>
-                <?= $appointmentpending['otherServices']; ?>
-                </div>
-                <div class="col-md-6 col-sm-6">
-               <label for="services">Services Requested:</label><br>
-               <?= preg_replace("/[,]/" , "<br>",$appointmentpending['services']); ?>
-                </div>
-               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn" data-dismiss="modal"><i class="fas fa-times-circle"></i> Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <form action="requeststatus.php" method="POST">
-      <div id="cancelpendingModal<?= $appointmentpending['id']; ?>" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header" style="background-color: #f44336;color: white;">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h5 class="modal-title"><i class="far fa-calendar-minus"></i> Cancel Appointment</h5>
-            </div>
-            <div class="modal-body">
-                <input name="appointmentId" type="hidden" value="<?= $appointmentpending['id']; ?>">
-                Are you sure you want to cancel your appointment on <b><?= date("F d, Y",strtotime($appointmentpending['desiredDate'])); ?></b> ?
-      
-            </div>
-            <div class="modal-footer">
-              <button type="submit" name="appointmentcancelPending" class="btn" style="background-color:#f44336; color:white;"><i class="fas fa-check"></i> Yes</button>
-              <button type="button" class="btn" data-dismiss="modal"><i class="fas fa-times-circle"></i> No</button>
-            </div>
-          </div>
-        </div>
-      </div></form>
-      </form>
-      </div>
-      </div>
-
-
-
-
-
-      <?php
-       }  elseif($appointmentpending['status'] == "Rescheduled"){
-      ?>  
-        <div class="pull-right">
-        <label for="Pending">Status:</label>
-        <b style="color:red;"><?= $appointmentpending['status']; ?></b>
+        <label for="status" >Status:</label>
+        <b style="color:red;"><?= $appointmentrescheduled['status']; ?></b>
         </div><hr style="padding: 0px;margin: 0px;">
         <div class="row">
        <div class="col-sm-6 col-md-6">
        <br>
-       <label for="desiredDate">Date:</label>
-       <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><hr style="padding: 0px;margin: 0px;">
-       <label for="desiredDate">Reason:</label>
-       <?= $appointmentpending['reason']; ?><br><br>
+       <label for="desiredDate" style="color: #0066cc;">Date of Appointment:</label>
+       <?= date('F d, Y', strtotime($appointmentrescheduled['desiredDate'])); ?><br><br>
+
+       <label for="dateSuggested" style="color: #0066cc;">Date Suggested:</label><br>
+        <?php $dates =explode("|", $appointmentrescheduled['rescheduledate']); ?>
+        <?php
+        for($i =0; $i < count($dates); $i++){
+         echo date("F j, Y",strtotime($dates[$i])).'<br>';
+        }
+        ?><br>
+       <label for="reason" style="color: #0066cc;">Reason:</label><br>
+       <hr style="padding: 0px;margin: 0px;">
+       <?= $appointmentrescheduled['reason']; ?>
+
+
+
       </div>
       <div class="col-md-6 col-sm-6">
       <br><br><br>
       <div class="pull-right">
       <div class="form-group">
-      <?php if ($appointmentpending['adminDate'] == "admin") : ?>
-      <button type="button" class="btn" data-toggle="modal" data-target="#approverescheduleModal<?= $appointmentpending['id']; ?>" style="background-color: #4caf50; color:white; width: 140px;"><i class="far fa-calendar-check"></i> Approve </button>
+      <?php if ($appointmentrescheduled['adminDate'] == "admin") : ?>
+      <button type="button" class="btn" data-toggle="modal" data-target="#approverescheduleModal<?= $appointmentrescheduled['id']; ?>" style="background-color: #4caf50; color:white; width: 140px;"><i class="far fa-calendar-check"></i> Approve </button>
       <?php endif ?>
-      <button type="button" class="btn" data-toggle="modal" data-target="#cancelrescheduleModal<?= $appointmentpending['id']; ?>" style="width: 140px; color:black;"> <i class="far fa-calendar-times"></i> Cancel </button> 
+      <button type="button" class="btn" data-toggle="modal" data-target="#cancelrescheduleModal<?= $appointmentrescheduled['id']; ?>" style="width: 140px; color:black;"> <i class="far fa-calendar-times"></i> Cancel </button> 
       </div>
       <div class="form-group">
       <div class="pull-right">
-      <?php if ($appointmentpending['adminDate'] == "admin") : ?>
+      <?php if ($appointmentrescheduled['adminDate'] == "admin") : ?>
           
-      <button type="button" class="btn" data-toggle="modal" data-target="#rerescheduleModal<?= $appointmentpending['id']; ?>" style="background-color: #ffaf00; color:white; margin-top: 2px; width: 140px;"><i class="far fa-calendar-alt"></i> Reschedule</button>
+      <button type="button" class="btn" data-toggle="modal" data-target="#rerescheduleModal<?= $appointmentrescheduled['id']; ?>" style="background-color: #ffaf00; color:white; margin-top: 2px; width: 140px;"><i class="far fa-calendar-alt"></i> Reschedule</button>
           
       <?php endif ?>
-      <button type="button" class="btn" style="margin-top: 2px; width: 140px; color:white; background-color:#308ee0;" data-toggle="modal" data-target="#rescheduleModal<?= $appointmentpending['id']; ?>"><i class="fas fa-info-circle"></i> More Details</button>
+      <button type="button" class="btn" style="margin-top: 2px; width: 140px; color:white; background-color:#308ee0;" data-toggle="modal" data-target="#rescheduleModal<?= $appointmentrescheduled['id']; ?>"><i class="fas fa-info-circle"></i> More Details</button>
       </div>
       </div>      
       </div>
 
-      <div id="rescheduleModal<?= $appointmentpending['id']; ?>" class="modal fade" role="dialog">
+      <div id="rescheduleModal<?= $appointmentrescheduled['id']; ?>" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
 
@@ -391,14 +324,14 @@
             <div class="row">
              <div class="col-md-6 col-sm-6">
                 <label for="created" style="color: #0066cc;">Date Requested:</label><br>
-                <?= date("F d, Y h:i A",strtotime($appointmentpending['created'])); ?><br><br>
+                <?= date("F d, Y h:i A",strtotime($appointmentrescheduled['created'])); ?><br><br>
 
                 <label for="services" style="color: #0066cc;">Services Requested:</label><br>
-                <?= preg_replace("/[,]/" , "<br>",$appointmentpending['services']); ?> 
+                <?= preg_replace("/[,]/" , "<br>",$appointmentrescheduled['services']); ?> 
              </div>
              <div class="col-md-6 col-sm-6"> 
                <label for="otherServices" style="color: #0066cc;">Other Services:</label><br>
-                <?= $appointmentpending['otherServices']; ?>
+                <?= $appointmentrescheduled['otherServices']; ?>
             </div>
             </div>
             </div>
@@ -409,7 +342,7 @@
         </div>
       </div>
 
-      <div id="rerescheduleModal<?= $appointmentpending['id']; ?>" class="modal fade" role="dialog">
+      <div id="rerescheduleModal<?= $appointmentrescheduled['id']; ?>" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <form action="requeststatus.php" method="POST">
@@ -420,10 +353,10 @@
             </div>
             <div class="modal-body">
                 <label for="date">Desired date to be Rescheduled:</label>
-                <input type="hidden" name="appointmentId" value="<?= $appointmentpending['id']; ?>">
-                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker" name="date[]" class="form-control" required></b><br>
-                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker2" name="date[]" class="form-control"></b><br>
-                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker3" name="date[]" class="form-control"></b><br>
+                <input type="hidden" name="appointmentId" value="<?= $appointmentrescheduled['id']; ?>">
+                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker" name="date[]" class="form-control" placeholder="Date1"  required></b><br>
+                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker2" name="date[]" class="form-control" placeholder="Date2*"></b><br>
+                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker3" name="date[]" class="form-control" placeholder="Date3*"></b><br>
 
                 <label for="reasonStated">Reason:</label><br>
                 <textarea class="form-control" name="reasonStated" rows="5" ></textarea>   
@@ -437,19 +370,19 @@
         </div>
       </div>
 
-      <div id="cancelrescheduleModal<?= $appointmentpending['id']; ?>" class="modal fade" role="dialog">
+      <div id="cancelrescheduleModal<?= $appointmentrescheduled['id']; ?>" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <form action="requeststatus.php" method="POST">
           <div class="modal-content">
             <div class="modal-header" style="background-color: #f44336;color: white;">
-               <input type="hidden" name="appointmentId" value="<?= $appointmentpending['id']; ?>">
+               <input type="hidden" name="appointmentId" value="<?= $appointmentrescheduled['id']; ?>">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
               <h5 class="modal-title"><i class="far fa-calendar-minus"></i> Cancel Appointment</h5>
             </div>
             <div class="modal-body">
 
-                Are you sure you want to cancel your appointment on <b><?= date("F d, Y",strtotime($appointmentpending['desiredDate'])); ?></b> ?
+                Are you sure you want to cancel your appointment on <b><?= date("F d, Y",strtotime($appointmentrescheduled['desiredDate'])); ?></b> ?
 
             </div>
             <div class="modal-footer">
@@ -463,7 +396,7 @@
 
 
 
-      <div id="approverescheduleModal<?= $appointmentpending['id']; ?>" class="modal fade" role="dialog">
+      <div id="approverescheduleModal<?= $appointmentrescheduled['id']; ?>" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
@@ -473,25 +406,25 @@
             </div>
             <div class="modal-body">
               <form action="requeststatus.php" method="POST">
-                <input type="hidden" name="appointmentId" value="<?= $appointmentpending['id']; ?>">
-                <input type="hidden" name="adminDate" value="<?= $appointmentpending['adminDate']; ?>">
-                <input type="hidden" name="plateNumber" value="<?= $appointmentpending['plateNumber']; ?>">
-                <input type="hidden" name="make" value="<?= $appointmentpending['make']; ?>">
-                <input type="hidden" name="series" value="<?= $appointmentpending['series']; ?>">
-                <input type="hidden" name="yearModel" value="<?= $appointmentpending['yearModel']; ?>">
+                <input type="hidden" name="appointmentId" value="<?= $appointmentrescheduled['id']; ?>">
+                <input type="hidden" name="adminDate" value="<?= $appointmentrescheduled['adminDate']; ?>">
+                <input type="hidden" name="plateNumber" value="<?= $appointmentrescheduled['plateNumber']; ?>">
+                <input type="hidden" name="make" value="<?= $appointmentrescheduled['make']; ?>">
+                <input type="hidden" name="series" value="<?= $appointmentrescheduled['series']; ?>">
+                <input type="hidden" name="yearModel" value="<?= $appointmentrescheduled['yearModel']; ?>">
                 <label for="created" style="color: #0066cc;">Date:</label><br>
                 <hr style="padding: 0px;margin: 0px;">
-                <?php $dates =explode("|", $appointmentpending['rescheduledate']); ?>
+                <?php $dates =explode("|", $appointmentrescheduled['rescheduledate']); ?>
                 <?php
                 for($i =0; $i < count($dates); $i++){
-                 echo '<input type="radio" name="date" value='.$dates[$i].'>'.date("F d, Y",strtotime($dates[$i])).'<br>';
+                 echo '<input type="radio" name="date" value='.$dates[$i].'>'.date("F j, Y",strtotime($dates[$i])).'<br>';
                 }
                 ?>
                   <h5>Would you like to choose this date for your appointment?</h5>
                 <br>
             </div>
             <div class="modal-footer">
-              <button type="submit" style="background-color:#4caf50; color:white;" class="btn" name="appointmentAccepted" value="<?= $appointmentpending['id']; ?>" ><i class="fas fa-check"></i> Yes</button>
+              <button type="submit" style="background-color:#4caf50; color:white;" class="btn" name="appointmentAccepted" value="<?= $appointmentrescheduled['id']; ?>" ><i class="fas fa-check"></i> Yes</button>
               <button type="button" class="btn" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel</button>
              </form>
             </div>
@@ -502,16 +435,15 @@
 
       </div>
       </div>
-      <?php
-      }
-      ?>
+
+
       </div>
       <br>
       <?php 
          }
         } else {
           echo '<ol class="breadcrumb" style = "text-align: center;">
-              <li class="breadcrumb-item active" aria-current="page">NO PENDING REQUESTS</li>
+              <li class="breadcrumb-item active" aria-current="page">NO RESCHEDULED REQUESTS</li>
             </ol>';
         }
       ?>

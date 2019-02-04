@@ -37,31 +37,36 @@
   }
 
   if (isset($_POST['existingpassword_check'])) {
-    $existingpassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $sql1 = "SELECT personalinfo.user_id as 'user_id', users.id as 'id', users.password as 'password' FROM 
-    personalinfo join users on personalinfo.user_id = users.id WHERE users.password= '$existingpassword'";
+    //$existingpassword = password_hash($_POST['existingpassword'], PASSWORD_DEFAULT);
+    $existingpassword = $_POST['existingpassword'];
+    $sql = "SELECT password FROM users WHERE id='".$_SESSION['id']."'";
+   // $sql = "SELECT * FROM users WHERE password='$existingpassword'";
+    $existingpasswordresult = mysqli_query($db, $sql);
+    $existingpasswordresultCheck = mysqli_num_rows($existingpasswordresult);
 
-    $existingpassword2 = password_verify('rasmuslerdorf', $hash);
-    $sql = "SELECT * FROM users WHERE password='$existingpassword'";
-    $results = mysqli_query($db, $sql1);
-    if (mysqli_num_rows($results) > 0) {
-      echo "taken"; 
-    }else{
-      echo 'not_taken';
-    }
+   if ($existingpasswordresultCheck > 0) {
+         while ($row = mysqli_fetch_assoc($existingpasswordresult)) {
+          $hash = $row['password'];
+       }
+     }
+    
+   
+   
+    if (password_verify($existingpassword, $hash)) { 
+       echo 'taken'; 
+    } else { 
+       echo 'not_taken'; 
+    } 
     exit();
-  }
 
-  if (isset($_POST['contactNumber_check'])) {
-    $contactNumber = $_POST['contactNumber'];
-    $sql = "SELECT * FROM personalinfo WHERE mobileNumber='$contactNumber'";
-    $results = mysqli_query($db, $sql);
-    if (mysqli_num_rows($results) > 0) {
-      echo "taken"; 
-    }else{
-      echo 'not_taken';
-    }
-    exit();
+   // if ($existingpasswordresultCheck > 0) {
+   //   echo "taken"; 
+
+  //  }else{
+   //   echo 'not_taken';
+  //  }
+  //  exit();
+
   }
 
   if (isset($_POST['save'])) {

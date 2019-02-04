@@ -1,5 +1,26 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
+<?php require "process/check/appointmentcheck.php";?>
+<?php require "process/users.php";?>
+<?php require "../../process/database.php";?>
+<?php require "process/appointment_walkin_insert.php";?>
+
+<?php
+
+
+  
+$mechanicalservice = new database ;
+$mechanicalservice -> mechanical_service();
+$electricalservice = new database ;
+$electricalservice -> electrical_service();
+$paintservice = new database ;
+$paintservice -> painting_service();
+$appointmentinfo = new database ;
+$appointmentinfo -> appointment_info_activeschedule();
+$personalinfo = new database ;
+$personalinfo -> personal_info();
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +35,9 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+  <title>Appointment Request</title>
   <link rel="icon" href="images/Logo.png">
+    
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
@@ -25,6 +47,7 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/custom.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
@@ -49,7 +72,6 @@
      </script>
      <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
      <script type="text/javascript" src="js/jquery.js"></script>
-    
 </head>
 
 <body>
@@ -58,8 +80,8 @@
     <?php include "includes/navbar.php";?>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_sidebar.html -->
-        
+    <!-- partial:partials/_sidebar.html -->
+    
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav" style="position:fixed;">
         <hr class="style2">
@@ -70,48 +92,37 @@
               <span class="menu-title" style="font-size:14px;">Dashboard</span>
             </a>
           </li>
-            
+      
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="menu-icon mdi mdi-inbox"></i>
-              <span class="menu-title" style="font-size:14px;">Appointment</span>
+              <span class="menu-title" style="font-size:14px;">Data Entry</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Create Appointment</a>
+                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointment</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="request.php" style="font-size:14px;">Request</a>
+                  <a class="nav-link" href="administratormanagement.php" style="font-size:14px;">Administrators</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
+                  <a class="nav-link" href="makeseriesmanagement.php" style="font-size:14px;">Make Series</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="sparepartsmanagement.php" style="font-size:14px;">Spare Parts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="servicesmanagement.php" style="font-size:14px;">Services</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="scopeofworkmanagement.php" style="font-size:14px;">Scope of Work</a>
                 </li>
               </ul>
             </div>
           </li>
             
-          <li class="nav-item">
-            <a class="nav-link" href="calendar.php">
-              <i class="menu-icon mdi mdi-calendar"></i>
-              <span class="menu-title" style="font-size:14px;">Calendar</span>
-            </a>
-          </li>
-            
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
-            </a>
-          </li> -->
-
-          <li class="nav-item">
-            <a class="nav-link"  href="chargeinvoice.php">
-              <i class="menu-icon mdi mdi-receipt"></i>
-              <span class="menu-title" style="font-size:14px;">Sales Invoice</span>
-            </a>
-          </li>
             
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
@@ -126,35 +137,34 @@
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
             </a>
           </li>
-            
+
           <li class="nav-item">
-            <a class="nav-link" href="sparepartsmanagement.php">
-              <i class="menu-icon mdi mdi-wrench"></i>
-              <span class="menu-title" style="font-size:14px;">Spare Parts</span>
+            <a class="nav-link" href="CM.php">
+              <i class="menu-icon mdi mdi-file-document"></i>
+              <span class="menu-title" style="font-size:14px;">Content Management</span>
             </a>
           </li>
             
         </ul>
       </nav>
+
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-
-          <!-- Start of BreadCrumbs -->
-          <div class="row">
-            <div class="col-lg-12 stretch-card grid-margin ">
+        <div class="row">
+            <div class="col-lg-12 grid-margin  stretch-card">
               <div class="card">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;">Create Appointments</li>
+                  <li class="breadcrumb-item"><a href="dashboard.php" style="font-size:18px;">Date Entry</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;">Appointments</li>
                   </ol>
                 </nav>
               </div>
             </div>
           </div>
-          <!-- End of BreadCrumbs -->
-
-          <!-- Start of BreadCrumbs -->
+            
+             
           <div class="row">
             <div class="col-lg-12 stretch-card">
               <div class="card">
@@ -247,12 +257,12 @@
                         <textarea class="form-control" name="otherService" rows="5" id="additionalMessage" name="message" placeholder="Others" style="background-color:#ebecee;"></textarea>
                       </div>
                     
-                    <!-- Select Date -->                                       
+                    <!-- Select Date -->                                      
 
                           <script type="text/javascript">
                            var unavailableDates  = [<?php
                            foreach($appointmentinfo->appointment_info as $appointmentinfo):
-                           ?>"<?= date('j-m-Y', strtotime($appointmentinfo['date'])); ?>",
+                           ?>"<?= date('y-m-d ', strtotime($appointmentinfo['date'])); ?>",
                           <?php     
                             endforeach;
                           ?>];
@@ -268,7 +278,8 @@
                           $jq171(function(){
                             $jq171('#datepicker').datepicker({
                               dateFormat: 'yy-mm-dd',
-                              minDate: 0,
+                              minDate: 1,
+                              beforeShowDay: unavailable,
                               beforeShowDay: $jq171.datepicker.noWeekends,
                               inline: true,
                               //nextText: '&rarr;',
@@ -276,26 +287,52 @@
                               showOtherMonths: true,
                               //dateFormat: 'dd MM yy',
                               dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                              beforeShowDay: unavailable, 
                               //showOn: "button",
                               //buttonImage: "img/calendar-blue.png",
                               //buttonImageOnly: true,
                             });
                           });
 
-                      <br><br><br>
-                      <button type="submit" name="send-sms" class="btn btn-darkblue" style="float:right;"><i class="menu-icon mdi mdi-send"></i>Create Appointment</button>
+                          </script>
+                    <hr>
+                   <p style="text-align: justify; padding-left:15px; font-size:17px; color:#333333;">Select Date</p>
+                    <div class="panel-body">
+                    <div class="row">
+                    <div class="col-sm-3" id="date_body">
+                    <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker" name="date" class="form-control" readonly></b>
+                    
+                    </div>
+                    <div class="col-sm-3" id="date_body">
+                   
+                    </div>
+                    </div>
+                    </div>
+                  
+                    <hr>      
+                  <!-- Additional Message -->
+                   <p style="text-align: justify; padding-left:15px; font-size:17px; color:#333333;">Additional Message</p>
+                    <div class="panel-body">
+                    <textarea class="form-control" name="additionalMessage" rows="5" id="additionalMessage" name="message" placeholder="Message" style="background-color:#ebecee;"></textarea>
+                  </div>
+                    
+                    </div>
+                     <div class="form-group" style="text-align: center;">
+                      <input type="submit" name="post" id="cf-submit" class="btn btn-primary" value="Submit" style="width: 20%; font-size:17px; font-family: 'Poppins', sans-serif;"/>
+                    </div>
                   </form>
+                  
                 </div>
               </div>
             </div>
           </div>
-          <!-- End of BreadCrumbs -->
 
+                       
+                    
+
+          </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
-        <?php include "includes/footer.php";?>
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
@@ -304,54 +341,12 @@
   </div>
   <!-- container-scroller -->
 
-  <!-- plugins:js -->
-  <script src="vendors/js/vendor.bundle.base.js"></script>
-  <script src="vendors/js/vendor.bundle.addons.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="js/off-canvas.js"></script>
-  <script src="js/misc.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="js/dashboard.js"></script>
-  <!-- End custom js for this page-->
+  <script src="js/script.js"></script>
+  <script src="js/uservehicle.js"></script>
+  <script src="js/appointment_walkin.js"></script>
 
-  <script src="js/jquery.dataTables.js"></script>
-  <script src="js/dataTables.bootstrap4.js"></script>
-  <script src="js/sb-admin-datatables.min.js"></script>
 </body>
 
 </html>
 
-<script>
-  var table = $('#doctables').DataTable({
-    // PAGELENGTH OPTIONS
-    "lengthMenu": [[ 10, 25, 50, 100, -1], [ 10, 25, 50, 100, "All"]]
 
-});
-</script>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#users').on('change',function(){
-        var ogID = $(this).val();
-        if(ogID){
-            $.ajax({
-                type:'POST',
-                url:'process/getVehicleData.php',
-                data:'group_id='+ogID,
-                success:function(html){
-                    $('#vehicles').html(html);
-
-                }
-            }); 
-        }else{
-            $('#vehicles').html('<option value="">Select office group first</option>');
-        }
-    });
-    
-
-});
-</script>
