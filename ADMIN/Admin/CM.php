@@ -27,7 +27,11 @@
     <link rel="stylesheet" href="css/custom.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="images/favicon.png" />
-    <link href="css/dataTables.bootstrap4.css" rel="stylesheet">  
+    <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
+    
+    <style>
+    
+    </style>
 </head>
     
 <body>
@@ -201,7 +205,7 @@
                                                         <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
                                                         <br>
                                                         <label>Description:</label>
-                                                        <input type="text" class="form-control" name="description" value="'.$row['description'].'">
+                                                        <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">
                                                    
                                                     ';
                                                 }
@@ -253,7 +257,7 @@
                                                         <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
                                                         <br>
                                                         <label>Description:</label>
-                                                        <input type="text" class="form-control" name="description" value="'.$row['description'].'">
+                                                        <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">
                                                     </div>
                                                     ';
                                                 }
@@ -308,7 +312,7 @@
                                                             <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
                                                             <br>
                                                             <label>Description:</label>
-                                                            <input type="text" class="form-control" name="description" value="'.$row['description'].'">
+                                                            <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">
                                                         </div>
                                                         ';
                                                     }
@@ -357,7 +361,7 @@
                                                         <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
                                                         <br>
                                                         <label>Description:</label>
-                                                        <input type="text" class="form-control" name="description" value="'.$row['description'].'">
+                                                        <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">
                                                     </div>
                                                     ';
                                                 }
@@ -407,7 +411,7 @@
                                                     <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
                                                     <br>
                                                     <label>Description:</label>
-                                                    <input type="text" class="form-control" name="description" value="'.$row['description'].'">
+                                                    <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">
                                                 </div>
                                                 ';
                                             }
@@ -459,7 +463,7 @@
                                                         <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
                                                         <br>
                                                         <label>Description:</label>
-                                                        <input type="text" class="form-control" name="description" value="'.$row['description'].'">
+                                                        <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">
                                                     </div>
                                                     ';
                                                 }
