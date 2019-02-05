@@ -414,5 +414,35 @@ if(isset($_POST["update_spareparts"])){
     header("Location: ../error.php");
   }
 }
+if(isset($_POST["delete-spare-part"])){
+  $taskspare = $connection->real_escape_string($_POST["taskspare"]);
+  $app_id = $connection->real_escape_string($_POST["app_ids"]);
+  $deleteTask = $connection->prepare("DELETE FROM `taskspare` WHERE taskspare.id = $taskspare");
+  if($deleteTask->execute()){
+    header("Location: ../records.php?id=$app_id");
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
+
+if(isset($_POST["update-spare-part"])){
+  $taskspare = $connection->real_escape_string($_POST["taskspare"]);
+  $app_id = $connection->real_escape_string($_POST["app_ids"]);
+  $remarks = $connection->real_escape_string($_POST["remarks"]);
+  $quantity = $connection->real_escape_string($_POST["quantity"]);
+  $price = $connection->real_escape_string($_POST["price"]);
+  $total = $price*$quantity;
+  echo $taskspare;
+
+  $deleteTask = $connection->prepare("UPDATE `taskspare` SET `remarks`= ?,`quantity`= ?,`total`= ?, `modified` = now() WHERE `taskspare`.`id`= ?");
+  $deleteTask->bind_param('siii',$remarks, $quantity, $total, $taskspare);
+  if($deleteTask->execute()){
+    header("Location: ../records.php?id=$app_id");
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
 
 ?>

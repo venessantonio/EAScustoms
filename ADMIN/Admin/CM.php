@@ -191,16 +191,14 @@
                                                       <img style="width:235px; height:230px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                                     </td>
                                                   <tr>
-                                                    ';
-                                                
-                                                ?>
+                                   
                                               </div>
                                             </div>
                                              <!--RIGHT DIV -->
                                              <div class="col-md-6 col-sm-6" style="float:right;">
                                               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                                              <?php
-                                                  echo '  
+                                  
+                                   
                                                       <h3 style="font-weight:bold;">Body Paint</h3>
                                                         <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
                                                         <br>
@@ -397,18 +395,18 @@
                                                   <img style="width:235px; height:230px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                                 </td>
                                               <tr>
-                                                ';
-                                            ?>
+                                                
+                                            
                                           </div>
                                         </div>
                                         <!--RIGHT-->
                                         <div class="col-md-6 col-sm-6" float:right>
                                           <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                                          <?php
-                                              echo '
+                                          
+                                              
                                               <div class="news-info">
                                                   <h3 style="font-weight:bold;">Maintenance</h3>
-                                                    <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
+                                                    <input type="file" name="image" id="image" value="'.base64_encode($row['image']).' required">
                                                     <br>
                                                     <label>Description:</label>
                                                     <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">

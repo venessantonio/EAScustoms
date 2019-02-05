@@ -274,7 +274,7 @@
                           if(empty($row['targetEndDate'])){
                               echo '  
                                   <form action="process/server.php" method="POST">
-                                    <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                    <input type="hidden" name="app_id" value="'.$id.'">
                                     <button type="submit" disabled class="btn btn-success" name="start" style="float:right">
                                       <i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start
                                     </button>
@@ -285,7 +285,7 @@
                             if($date1 == $date2){
                                 echo '  
                                 <form action="process/server.php" method="POST">
-                                  <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                  <input type="hidden" name="app_id" value="'.$id.'">
                                   <button type="submit" name="start" class="btn btn-success" style="float:right">
                                     <i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start
                                   </button>
@@ -293,7 +293,7 @@
                             }else{
                                 echo '  
                                 
-                                  <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                  <input type="hidden" name="app_id" value="'.$id.'">
                                   <button class="btn btn-success" style="float:right" data-toggle="modal"  data-target="#continue'.$row['ID'].'">
                                     <i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start Now
                                   </button>
@@ -317,7 +317,7 @@
                                       
                                         <div class="modal-footer" >
                                           <form action="process/server.php" method="POST">
-                                            <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                            <input type="hidden" name="app_id" value="'.$id.'">
                                             <button type="submit" name="start"class="btn btn-success"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i>Confirm</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Dismiss</button>
                                           </form>
@@ -333,7 +333,7 @@
                           }
                           
                         echo'
-                                <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                <input type="hidden" name="app_id" value="'.$id.'">
                                 <button type="submit" class="btn btn-warning" style="float:right; margin-right: 10px;"  data-toggle="modal"  data-target="#exampleModalCenter'.$row['ID'].'">
                                   <i class="menu-icon mdi mdi-calendar-clock"></i> Reschedule
                                 </button>
@@ -518,7 +518,7 @@
                                             if(empty($rows['dateStart'])){
                                               echo '<form action="process/server.php" method="POST">
                                                       <input type="hidden" name="task_id" value="'.$rows['id'].'">
-                                                      <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                                      <input type="hidden" name="app_id" value="'.$id.'">
                                                       <button class="btn btn-success" type="submit" name="startTask"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i> Start Task</button>
                                                     </form>
                                                     ';
@@ -532,7 +532,7 @@
                                               echo '
                                                     <form action="process/server.php" method="POST">
                                                       <input type="hidden" name="task_id" value="'.$rows['id'].'">
-                                                      <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                                      <input type="hidden" name="app_id" value="'.$id.'">
                                                       <button class="btn btn-success" type="submit" name="finishTask">Finish Task</button>
                                                     </form>
                                                     ';
@@ -584,39 +584,115 @@
                                                             Add Spare Parts
                                                           </button>
                                                         </div>
-                                                        <div class="col-10 offset-1">
+                                                        <div class="col-12">
                                                           <div class="row">
                                                             <div class="col-12 row text-center">
-                                                              <div class="col-1" style="border-style: groove"></div>
+                                                              <div class="col-1" style="border-style: groove">Qty</div>
                                                               <div class="col-2" style="border-style: groove">Part Name</div>
-
-                                                              <div class="col-1" style="border-style: groove">Price</div>
+                                                              <div class="col-2" style="border-style: groove">Price</div>
                                                               <div class="col-2" style="border-style: groove">Brand</div>
-                                                              <div class="col-4" style="border-style: groove">Remarks</div>
+                                                              <div class="col-3" style="border-style: groove">Remarks</div>
                                                               <div class="col-2" style="border-style: groove">Action</div>
                                                             </div>
                                                             <div class="col-12 row">
                                                             ';
-                                                              $getSpareParts = $connection->prepare('select spareparts.name as "Name", taskspare.remarks as
-                                                               "Remarks", spareparts.brandName as "Brand", spareparts.price as "Price" from task inner join
+                                                              $getSpareParts = $connection->prepare('select spareparts.name as "Name", taskspare.id as "taskID", taskspare.quantity as "qty", taskspare.remarks as
+                                                               "Remarks", spareparts.brandName as "Brand", taskspare.total as "total", spareparts.price as "Price" from task inner join
                                                                 taskspare on task.id = taskspare.taskID inner join spareparts on taskspare.partID = spareparts.id
                                                                  where task.id = '.$rows['id'].'');
                                                               if($getSpareParts->execute()){
                                                                   $values = $getSpareParts->get_result();
-                                                                  $counter = 1;
                                                                   while( $rowsGetParts = $values->fetch_assoc()){
                                                                    echo '
-                                                                    <div class="col-1 text-center" style="border-style: groove;">'.$counter.'</div>
+                                                                    <div class="col-1 text-center" style="border-style: groove;">'.$rowsGetParts['qty'].'</div>
                                                                     <div class="col-2" style="border-style: groove">'.$rowsGetParts['Name'].'</div>
-                                                                    <div class="col-1" style="border-style: groove; float:left;">'.$rowsGetParts['Price'].'</div>
+                                                                    <div class="col-2" style="border-style: groove;"><p  style="float:right;">₱ &nbsp'.$rowsGetParts['total'].'</p></div>
                                                                     <div class="col-2" style="border-style: groove">'.$rowsGetParts['Brand'].'</div>
-                                                                    <div class="col-4" style="border-style: groove">'.$rowsGetParts['Remarks'].'</div>
+                                                                    <div class="col-3" style="border-style: groove">'.$rowsGetParts['Remarks'].'</div>
                                                                     <div class="col-2 text-center" style="border-style: groove"> 
-                                                                      <label class="badge badge-success" style="margin: 2px 2px 2px 2px;"  data-toggle="modal" data-target="#spare'.$rows['id'].'" aria-expanded="false" aria-controls="multiCollapseExample1">edit</label>
-                                                                      <label class="badge badge-danger" style="margin: 2px 2px 2px 2px;"  data-toggle="modal" data-target="#spare'.$rows['id'].'" aria-expanded="false" aria-controls="multiCollapseExample1">delete</label>
+                                                                      <label class="badge badge-success" style="margin: 2px 2px 2px 2px;"  data-toggle="modal" data-target="#edits'.$rowsGetParts['taskID'].'" aria-expanded="false" aria-controls="multiCollapseExample1">edit</label>
+                                                                      <label class="badge badge-danger" style="margin: 2px 2px 2px 2px;"  data-toggle="modal" data-target="#deletes'.$rowsGetParts['taskID'].'" aria-expanded="false" aria-controls="multiCollapseExample1">delete</label>
                                                                     </div>
+
+                                                                    <!-- delete sparepart Modal -->
+                                                                    <div class="modal fade" id="deletes'.$rowsGetParts['taskID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                      <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                          <div class="modal-header"  style="background-color: #F44336; color: white; border: 3px solid #F44336;">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">Delete Task</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                              <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                          </div>
+                                                                          <div class="modal-body">
+                                                                            Are You sure you want to delete('.$rowsGetParts['qty'].'x '.$rowsGetParts['Name'].')?
+                                                                            
+                                                                          </div>
+                                                                          <div class="modal-footer">
+                                                                          <form action="process/server.php" method="POST">
+                                                                            <input type="hidden" name="app_ids" value="'.$id.'">
+                                                                            <input type="hidden" name="taskspare" value="'.$rowsGetParts['taskID'].'">
+                                                                            <button type="submit" name="delete-spare-part" class="btn btn-danger"><i class="menu-icon mdi mdi-trash-text"></i>Delete</button>
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                                                                          </form>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <!-- end -->
+
+                                                                    <!-- edit sparepart Modal -->
+                                                                    <div class="modal fade" id="edits'.$rowsGetParts['taskID'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                      <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                          <div class="modal-header"  style="background-color: #4caf50; color: white; border: 3px solid #4caf50;">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Task Spare</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                              <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                          </div>
+                                                                          <div class="modal-body">
+                                                                          <!-- start -->
+                                                                            <form action="process/server.php" method="POST">
+                                                                            <div class="form-group">
+                                        
+                                                                              <div class="form-group">
+                                                                                <div class="row">     
+                                                                                  <div class="col-9">
+                                                                                  <label for="exampleFormControlSelect2">Select Service</label>
+                                                                                    <input type="text" class="form-control" id="exampleFormControlSelect3"
+                                                                                     value="'.$rowsGetParts['Name'].' ('.$rowsGetParts['Brand'].') -  '.$rowsGetParts['Price'].'" disabled>
+                                                                                  </div>
+                                                                                  <div class="col-3">
+                                                                                    <div class="form-group">
+                                                                                      <label for="exampleFormControlSelect3">Quantity</label>
+                                                                                      <input type="number" class="form-control" id="exampleFormControlSelect3" name="quantity" value="'.$rowsGetParts['qty'].'" required>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                              </div>
+
+                                                                              <div class="form-group">
+                                                                                <label for="exampleFormControlSelect2">Remarks</label>
+                                                                                <textarea class="form-control" name="remarks">'.$rowsGetParts['Remarks'].'</textarea>
+                                                                              </div>
+                                                                            </div>
+                                                                            <!-- end -->
+                                                                          </div>
+                                                                          <div class="modal-footer">
+                                                                          <form action="process/server.php" method="POST">
+                                                                            <input type="hidden" name="app_ids" value="'.$id.'">
+                                                                            <input type="hidden" name="price" value="'.$rowsGetParts['Price'].'">
+                                                                            <input type="hidden" name="taskspare" value="'.$rowsGetParts['taskID'].'">
+                                                                            <button type="submit" name="update-spare-part" class="btn btn-success"><i class="menu-icon mdi mdi-trash-text"></i>Update</button>
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                                                                          </form>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <!-- end -->
                                                                    ';
-                                                                   $counter++;
                                                                 }
                                                                   
                                                               }else{
@@ -646,12 +722,42 @@
                                               </button>
                                             </div>
                                             <div class="modal-body">
-                                              Are You sure you want to delete task ('.$rows['service'].')?
+                                              Are You sure you want to delete task ('.$rows['scope'].')?
+                                              <br><br>
+                                              Warning!! Spare Parts under this task must be deleted in order to succesfull delete this entry.
+                                              
                                             </div>
                                             <div class="modal-footer">
                                             <form action="process/server.php" method="POST">
+                                              <input type="hidden" name="app_ids" value="'.$id.'">
                                               <input type="hidden" name="task_id" value="'.$rows['id'].'">
-                                              <input type="hidden" name="app_id" value="'.$row['ID'].'">
+                                              <button type="submit" name="delete-task" class="btn btn-danger"><i class="menu-icon mdi mdi-trash-text"></i>Delete</button>
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
+                                            </form>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- end -->
+
+                                      <!-- delete sparepart Modal -->
+                                      <div class="modal fade" id="deletespare'.$rows['id'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header"  style="background-color: #F44336; color: white; border: 3px solid #F44336;">
+                                              <h5 class="modal-title" id="exampleModalLabel">Delete Task</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              Are You sure you want to delete('.$rows['service'].')?
+                                              
+                                            </div>
+                                            <div class="modal-footer">
+                                            <form action="process/server.php" method="POST">
+                                              <input type="hidden" name="app_ids" value="'.$id.'">
+                                              <input type="hidden" name="task_id" value="'.$rows['id'].'">
                                               <button type="submit" name="delete-task" class="btn btn-danger"><i class="menu-icon mdi mdi-trash-text"></i>Delete</button>
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i>Close</button>
                                             </form>
@@ -678,21 +784,32 @@
                                             <div class="form-group">
         
                                               <div class="form-group">
-                                                <label for="exampleFormControlSelect2">Select Service</label>
-                                                <select type="text" class="form-control  chzn-select" name="spare" tabindex="2" required> 
-                                                  <option hidden selected value="" >Select Spareparts</option>
-                                                  ';
-                                                    $data = $connection->prepare("SELECT * FROM spareParts where status = 'Available';");
-                                                    if($data->execute()){
-                                                        $values = $data->get_result();
-                                                        while( $row = $values->fetch_assoc()){
-                                                          echo '<option value="'.$row['id'].'">'.$row['name'].' ('.$row['brandName'].') - P '.$row['price'].'</option>';
-                                                       }
-                                                        
-                                                    }
-                                                  echo'
-                                                </select>
+                                                <div class="row">     
+                                                  <div class="col-9">
+                                                  <label for="exampleFormControlSelect2">Select Service</label>
+                                                  <select type="text" class="form-control  chzn-select" name="spare" tabindex="2" required> 
+                                                    <option hidden selected value="" >Select Spareparts</option>
+                                                    ';
+                                                      $data = $connection->prepare("SELECT * FROM spareParts where status = 'Available';");
+                                                      if($data->execute()){
+                                                          $values = $data->get_result();
+                                                          while( $row = $values->fetch_assoc()){
+                                                            echo '<option value="'.$row['id'].'|'.$row['price'].'">'.$row['name'].' ('.$row['brandName'].') - P '.$row['price'].'</option>';
+                                                        }
+                                                          
+                                                      }
+                                                    echo'
+                                                  </select>
+                                                  </div>
+                                                  <div class="col-3">
+                                                    <div class="form-group">
+                                                      <label for="exampleFormControlSelect3">Quantity</label>
+                                                      <input type="number" class="form-control" id="exampleFormControlSelect3" name="quantity" required>
+                                                    </div>
+                                                  </div>
+                                                </div>
                                               </div>
+
                                               <div class="form-group">
                                                 <label for="exampleFormControlSelect2">Remarks</label>
                                                 <textarea class="form-control" name="remarks"></textarea>
@@ -748,7 +865,7 @@
                                                 $values = $data->get_result();
                                                 while( $row = $values->fetch_assoc()){
                                                   echo '<option value="'.$row['subScope'].'|'.$row['scopeWork'].'">'.$row['scopeWork'].' ('.$row['subScope'].')</option>';
-                                               }
+                                              }
                                                 
                                             }
                                           echo'
@@ -759,6 +876,7 @@
                                         <label for="exampleFormControlSelect2">Remarks</label>
                                         <textarea class="form-control" name="remarks"></textarea>
                                       </div>
+
                                     </div>
                             
 

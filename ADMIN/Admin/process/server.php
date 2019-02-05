@@ -228,7 +228,7 @@ if(isset($_POST["add-task"])){
 
 if(isset($_POST["delete-task"])){
   $task_id = $connection->real_escape_string($_POST["task_id"]);
-  $app_id = $connection->real_escape_string($_POST["app_id"]);
+  $app_id = $connection->real_escape_string($_POST["app_ids"]);
   $deleteTask = $connection->prepare("DELETE FROM `task` WHERE task.id = $task_id");
   if($deleteTask->execute()){
     header("Location: ../records.php?id=$app_id");
@@ -450,14 +450,21 @@ if(isset($_POST["add_spareparts"])){
 
 if(isset($_POST["taskSpare"])){
   $app = $connection->real_escape_string($_POST["app_id"]);
-  $part = $connection->real_escape_string($_POST["spare"]);
+  $spareContent = $connection->real_escape_string($_POST["spare"]);
+  $quantity = $connection->real_escape_string($_POST["quantity"]);
+  $split = explode("|", $spareContent);
+
+  $part = $connection->real_escape_string($split[0]);
+  $price = $connection->real_escape_string($split[1]);
+  $total = $price*$quantity;
+
   $task = $connection->real_escape_string($_POST["taskId"]);
   $remarks = $connection->real_escape_string($_POST["remarks"]);
 
-  echo 'Appoinment ID: '.$app.'<br>'.'Part ID: '.$part.'<br>'.'Remarks: '.$remarks;
+  echo 'Appoinment ID: '.$app.'<br>'.'Part ID: '.$part.'<br>'.'Remarks: '.$remarks.'<br>'.'Total: '.$total.'<br>'.'TaskID: '.$task;
   
-  $query = $connection->prepare("INSERT INTO `taskspare`(`taskID`, `partID`, `remarks`, `created`) VALUES (?, ?, ?, now())");
-   $query->bind_param('iis',$task, $part, $remarks);
+  $query = $connection->prepare("INSERT INTO `taskspare`(`taskID`, `partID`, `remarks`, `quantity`, `total`, `created`) VALUES (?, ?, ?, ?, ?, now())");
+   $query->bind_param('iisii',$task, $part, $remarks, $quantity, $total);
   if($query->execute()){
     header("Location: ../records.php?id=$app");
   }else{
@@ -486,6 +493,37 @@ if(isset($_POST["finishrecord"])){
   $app_id = $connection->real_escape_string($_POST["app"]);
   $checkprogress = $connection->prepare("UPDATE `appointments` SET `status` = 'Done' WHERE `appointments`.`id` = $app_id;");
   if($checkprogress->execute()){
+    header("Location: ../records.php?id=$app_id");
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
+
+if(isset($_POST["delete-spare-part"])){
+  $taskspare = $connection->real_escape_string($_POST["taskspare"]);
+  $app_id = $connection->real_escape_string($_POST["app_ids"]);
+  $deleteTask = $connection->prepare("DELETE FROM `taskspare` WHERE taskspare.id = $taskspare");
+  if($deleteTask->execute()){
+    header("Location: ../records.php?id=$app_id");
+  }else{
+    header("Location: ../error.php");
+  }
+
+}
+
+if(isset($_POST["update-spare-part"])){
+  $taskspare = $connection->real_escape_string($_POST["taskspare"]);
+  $app_id = $connection->real_escape_string($_POST["app_ids"]);
+  $remarks = $connection->real_escape_string($_POST["remarks"]);
+  $quantity = $connection->real_escape_string($_POST["quantity"]);
+  $price = $connection->real_escape_string($_POST["price"]);
+  $total = $price*$quantity;
+  echo $taskspare;
+
+  $deleteTask = $connection->prepare("UPDATE `taskspare` SET `remarks`= ?,`quantity`= ?,`total`= ?, `modified` = now() WHERE `taskspare`.`id`= ?");
+  $deleteTask->bind_param('siii',$remarks, $quantity, $total, $taskspare);
+  if($deleteTask->execute()){
     header("Location: ../records.php?id=$app_id");
   }else{
     header("Location: ../error.php");
