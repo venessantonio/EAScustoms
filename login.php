@@ -108,7 +108,7 @@ if (isset($_SESSION['username'])) {
     <div class="container-login100">
             <div class="login100-pic js-tilt" data-tilt>
         <span class="login500-form">
-            Fuels Passion Beyong Full Throttle
+            Fuels Passion Beyond Full Throttle
         </span>
                 <span class="login700-form">
             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
