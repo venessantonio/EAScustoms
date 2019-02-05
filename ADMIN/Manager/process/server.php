@@ -213,10 +213,14 @@ if(isset($_POST["changeUser"])){
 
 if(isset($_POST["add-task"])){
   $app_id = $connection->real_escape_string($_POST["app_id"]);
-  $service = $connection->real_escape_string($_POST["service"]);
-  $p1 = $connection->real_escape_string($_POST["p1"]);
-  $p2 = $connection->real_escape_string($_POST["p2"]);
-  $addTask = $connection->prepare("INSERT INTO `task`(`appointmentID`, `service`, `modified`) VALUES ($app_id, '$service', now());");
+  $splitter = $connection->real_escape_string($_POST["service"]);
+  $task = explode("|", $splitter);
+  $scope = $task[0];
+  $service = $task[1];
+
+  // echo 'Scope: '.$scope.'<br>'.'Service: '.$service;
+  $remarks = $connection->real_escape_string($_POST["remarks"]);
+  $addTask = $connection->prepare("INSERT INTO `task`(`appointmentID`, `service`, `description`,`scope`, `modified`) VALUES ($app_id, '$service','$remarks','$scope', now());");
   if($addTask->execute()){
     header("Location: ../records.php?id=$app_id");
   }else{
@@ -227,8 +231,7 @@ if(isset($_POST["add-task"])){
 
 if(isset($_POST["delete-task"])){
   $task_id = $connection->real_escape_string($_POST["task_id"]);
-  $app_id = $connection->real_escape_string($_POST["app_id"]);
-  echo $service;
+  $app_id = $connection->real_escape_string($_POST["app_ids"]);
   $deleteTask = $connection->prepare("DELETE FROM `task` WHERE task.id = $task_id");
   if($deleteTask->execute()){
     header("Location: ../records.php?id=$app_id");
@@ -429,6 +432,31 @@ if(isset($_POST["delete-spare-part"])){
   }
 
 }
+
+if(isset($_POST["taskSpare"])){
+  $app = $connection->real_escape_string($_POST["app_id"]);
+  $spareContent = $connection->real_escape_string($_POST["spare"]);
+  $quantity = $connection->real_escape_string($_POST["quantity"]);
+  $split = explode("|", $spareContent);
+
+  $part = $connection->real_escape_string($split[0]);
+  $price = $connection->real_escape_string($split[1]);
+  $total = $price*$quantity;
+
+  $task = $connection->real_escape_string($_POST["taskId"]);
+  $remarks = $connection->real_escape_string($_POST["remarks"]);
+
+  echo 'Appoinment ID: '.$app.'<br>'.'Part ID: '.$part.'<br>'.'Remarks: '.$remarks.'<br>'.'Total: '.$total.'<br>'.'TaskID: '.$task;
+  
+  $query = $connection->prepare("INSERT INTO `taskspare`(`taskID`, `partID`, `remarks`, `quantity`, `total`, `created`) VALUES (?, ?, ?, ?, ?, now())");
+   $query->bind_param('iisii',$task, $part, $remarks, $quantity, $total);
+  if($query->execute()){
+    header("Location: ../records.php?id=$app");
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
 
 if(isset($_POST["update-spare-part"])){
   $taskspare = $connection->real_escape_string($_POST["taskspare"]);
