@@ -158,7 +158,9 @@
                       ?>
 
                       <?php
-                        if(isset($_POST['insert'])){
+
+                                        if(isset($_POST['insert'])){
+                      if (!empty($_FILES["image"]["tmp_name"])) {
                           $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
                           $name = $connection->real_escape_string($_POST["name"]);
                           $description = $connection->real_escape_string($_POST["description"]);
@@ -168,8 +170,69 @@
                           }else{
                             echo "error";
                           }
+                       } elseif (empty($_FILES["image"]["tmp_name"])){
+                          $name = $connection->real_escape_string($_POST["name"]);
+                          $description = $connection->real_escape_string($_POST["description"]);
+                          $query = "UPDATE `contents` SET `description` = '$description' where `img_name` = '$name'  ";
+                          if(mysqli_query($connection, $query)){
+                            // echo "success";
+                          }else{
+                            echo "error";
+                          }
+                          
+                      }
                         }
                         ?>
+<!--
+                    if(isset($_POST['insert'])){
+                      if (!empty($_FILES["image"]["tmp_name"])) {
+                          $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+                          $name = $connection->real_escape_string($_POST["name"]);
+                          $description = $connection->real_escape_string($_POST["description"]);
+                          $query = "UPDATE `contents` SET `image`= '$file', `description` = '$description' where `img_name` = '$name'  ";
+                          if(mysqli_query($connection, $query)){
+                            // echo "success";
+                          }else{
+                            echo "error";
+                          }
+                       } elseif (empty($_FILES["image"]["tmp_name"])){
+                          $name = $connection->real_escape_string($_POST["name"]);
+                          $description = $connection->real_escape_string($_POST["description"]);
+                          $query = "UPDATE `contents` SET `description` = '$description' where `img_name` = '$name'  ";
+                          if(mysqli_query($connection, $query)){
+                            // echo "success";
+                          }else{
+                            echo "error";
+                          }
+                          
+                      }
+                        }
+
+                        if(isset($_POST['insert'])){
+                    
+                      if ($_FILES['upload']['size'] != 0 ) {
+                          $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
+                          $name = $connection->real_escape_string($_POST["name"]);
+                          $description = $connection->real_escape_string($_POST["description"]);
+                          $query = "UPDATE `contents` SET `image`= '$file', `description` = '$description' where `img_name` = '$name'  ";
+                          if(mysqli_query($connection, $query)){
+                            // echo "success";
+                          }else{
+                            echo "error";
+                          }
+                       } elseif ($_FILES['upload']['size'] == 0 ){
+                          $name = $connection->real_escape_string($_POST["name"]);
+                          $description = $connection->real_escape_string($_POST["description"]);
+                          $query = "UPDATE `contents` SET `image`= '$file', `description` = '$description' where `img_name` = '$name'  ";
+                          if(mysqli_query($connection, $query)){
+                            // echo "success";
+                          }else{
+                            echo "error";
+                          }
+                          
+                      }
+                        }
+-->
                     
                     <div class="row">
                         <div class="col-lg-6 grid-margin stretch-card"  >
@@ -191,14 +254,16 @@
                                                       <img style="width:235px; height:230px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                                     </td>
                                                   <tr>
-                                   
+                                                    ';
+                                                
+                                                ?>
                                               </div>
                                             </div>
                                              <!--RIGHT DIV -->
                                              <div class="col-md-6 col-sm-6" style="float:right;">
                                               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                                  
-                                   
+                                              <?php
+                                                  echo '  
                                                       <h3 style="font-weight:bold;">Body Paint</h3>
                                                         <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
                                                         <br>
@@ -395,18 +460,18 @@
                                                   <img style="width:235px; height:230px;" src ="data:image/jpeg;base64,'.base64_encode($row['image']).'"/>
                                                 </td>
                                               <tr>
-                                                
-                                            
+                                                ';
+                                            ?>
                                           </div>
                                         </div>
                                         <!--RIGHT-->
                                         <div class="col-md-6 col-sm-6" float:right>
                                           <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                                          
-                                              
+                                          <?php
+                                              echo '
                                               <div class="news-info">
                                                   <h3 style="font-weight:bold;">Maintenance</h3>
-                                                    <input type="file" name="image" id="image" value="'.base64_encode($row['image']).' required">
+                                                    <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
                                                     <br>
                                                     <label>Description:</label>
                                                     <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">

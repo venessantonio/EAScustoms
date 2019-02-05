@@ -157,7 +157,7 @@
                         if(isset($_POST['insert'])){
                           $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
                           $name = $connection->real_escape_string($_POST["name"]);
-                          $query = "UPDATE `contents` SET `image`= '$file' where `img_name` = '$name'  ";
+                          $query = "UPDATE `contents` SET `image`= '$file', `date` = now() where `img_name` = '$name'  ";
                           if(mysqli_query($connection, $query)){
                             // echo "success";
                           }else{
