@@ -576,7 +576,8 @@ http://www.tooplate.com/view/2098-health
                     $average = $ratingNumber/$count;
                     }    
                     ?>        
-                  <br>      
+                  <br>
+                
                   <div id="ratingDetails">           
                     <div class="row">             
                       <div class="col-sm-6">                  
@@ -601,7 +602,7 @@ http://www.tooplate.com/view/2098-health
                         </button> 
                         <?php } ?>                    
                       </div>
-                      <div class="col-sm-3">
+                      <div class="col-sm-5">
                         <?php
                             $fiveStarRatingPercent = round(($fiveStarRating/5)*100);
                             $fiveStarRatingPercent = !empty($fiveStarRatingPercent)?$fiveStarRatingPercent.'%':'0%';  
@@ -615,15 +616,15 @@ http://www.tooplate.com/view/2098-health
                             $oneStarRatingPercent = !empty($oneStarRatingPercent)?$oneStarRatingPercent.'%':'0%';
                             ?>
                         <div class="pull-left">
-                          <div class="pull-left" style="width:35px; line-height:1;">
-                            <div style="height:9px; margin:5px 0;">5 
-                              <span class="glyphicon glyphicon-star">
+                          <div class="pull-left" style="width:38px; line-height:1;">
+                            <div style="height:9px; margin:5px 0;">5 &nbsp;
+                                 <span style="color:#4caf50;" class="glyphicon glyphicon-star">
                               </span>
                             </div>
                           </div>
-                          <div class="pull-left" style="width:180px;">
+                          <div class="pull-left" style="width:230px;">
                             <div class="progress" style="height:9px; margin:8px 0;">
-                              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $fiveStarRatingPercent; ?>">
+                              <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $fiveStarRatingPercent; ?>">
                                 <span class="sr-only">
                                   <?php echo $fiveStarRatingPercent; ?>
                                 </span>
@@ -635,15 +636,15 @@ http://www.tooplate.com/view/2098-health
                           </div>
                         </div>
                         <div class="pull-left">
-                          <div class="pull-left" style="width:35px; line-height:1;">
-                            <div style="height:9px; margin:5px 0;">4 
-                              <span class="glyphicon glyphicon-star">
+                          <div class="pull-left" style="width:38px; line-height:1;">
+                            <div style="height:9px; margin:5px 0;">4 &nbsp; 
+                              <span style="color: #000099;" class="glyphicon glyphicon-star">
                               </span>
                             </div>
                           </div>
-                          <div class="pull-left" style="width:180px;">
+                          <div class="pull-left" style="width:230px;">
                             <div class="progress" style="height:9px; margin:8px 0;">
-                              <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $fourStarRatingPercent; ?>">
+                              <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $fourStarRatingPercent; ?>">
                                 <span class="sr-only">
                                   <?php echo $fourStarRatingPercent; ?>
                                 </span>
@@ -655,15 +656,15 @@ http://www.tooplate.com/view/2098-health
                           </div>
                         </div>
                         <div class="pull-left">
-                          <div class="pull-left" style="width:35px; line-height:1;">
-                            <div style="height:9px; margin:5px 0;">3 
-                              <span class="glyphicon glyphicon-star">
+                          <div class="pull-left" style="width:38px; line-height:1;">
+                            <div style="height:9px; margin:5px 0;">3 &nbsp;
+                              <span style="color:#308ee0;" class="glyphicon glyphicon-star">
                               </span>
                             </div>
                           </div>
-                          <div class="pull-left" style="width:180px;">
+                          <div class="pull-left" style="width:230px;">
                             <div class="progress" style="height:9px; margin:8px 0;">
-                              <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $threeStarRatingPercent; ?>">
+                              <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $threeStarRatingPercent; ?>">
                                 <span class="sr-only">
                                   <?php echo $threeStarRatingPercent; ?>
                                 </span>
@@ -675,15 +676,15 @@ http://www.tooplate.com/view/2098-health
                           </div>
                         </div>
                         <div class="pull-left">
-                          <div class="pull-left" style="width:35px; line-height:1;">
-                            <div style="height:9px; margin:5px 0;">2 
-                              <span class="glyphicon glyphicon-star">
+                          <div class="pull-left" style="width:38px; line-height:1;">
+                            <div style="height:9px; margin:5px 0;">2 &nbsp; 
+                              <span style="color:#ffaf00;" class="glyphicon glyphicon-star">
                               </span>
                             </div>
                           </div>
-                          <div class="pull-left" style="width:180px;">
+                          <div class="pull-left" style="width:230px;">
                             <div class="progress" style="height:9px; margin:8px 0;">
-                              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $twoStarRatingPercent; ?>">
+                              <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $twoStarRatingPercent; ?>">
                                 <span class="sr-only">
                                   <?php echo $twoStarRatingPercent; ?>
                                 </span>
@@ -695,15 +696,14 @@ http://www.tooplate.com/view/2098-health
                           </div>
                         </div>
                         <div class="pull-left">
-                          <div class="pull-left" style="width:35px; line-height:1;">
-                            <div style="height:9px; margin:5px 0;">1 
-                              <span class="glyphicon glyphicon-star">
+                          <div class="pull-left" style="width:38px; line-height:1;">
+                            <div style="height:9px; margin:5px 0;">1 &nbsp;&nbsp; <span style="color:#f44336;" class="glyphicon glyphicon-star">
                               </span>
                             </div>
                           </div>
-                          <div class="pull-left" style="width:180px;">
+                          <div class="pull-left" style="width:230px;">
                             <div class="progress" style="height:9px; margin:8px 0;">
-                              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $oneStarRatingPercent; ?>">
+                              <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: <?php echo $oneStarRatingPercent; ?>">
                                 <span class="sr-only">
                                   <?php echo $oneStarRatingPercent; ?>
                                 </span>

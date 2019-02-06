@@ -469,62 +469,6 @@
             </div>
           </div>
         </section>
-    
-            
-            
-            <div class="row">
-            <div class="col-12 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title mb-4">Feedbacks</h5>
-                  <?php $feedback = $connection->prepare("SELECT * FROM feedback ORDER BY date DESC"); 
-                        if($feedback->execute()){
-                        $result=$feedback->get_result();
-                        if (!empty($result)){
-                        while($feed = $result->fetch_assoc()){?>
-                    
-                    <div class="fluid-container">
-                    <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
-                      <div class="col-md-1">
-                        <img class="img-sm rounded-circle mb-4 mb-md-0" src="images/faces/1.png" alt="profile image">
-                      </div>
-                      <div class="ticket-details col-md-9">
-                        <div class="d-flex">
-                          <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap"><?php if($feed['name']==null){
-                            echo 'Anonymous';
-                        }else{
-                            echo $feed['name'];
-                        }?></p>
-                          <p class="text-primary mr-1 mb-0"></p>
-                          
-                        </div>
-                        <p class="text-gray ellipsis mb-2"><?php  echo $feed['message'];?>
-                        </p>
-                        <div class="row text-gray d-md-flex d-none">
-                          <div class="col-4 d-flex">
-                            <small class="mb-0 mr-2 text-muted text-muted"><?php echo date('F j, Y',strtotime($feed['date']))?></small>
-                            
-                          </div>
-                          <div class="col-4 d-flex">
-                            <small class="mb-0 mr-2 text-muted text-muted"><?php echo $feed['email']?></small>
-                          </div>
-                        </div>
-                      </div>
-                     
-                    </div>
-                  </div>
-                    <?php 
-                                }
-                          
-                            } else{
-                                'No feedback available';
-                            }
-                        }
-                    ?>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <!-- content-wrapper ends -->
           

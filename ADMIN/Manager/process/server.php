@@ -16,8 +16,8 @@ if(isset($_POST['color'])){
   }
 
 
-  if($action=='accept'){
-   $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted', `modified` = now(), `color` = '$color' WHERE `appointments`.`id` = $id;");
+ if($action=='accept'){
+    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted', `modified` = now(), `color` = '#4caf50', `date` = '$dates' WHERE `appointments`.`id` = $id;");
   }else{
     if($action=='deny'){
       $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Reschedule', `modified` = now() WHERE `appointments`.`id` =  $id");
@@ -118,7 +118,7 @@ if(isset($_POST["start"])){
 
   $app = $connection->real_escape_string($_POST["app_id"]);
 
-  $query1 = $connection->prepare("UPDATE `appointments` SET `status`= 'In-Progress',`modified`= now() WHERE appointments.id = $app");
+  $query1 = $connection->prepare("UPDATE `appointments` SET `status`= 'In-Progress',`modified`= now(),  `color` = '#0071c5' WHERE appointments.id = $app");
   $query1->execute();
 
   $data = $connection->prepare("SELECT * FROM appointments WHERE status = 'In-Progress' AND appointments.id = $app");

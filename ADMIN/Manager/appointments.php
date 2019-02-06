@@ -126,11 +126,11 @@
                     <table class="table table-bordered table-dark" id="doctables">
                       <thead>
                         <tr class="grid">
-                            <th>Name</th>
-                            <th>Plate Number</th>
-                            <th>Status</th>
-                            <th>Date Sent</th>
-                            <th>Date of Appointment Request</th>
+                            <th style="font-size:15px;">Name</th>
+                            <th style="font-size:15px;">Plate Number</th>
+                            <th  style="font-size:15px;">Status</th>
+                            <th style="font-size:15px;">Date Sent</th>
+                            <th style="font-size:15px;">Date of Appointment Request</th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
