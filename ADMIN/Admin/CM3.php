@@ -154,15 +154,29 @@
                       ?>
 
                       <?php
-                        if(isset($_POST['insert'])){
+
+                                        if(isset($_POST['insert'])){
+                      if (!empty($_FILES["image"]["tmp_name"])) {
                           $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
                           $name = $connection->real_escape_string($_POST["name"]);
-                          $query = "UPDATE `contents` SET `image`= '$file' where `img_name` = '$name'  ";
+                          $description = $connection->real_escape_string($_POST["description"]);
+                          $query = "UPDATE `contents` SET `image`= '$file', `description` = '$description' where `img_name` = '$name'  ";
                           if(mysqli_query($connection, $query)){
                             // echo "success";
                           }else{
                             echo "error";
                           }
+                       } elseif (empty($_FILES["image"]["tmp_name"])){
+                          $name = $connection->real_escape_string($_POST["name"]);
+                          $description = $connection->real_escape_string($_POST["description"]);
+                          $query = "UPDATE `contents` SET `description` = '$description' where `img_name` = '$name'  ";
+                          if(mysqli_query($connection, $query)){
+                            // echo "success";
+                          }else{
+                            echo "error";
+                          }
+                          
+                      }
                         }
                         ?>
                     
@@ -171,13 +185,13 @@
                             <div class="card" >
                                 <div class="card-body" > 
                                     <div class="container">
-                                      <form enctype="multipart/form-data"  action="" id="wb_Form1" name="form" method="post">
+                                        <form enctype="multipart/form-data"  action="" id="wb_Form1" name="form" method="post">
                                             <!-- LEFT DIV -->
                                             <div class="col-md-6 col-sm-6" style="float:left;">
                                             
                                               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
                                               <?php
-                                                $query = "SELECT image FROM `contents` WHERE `img_name` ='assi_man'";
+                                                $query = "SELECT * FROM `contents` WHERE `img_name` ='assi_man'";
                                                 $result = mysqli_query($connection, $query);
                                                 while($row = mysqli_fetch_array($result)){
                                                   echo '
@@ -187,23 +201,29 @@
                                                     </td>
                                                   <tr>
                                                     ';
-                                                }
+                                                
                                                 ?>
                                               </div>
                                             </div>
                                              <!--RIGHT DIV -->
                                              <div class="col-md-6 col-sm-6" style="float:right;">
                                               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                                                <div class="team-info">
-                                                  <h3 style="font-weight:bold;">Assistant Manager</h3>
-                                                  <br>
-                                                  <input type="file" name="image" id="image"  required="required">
-                                                </div>
+                                              <?php
+                                                  echo '  
+                                                      <h3 style="font-weight:bold;">Assistant Manager</h3>
+                                                        <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
+                                                        <br>
+                                                        <label>Name:</label>
+                                                        <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">
+                                                   
+                                                    ';
+                                                }
+                                                ?>
                                               </div>
-                                              <br>
-                                              <input type="hidden" name="name" value="assi_man">
-                                              <button type="submit" class="btn btn-primary" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button>  
-                                            </div>
+                                                <br>
+                                                <input type="hidden" name="name" value="assi_man">
+                                                <button type="submit" class="btn btn-primary" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+                                               </div>
                                         </form>
                                     </div>
                                 </div>
@@ -214,13 +234,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="container">
-                                      <form enctype="multipart/form-data"  action="" id="wb_Form1" name="form" method="post">
-                                             <!-- LEFT DIV -->
-                                           <div class="col-md-6 col-sm-6" style="float:left;">
-                                         
+                                        <form enctype="multipart/form-data"  action="" id="wb_Form1" name="form" method="post">
+                                            <!-- LEFT DIV -->
+                                            <div class="col-md-6 col-sm-6" style="float:left;">
+                                            
                                               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
                                               <?php
-                                                $query = "SELECT image FROM `contents` WHERE `img_name` ='manager'";
+                                                $query = "SELECT * FROM `contents` WHERE `img_name` ='manager'";
                                                 $result = mysqli_query($connection, $query);
                                                 while($row = mysqli_fetch_array($result)){
                                                   echo '
@@ -230,25 +250,29 @@
                                                     </td>
                                                   <tr>
                                                     ';
-                                                }
+                                                
                                                 ?>
                                               </div>
                                             </div>
-                                             <!-- RIGHT DIV -->
+                                             <!--RIGHT DIV -->
                                              <div class="col-md-6 col-sm-6" style="float:right;">
-                                         
                                               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                                                <div class="team-info">
-                                                <h3 style="font-weight:bold;">Manager</h3>
-                                                 <br>
-                                                  <input type="file" name="image" id="image"  required="required">
-                                                 <br>
-                                                </div>
+                                              <?php
+                                                  echo '  
+                                                      <h3 style="font-weight:bold;">Manager</h3>
+                                                        <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
+                                                        <br>
+                                                        <label>Name:</label>
+                                                        <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">
+                                                   
+                                                    ';
+                                                }
+                                                ?>
                                               </div>
-                                              <br>
+                                                <br>
                                                 <input type="hidden" name="name" value="manager">
-                                              <button type="submit" class="btn btn-primary" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button>
-                                            </div>
+                                                <button type="submit" class="btn btn-primary" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+                                               </div>
                                         </form>
                                     </div>
                                 </div>
@@ -261,12 +285,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="container">
-                                      <form enctype="multipart/form-data"  action="" id="wb_Form1" name="form" method="post">
-                                            <!--LEFT-->
-                                             <div class="col-md-6 col-sm-6" style="float:left;">
+                                        <form enctype="multipart/form-data"  action="" id="wb_Form1" name="form" method="post">
+                                            <!-- LEFT DIV -->
+                                            <div class="col-md-6 col-sm-6" style="float:left;">
+                                            
                                               <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
                                               <?php
-                                                $query = "SELECT image FROM `contents` WHERE `img_name` ='supervisor'";
+                                                $query = "SELECT * FROM `contents` WHERE `img_name` ='supervisor'";
                                                 $result = mysqli_query($connection, $query);
                                                 while($row = mysqli_fetch_array($result)){
                                                   echo '
@@ -276,25 +301,30 @@
                                                     </td>
                                                   <tr>
                                                     ';
-                                                }
+                                                
                                                 ?>
                                               </div>
                                             </div>
-                                            <!--RIGHT-->
-                                            <div class="col-md-6 col-sm-6" style="float:right;">
-                                                <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                                                <div class="team-info">
-                                                <h3 style="font-weight:bold;">Supervisor</h3>
+                                             <!--RIGHT DIV -->
+                                             <div class="col-md-6 col-sm-6" style="float:right;">
+                                              <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
+                                              <?php
+                                                  echo '  
+                                                      <h3 style="font-weight:bold;">Supervisor</h3>
+                                                        <input type="file" name="image" id="image" value="'.base64_encode($row['image']).'">
+                                                        <br>
+                                                        <label>Name:</label>
+                                                        <input style="background-color:#e6e6e6; border-radius:5px;" type="text" class="form-control" name="description" value="'.$row['description'].'">
+                                                   
+                                                    ';
+                                                }
+                                                ?>
+                                              </div>
                                                 <br>
-                                                <input type="file" name="image" id="image"  required="required">
-                                                <br>
-                                                </div>
-                                                </div>
-                                                <br>
-                                                  <input type="hidden" name="name" value="supervisor">
-                                                  <button type="submit" class="btn btn-primary" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
-                                             </div>
-                                        </form>    
+                                                <input type="hidden" name="name" value="supervisor">
+                                                <button type="submit" class="btn btn-primary" value="SUBMIT" name="insert"><i class="menu-icon mdi mdi-checkbox-multiple-marked-circle-outline"></i> Submit</button> 
+                                               </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
