@@ -1,12 +1,11 @@
 <?php require 'process/require/auth.php';?>
-<?php require "process/require/dataconf.php";?>
-<?php
-    $pdo = new PDO('mysql:host=localhost;dbname=eas', 'eas', 'eas2018');
-$sql = "SELECT chargeinvoice.id as id, vehicles.plateNumber as platenumber, vehicles.make as make, vehicles.series as series, personalInfo.firstName,personalInfo.lastName, chargeinvoice.scopeId as scopeWork, chargeinvoice.sparepartsId as spareParts, chargeinvoice.date, chargeinvoice.totalPrice FROM chargeinvoice join vehicles on chargeinvoice.vehicleId = vehicles.id join personalInfo on chargeinvoice.personalId = personalInfo.personalId;";
-$stmt = $pdo->prepare($sql); 
+<?php require "process/require/dataconf.php";
+$sql = "SELECT chargeinvoice.id as cId, plateNumber,make,series,owner,chargeinvoice.date as cDate FROM chargeinvoice join appointments on chargeinvoice.appointmentId = appointments.id join vehicles on appointments.vehicleId = vehicles.id order by chargeinvoice.date desc";
+$stmt = $connection->prepare($sql); 
 $stmt->execute(); 
-$ci = $stmt->fetchAll(); 
+$ci = $stmt -> get_result();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,6 +30,39 @@ $ci = $stmt->fetchAll();
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
   <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
+    
+ <script>
+    function generate() {
+
+        var a = parseInt(document.getElementById("noofscope").value);
+        var ch = document.getElementById("form");
+        
+        for (i = 0; i < a; i++) {
+        	var label = document.createTextNode("Scope Name:");
+            var input = document.createElement("input");
+            var br = document.createElement("br");
+            input.setAttribute('type',"text");
+            input.setAttribute('name',"scope[]");
+         	ch.appendChild(label);   
+            ch.appendChild(input);
+            ch.appendChild(br);
+        }
+        var br2 = document.createElement("br");
+        var labelTotal = document.createTextNode("Total");
+        var total = document.createElement("input");
+        var submit = document.createElement("input");
+        total.setAttribute('type','text');
+        total.setAttribute('name','total');
+        submit.setAttribute('value','create');
+        submit.setAttribute('type','submit');
+        submit.setAttribute('name','submit');
+        ch.appendChild(labelTotal);
+        ch.appendChild(total);
+        ch.appendChild(br2);
+        ch.appendChild(submit);
+
+    }
+    </script>
 </head>
 
 <body>
@@ -42,7 +74,7 @@ $ci = $stmt->fetchAll();
     <!-- partial:partials/_sidebar.html -->
         
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav" style="position:fixed; width:256px;">
+        <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
           <li class="nav-item">
@@ -76,22 +108,27 @@ $ci = $stmt->fetchAll();
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
+            
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="dailytaskform.php">
+              <i class="menu-icon mdi mdi-file"></i>
+              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            </a>
+          </li> -->
 
           <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
-              <i class="menu-icon mdi mdi-account-multiple"></i>
-              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
+            <a class="nav-link"  href="chargeinvoice.php">
+              <i class="menu-icon mdi mdi-receipt"></i>
+              <span class="menu-title" style="font-size:14px;">Sales Invoice</span>
             </a>
           </li>
             
-<!--
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
             </a>
           </li>
--->
             
           <li class="nav-item">
             <a class="nav-link" href="vehicle.php">
@@ -101,20 +138,17 @@ $ci = $stmt->fetchAll();
           </li>
             
           <li class="nav-item">
-            <a class="nav-link" href="servicesmanagement.php">
+            <a class="nav-link" href="sparepartsmanagement.php">
               <i class="menu-icon mdi mdi-wrench"></i>
-              <span class="menu-title" style="font-size:14px;">Services</span>
+              <span class="menu-title" style="font-size:14px;">Spare Parts</span>
             </a>
           </li>
-            
-            
-            
             
         </ul>
       </nav>
       
-            <div class="main-panel">
-               <div class="content-wrapper">
+      <div class="main-panel">
+        <div class="content-wrapper">
           <div class="row">
             
             <div class="col-lg-12 stretch-card">
@@ -122,52 +156,122 @@ $ci = $stmt->fetchAll();
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-11">
-                            <p class="card-title" style="font-size:20px;">Charge Invoice</p>
+                        <div class="col-6">
+                            <p class="card-title" style="font-size:20px;">Sales Invoice</p>
                             <br>
                         </div>
-                        <div class="col-1">
-                            <a href ="addcibutton.php"><button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#addUser"><i class="menu-icon mdi mdi-receipt"></i>
-                                Add CI
-                            </button></a>
+                        <div class="col-2">
+                           <button  class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#Yearly"><i class="menu-icon mdi mdi-receipt"></i>
+                                Annual SI
+                            </button> 
+                        </div>
+                        <div class="col-2">
+                           <button href="year.php" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#Monthly"><i class="menu-icon mdi mdi-receipt"></i>
+                                Monthly SI
+                            </button> 
+                        </div>
+                        <div class="col-2">
+                           <a href="dailySI.php" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;"><i class="menu-icon mdi mdi-receipt"></i>
+                                Daily SI
+                            </a> 
                         </div>
                     </div>
                     
-                  
-                  
-                  <div class="table-responsive">
+                    
+                <a href ="addSalesInvoice.php"></a>
+
+                <!-- yearly Modal -->
+                <div class="modal fade" id="Yearly" tabindex="-1" role="dialog" aria-labelledby="addCi" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
+                        <h5 class="modal-title" id="exampleModalLabel">Annual Sales Invoice</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                        <div class="modal-body">
+                        <form action="year.php" method="POST">
+                          <label for="exampleFormControlSelect2">Select Year</label>
+                          <select type="text" class="form-control  chzn-select" name="date" id="exampleFormControlSelect2" tabindex="2" required> 
+                            <option hidden selected value="" >Select a Year</option>
+                            <?php
+                            for ($i = 2002; $i <= date('Y'); $i++){
+                                echo '<option value="'.$i.'">'.$i.'</option>';
+                              }
+                            ?>
+                          </select>
+                        </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i>Generate</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i> Close</button>
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- monthly Modal -->
+                <div class="modal fade" id="Monthly" tabindex="-1" role="dialog" aria-labelledby="addCi" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
+                        <h5 class="modal-title" id="exampleModalLabel">Monthly Sales Invoice</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                        <div class="modal-body">
+                        <form action="month.php" method="POST">
+                          <label for="exampleFormControlSelect2">Select a Month</label>
+                          <select type="text" class="form-control  chzn-select" name="date" id="exampleFormControlSelect2" tabindex="2" required> 
+                            <option hidden selected value="" >Select Month</option>
+                            <option  value="1" >January</option>
+                            <option  value="2" >February</option>
+                            <option  value="3" >March</option>
+                            <option  value="4" >April</option>
+                            <option  value="5" >May</option>
+                            <option  value="6" >June</option>
+                            <option  value="7" >July</option>
+                            <option  value="8" >August</option>
+                            <option  value="9" >September</option>
+                            <option  value="10" >October</option>
+                            <option  value="11" >November</option>
+                            <option  value="12" >December</option>
+                          </select>
+                        </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i>Generate</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i> Close</button>
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    
+                <div class="table-responsive">
                   <table class="table table-bordered table-dark" id="doctables">
                       <thead>
                         <tr class="grid">
-                            <th>ID</th>
+                            
                             <th>Plate</th>
                             <th>Made</th>
                             <th>Series</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Scope Work</th>
-                            <th>Spare Parts</th>
+                            <th>Client Name</th>
                             <th>Date</th>
-                            <th>Balance</th>
                             <th>Action</th>
                         </tr>
                       </thead>
                       <tbody class="table-primary" style="color:black;">
                           <?php foreach($ci as $chargeInvoice): ?>
                               <tr>
-                                <td><?= $chargeInvoice['id']; ?></td>
-                                <td><?= $chargeInvoice['platenumber']; ?></td>
+                                <td><?= $chargeInvoice['plateNumber']; ?></td>
                                 <td><?= $chargeInvoice['make']; ?></td>
                                 <td><?= $chargeInvoice['series']; ?></td>
-                                <td><?= $chargeInvoice['firstName']; ?></td>
-                                <td><?= $chargeInvoice['lastName']; ?></td>
-                                <td><?= $chargeInvoice['scopeWork']; ?></td>
-                                <td><?= $chargeInvoice['spareParts']; ?></td>
-                                <td><?= $chargeInvoice['date']; ?></td>
-                                <td><?= $chargeInvoice['totalPrice']; ?></td>
+                                <td><?= $chargeInvoice['owner']; ?></td>
+                                <td><?= $chargeInvoice['cDate']; ?></td>
                                   <td>
-                                      <form action='payment.php?id=<?= $chargeInvoice['id']; ?>&totalPrice=<?= $chargeInvoice['totalPrice']; ?>' method = 'POST' > Payment = <input type = 'text' name = 'payment' style="border-style: groove; border-radius: 5px; border-color:#f2f2f2">
-                                      <input type='submit' name='submit' class="btn btn-primary"></form>
+                                      <a href="print.php?id=<?= $chargeInvoice['cId'];?>"><input type='submit'value='Full Details' name='submit' class="btn btn-primary"></a>
                                   </td>
                               </tr>
                         <?php endforeach; ?>
@@ -175,7 +279,9 @@ $ci = $stmt->fetchAll();
                     </table>
                       <br>
                   </div>
+                
                 </div>
+
               </div>
             </div>
 
@@ -209,6 +315,13 @@ $ci = $stmt->fetchAll();
     
 <script>
   var table = $('#doctables').DataTable({
+    // PAGELENGTH OPTIONS
+    "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
+
+});
+</script>
+<script>
+  var table = $('#doctables2').DataTable({
     // PAGELENGTH OPTIONS
     "lengthMenu": [[ 5, 10, 25, 50, 100, -1], [ 5, 10, 25, 50, 100, "All"]]
 
