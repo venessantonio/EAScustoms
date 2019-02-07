@@ -320,7 +320,7 @@ if (isset($_POST['vehiclesinfo_deactivate'])) {
    $series = $_POST['series'];
    $yearModel = $_POST['yearModel'];
    $date = $_POST['date'];
-   $query = "UPDATE appointments SET status= 'Accepted' , created= now(), date = '$date'  WHERE id = $appointmentId";
+   $query = "UPDATE appointments SET status= 'Accepted' , created= now(), date = '$date', targetEndDate = '$date', notification= '0' WHERE id = $appointmentId";
    $_SESSION['appointment_accepted'] = '<div class="alert alert-success fade in" align="center">
    <a href="#" class="close" data-dismiss="alert">&times;</a>
    <i class="fas fa-check"></i> <strong> Notice</strong>' .$plateNumber.' '.$make.' '.$series.' was added successfully </div>';
@@ -336,7 +336,7 @@ if (isset($_POST['vehiclesinfo_deactivate'])) {
    $appointmentId = $_POST['appointmentId'];
    $reason = $_POST['reason'];
    $date = $_POST['date'];
-   $query = "UPDATE appointments SET status = 'Rescheduled', additionalMessage= '$reason' , date = '$ date' , created= now()  WHERE id = $appointmentId";
+   $query = "UPDATE appointments SET status = 'Rescheduled', additionalMessage= '$reason' , date = '$ date' , created= now(), notification = '0'  WHERE id = $appointmentId";
 
    mysqli_query($db, $query);
    header('location: Pendingreq.php');
