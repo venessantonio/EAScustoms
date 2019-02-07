@@ -1,6 +1,5 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
-<?php require"process/check/dashboardcheck.php";?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -140,7 +140,7 @@
                       <?php
                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
                         yearModel,plateNumber,appointments.status,date, appointments.created as 'created', appointments.additionalMessage as 'message', appointments.serviceId as 'service' from appointments join personalinfo on appointments.personalId
-                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where appointments.status = 'Overdue'");
+                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where appointments.status = 'Accepted' AND (appointments.date > CURRENT_TIMESTAMP);");
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {

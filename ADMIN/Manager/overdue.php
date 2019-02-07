@@ -127,7 +127,7 @@
                             <th style="font-size:15px;">Plate Number</th>
                             <th style="font-size:15px;">Status</th>
                             <th style="font-size:15px;">Date Sent</th>
-                            <th style="font-size:15px;">Date of Appointment Request</th>
+                            <th style="font-size:15px;">Date of Appointment</th>
                             
                         </tr>
                       </thead>
@@ -135,7 +135,7 @@
                       <?php
                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
                         yearModel,plateNumber,appointments.status,date, appointments.created as 'created', appointments.additionalMessage as 'message', appointments.serviceId as 'service' from appointments join personalinfo on appointments.personalId
-                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where appointments.status = 'Accepted' AND date < now()");
+                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where appointments.status = 'Accepted' AND (appointments.date > CURRENT_TIMESTAMP)");
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {
