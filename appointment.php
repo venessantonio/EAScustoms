@@ -1,4 +1,4 @@
-<?php
+ <?php
     session_start();
     include 'process/database.php';
     include 'process/info.php';
@@ -6,15 +6,10 @@
     $username=$_SESSION['username'];
     $profile =new database;
     $profile->user_profile($username);
-
-
-  
-$mechanicalservice = new database ;
-$mechanicalservice -> mechanical_service();
-$electricalservice = new database ;
-$electricalservice -> electrical_service();
-$paintservice = new database ;
-$paintservice -> painting_service();
+// $mechanicalservice = new database ;
+// $mechanicalservice -> mechanical_service();
+// $electricalservice = new database ;
+// $electricalservice -> electrical_service();
 $appointmentinfo = new database ;
 $appointmentinfo -> appointment_info_activeschedule();
 $personalinfo = new database ;
@@ -104,7 +99,7 @@ $personalinfo -> personal_info();
 
 
      <!-- MENU -->
-     <section class="navbar navbar-default navbar-static-top" role="navigation" >
+ <section class="navbar navbar-default navbar-static-top" role="navigation" >
           <div class="container">
 
                <div class="navbar-header">
@@ -125,16 +120,17 @@ $personalinfo -> personal_info();
                <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav ">
                      <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding: 0;"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fas fa-user-circle"></i> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
-                  </a>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php  if (isset($_SESSION['username'])) : ?><p> <i class="fas fa-user-circle"></i> Welcome <?php echo $_SESSION['username']; ?> <span class="caret"></span></p>
+                </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
-                     <li><a  href="accountsettings.php" style="font-size: 13px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
-                    <li><a  href="process/logout.php" style="color: red;font-size: 13px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                     <li><a  href="accountsettings.php" style="font-size: 12px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
+              <li><a  href="process/logout.php" style="color: red;font-size: 12px;z-index: 9999;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
                   <?php endif ?>
-                </ul>
+             </ul>
+                   
                     
                     <ul class="nav navbar-nav navbar-right">
                           
@@ -142,8 +138,6 @@ $personalinfo -> personal_info();
                         <li><a href="vehiclesinfo.php" class="smoothScroll"><i class="fas fa-car"></i> Your Vehicles</a></li>  
                         <li class="dropdown">
                        
-                        
-                        
                 <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#" ><i class="far fa-calendar-check"></i> Request Status<span class="caret"></span>
                   </a>
@@ -157,8 +151,6 @@ $personalinfo -> personal_info();
                     </li>
                   </ul>
                   </li>
-                
-             
                         
                         <li class="dropdown">
                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell" aria-hidden="true" style="font-size: 20px;padding: 0;"></i>  <span class="label label-pill label-danger count" style="border-radius:10px;"></span></a>
@@ -219,41 +211,72 @@ $personalinfo -> personal_info();
                           </div>
                           <br>
                             <div class="service-detail" id="mechanical_service" style="display: none; text-align:justify;">    
-                              <?php
-                               foreach($mechanicalservice->mechanical_service as $mechanicalservice):
-                              ?>  
-                               <div class="col-md-4 col-sm-4">
+                          <?php
+                          if ($mechanicalservicearrayCheck > 0) {
+                            while ($mechanicalservice = mysqli_fetch_assoc($mechanicalservicearray)) {
+                          ?>
+                           <div class="col-md-4 col-sm-4">
                                <input type="checkbox" name="service[]" id="<?= $mechanicalservice['serviceName']; ?>"  value="<?= $mechanicalservice['serviceName']; ?>"><?= $mechanicalservice['serviceName']; ?><br>
                                </div>
-                              <?php 
-                                endforeach; 
+                          <?php 
+                            }
+                          }else{
                               ?>
+                                 <p> NO MECHANICAL SERVICE </p>
+                              <?php
+                              }
+                              ?> 
                             </div>
                         
                             <div class="service-detail" id="electrical_service" style="display: none; text-align:justify;">
-                              <?php
-                               foreach($electricalservice->electrical_service as $electricalservice):
-                              ?>
-                               <div class="col-md-5 col-sm-5">   
-                               <input type="checkbox" name="service[]" id="<?= $electricalservice['serviceName']; ?>"  value="<?= $electricalservice['serviceName']; ?>"> 
-                               <?= $electricalservice['serviceName']; ?>
-                               <br> 
+                          <?php
+                          if ($electricalservicearrayCheck > 0) {
+                            while ($electricalservice = mysqli_fetch_assoc($electricalservicearray)) {
+                          ?>
+                           <div class="col-md-4 col-sm-4">
+                               <input type="checkbox" name="service[]" id="<?= $electricalservice['serviceName']; ?>"  value="<?= $electricalservice['serviceName']; ?>"><?= $electricalservice['serviceName']; ?><br>
                                </div>
-                              <?php     
-                                 endforeach;  
+                          <?php 
+                            }
+                          }else{
                               ?>
+                                 <p> NO ELECTRICAL SERVICE </p>
+                              <?php
+                              }
+                              ?> 
                          </div>
                         
                          <div class="service-detail" id="paint_service" style="display: none; text-align:justify;">
+                          <?php
+                          if ($paintservicearrayCheck > 0) {
+                            while ($paintservice = mysqli_fetch_assoc($paintservicearray)) {
+                          ?>
+                           <div class="col-md-4 col-sm-4">
+                               <input type="checkbox" name="service[]" id="<?= $paintservice['serviceName']; ?>"  value="<?= $paintservice['serviceName']; ?>"><?= $paintservice['serviceName']; ?><br>
+                               </div>
+                          <?php 
+                            }
+                          }else{
+                              ?>
+                                 <p> NO PAINT SERVICE </p>
                               <?php
-                               foreach($paintservice->painting_service as $paintservice){
-                              ?>   
-                               <input type="checkbox" name="service[]" id="<?= $paintservice['serviceName']; ?>"  value="<?= $paintservice['serviceName']; ?>"><?= $paintservice['serviceName']; 
-                                ?></input>
-                              <br><br>
-                              <?php     
-                                   }
-                              ?>        
+                              }
+                              ?>       
+<!--                               <?php
+                              if(isset($paintservice->paint_service)){
+                               foreach($paintservice->paint_service as $paintservice):
+                              ?>  
+                               <div class="col-md-4 col-sm-4">
+                               <input type="checkbox" name="service[]" id="<?= $paintservice['serviceName']; ?>"  value="<?= $paintservice['serviceName']; ?>"><?= $paintservice['serviceName']; ?><br>
+                               </div>
+                              <?php 
+                                endforeach; 
+                              }else{
+                              ?>
+                                 <p> NO PAINT SERVICE </p>
+                              <?php
+                              }
+                              ?> -->       
                          </div>
                     
                         <div class="service-detail" id="body_Repair" style="display: none; text-align:justify;">
@@ -278,21 +301,21 @@ $personalinfo -> personal_info();
                     <div class="panel-body">
                         <textarea class="form-control" rows="5" id="otherService" name="otherService" placeholder="Others" style="background-color:#ebecee;"></textarea>
                       </div>
+
                     
                     <!-- Select Date -->
                            <?php foreach($personalinfo->personal_info as $personalinfo):?>
                               <input type="hidden" id="personalId" name="personalId" value="<?= $personalinfo['personalId']; ?>">
                             <?php endforeach; ?>   
-                                               
-
               
                           <script type="text/javascript">
                            var unavailableDates  = [<?php
                            foreach($appointmentinfo->appointment_info as $appointmentinfo):
-                           ?>"<?= date('yy-mm-dd ', strtotime($appointmentinfo['date'])); ?>",
+                           ?>"<?= date('d-n-o', strtotime($appointmentinfo['date'])); ?>",
                           <?php     
                             endforeach;
                           ?>];
+
                            function unavailable(date) {
                            dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
                            if ($jq171.inArray(dmy, unavailableDates) == -1) {
@@ -302,12 +325,16 @@ $personalinfo -> personal_info();
                             }
                            }
 
+                           function noWeekend(date){
+                            var noWeekend = $jq171.datepicker.noWeekends(date);
+                            return noWeekend[0] ? unavailable(date) : noWeekend;
+                           }
+
                           $jq171(function(){
                             $jq171('#datepicker').datepicker({
-                              dateFormat: 'yy-mm-dd',
+                              dateFormat: 'yy-m-d',
                               minDate: 1,
-                              beforeShowDay: unavailable, //eto yung date para sa disabled dates
-                              beforeShowDay: $jq171.datepicker.noWeekends,
+                              beforeShowDay: noWeekend, //eto yung date para sa disabled dates
                               inline: true,
                               //nextText: '&rarr;',
                               //prevText: '&larr;',
@@ -330,9 +357,6 @@ $personalinfo -> personal_info();
                     <div class="col-sm-3" id="date_body">
                     <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker" name="date" class="form-control" readonly></b>
                     
-                    </div>
-                    <div class="col-sm-3" id="date_body">
-                    <button type="button" class="btn" style="font-family: 'Poppins', sans-serif; background-color: #4caf50; color: white;" data-toggle="modal" data-target="#datePickerModal"> Date Suggested&nbsp; <i class="fas fa-exclamation"></i></button>
                     </div>
                     </div>
                     </div>
@@ -375,47 +399,7 @@ $personalinfo -> personal_info();
     </div> 
 </div>
 
-<div id="datePickerModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div  class="modal-content">
-      <div class="modal-header" style="background-color: #b80011;">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" style="color: white;"><i class="far fa-calendar-alt"></i>   Date Suggested</h4>
-      </div>
-      <div class="modal-body">
-        
-        <h5> Date Suggested:</h5>
-         <?php
-           foreach($date_count->date_count as $date_count){
-          ?>
-         <?php 
-         if($date_count['dateCount'] <= '4' && $date_count['dateCount'] >= '0' ){ 
-         ?>
-
-         <b><div style="color: #035D04;font-size: 16px;"><?= date('M j, Y', strtotime($date_count['date'])); ?> <br></div></b> 
-         
-         <?php
-          }elseif($date_count['dateCount'] <= '9' && $date_count['dateCount'] >= '5'){
-          ?><br></div></b>
-        
-        <?php 
-          }elseif($date_count['dateCount'] >= '10'){
-        ?>
-         <b><div style="color: #9B0F0A;font-size: 16px;"><?= date('M j, Y', strtotime($date_count['date'])); ?><br></div></b>
-        <?php
-         }
-       }
-        ?>
-      </div>
-      <div class="modal-footer">
-        <button style="font-size: 12px;font-family: 'Poppins', sans-serif;" type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
 
    
    <!-- END OF APPOINTMENT SECTION -->

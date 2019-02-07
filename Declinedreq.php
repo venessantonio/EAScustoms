@@ -173,7 +173,7 @@
                   </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 13px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
-                    <li><a  href="process/logout.php" style="color: red;font-size: 13px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    <li><a  href="process/logout.php" style="color: red;font-size: 13px;z-index: 9999;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                   </ul>
                   </li>

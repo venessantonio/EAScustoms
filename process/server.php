@@ -320,7 +320,7 @@ if (isset($_POST['vehiclesinfo_deactivate'])) {
    $series = $_POST['series'];
    $yearModel = $_POST['yearModel'];
    $date = $_POST['date'];
-   $query = "UPDATE appointments SET status= 'Accepted' , created= now(), date = '$date'  WHERE id = $appointmentId";
+   $query = "UPDATE appointments SET status= 'Accepted' , created= now(), date = '$date', targetEndDate = '$date'  WHERE id = $appointmentId";
    $_SESSION['appointment_accepted'] = '<div class="alert alert-success fade in" align="center">
    <a href="#" class="close" data-dismiss="alert">&times;</a>
    <i class="fas fa-check"></i> <strong> Notice</strong>' .$plateNumber.' '.$make.' '.$series.' was added successfully </div>';

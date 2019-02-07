@@ -9,12 +9,12 @@
 
 
   
-$mechanicalservice = new database ;
-$mechanicalservice -> mechanical_service();
-$electricalservice = new database ;
-$electricalservice -> electrical_service();
-$paintservice = new database ;
-$paintservice -> painting_service();
+// $mechanicalservice = new database ;
+// $mechanicalservice -> mechanical_service();
+// $electricalservice = new database ;
+// $electricalservice -> electrical_service();
+// $paintservice = new database ;
+// $paintservice -> painting_service();
 $appointmentinfo = new database ;
 $appointmentinfo -> appointment_info_activeschedule();
 $personalinfo = new database ;

@@ -95,55 +95,76 @@
 
      </header>
           <script type="text/javascript">
-           var unavailableDates  = [<?php
-           foreach($appointmentinfo->appointment_info as $appointmentinfo):
-           ?>"<?= date('j-m-Y', strtotime($appointmentinfo['date'])); ?>",
-          <?php     
-            endforeach;
-          ?>];
-           function unavailable(date) {
-           dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-           if ($jq171.inArray(dmy, unavailableDates) == -1) {
-            return [true, ""];
-            } else {
-            return [false, "", "Unavailable"];
-            }
-           }
+             var unavailableDates  = [<?php
+             foreach($appointmentinfo->appointment_info as $appointmentinfo):
+             ?>"<?= date('d-n-o', strtotime($appointmentinfo['date'])); ?>",
+            <?php     
+              endforeach;
+            ?>];
 
-          $jq171(function(){
-            $jq171('#datepicker').datepicker({
-              dateFormat: 'yy-mm-dd',
-              minDate: 0,
-              beforeShowDay: $jq171.datepicker.noWeekends,
-              inline: true,
-              //nextText: '&rarr;',
-              //prevText: '&larr;',
-              showOtherMonths: true,
-              //dateFormat: 'dd MM yy',
-              dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-              beforeShowDay: unavailable, 
-              //showOn: "button",
-              //buttonImage: "img/calendar-blue.png",
-              //buttonImageOnly: true,
-            });
+             function unavailable(date) {
+             dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+             if ($jq171.inArray(dmy, unavailableDates) == -1) {
+              return [true, ""];
+              } else {
+              return [false, "", "Unavailable"];
+              }
+             }
+
+             function noWeekend(date){
+              var noWeekend = $jq171.datepicker.noWeekends(date);
+              return noWeekend[0] ? unavailable(date) : noWeekend;
+             }
+
+
+            $jq171(function(){
+              $jq171('#datepicker').datepicker({
+                dateFormat: 'yy-m-d',
+                minDate: 1,
+                beforeShowDay: noWeekend, //eto yung date para sa disabled dates
+                inline: true,
+                //nextText: '&rarr;',
+                //prevText: '&larr;',
+                showOtherMonths: true,
+                //dateFormat: 'dd MM yy',
+                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                //showOn: "button",
+                //buttonImage: "img/calendar-blue.png",
+                //buttonImageOnly: true,
+              });
           });
 
-           $jq171(function(){
-            $jq171('#datepicker2').datepicker({
-              dateFormat: 'yy-mm-dd',
-              minDate: 0,
-              beforeShowDay: $jq171.datepicker.noWeekends,
-              inline: true,
-              //nextText: '&rarr;',
-              //prevText: '&larr;',
-              showOtherMonths: true,
-              //dateFormat: 'dd MM yy',
-              dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-              beforeShowDay: unavailable, 
-              //showOn: "button",
-              //buttonImage: "img/calendar-blue.png",
-              //buttonImageOnly: true,
-            });
+            $jq171(function(){
+              $jq171('#datepicker2').datepicker({
+                dateFormat: 'yy-m-d',
+                minDate: 1,
+                beforeShowDay: noWeekend, //eto yung date para sa disabled dates
+                inline: true,
+                //nextText: '&rarr;',
+                //prevText: '&larr;',
+                showOtherMonths: true,
+                //dateFormat: 'dd MM yy',
+                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                //showOn: "button",
+                //buttonImage: "img/calendar-blue.png",
+                //buttonImageOnly: true,
+              });
+          });
+            $jq171(function(){
+              $jq171('#datepicker3').datepicker({
+                dateFormat: 'yy-m-d',
+                minDate: 1,
+                beforeShowDay: noWeekend, //eto yung date para sa disabled dates
+                inline: true,
+                //nextText: '&rarr;',
+                //prevText: '&larr;',
+                showOtherMonths: true,
+                //dateFormat: 'dd MM yy',
+                dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                //showOn: "button",
+                //buttonImage: "img/calendar-blue.png",
+                //buttonImageOnly: true,
+              });
           });
           </script>
 
@@ -173,7 +194,7 @@
                   </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 13px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
-                    <li><a  href="process/logout.php" style="color: red;font-size: 13px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    <li><a  href="process/logout.php" style="color: red;font-size: 13px;z-index: 9999;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
@@ -252,13 +273,13 @@
     <div class="row">
     <div class="col-xs-12 col-sm-12">
     <div class="panel panel-default" id="headings" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-      <div class="panel-heading" style="background-color: #ffaf00;color: white; font-size: 18px;"><i class="fas fa-truck-loading"></i> &nbsp;Pending and Reschedule Requests</div>
+      <div class="panel-heading" style="background-color: #ffaf00;color: white; font-size: 18px;"><i class="fas fa-truck-loading"></i> &nbsp;Rescheduled Requests</div>
       <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 450px;">
 
 
 
 
-      <!-- PENDING ANG RESCHEDULED -->        
+      <!-- RESCHEDULED -->        
       <?php
        if ($rescheduledRequestsresultCheck > 0) {
         while ($appointmentrescheduled = mysqli_fetch_assoc($rescheduledRequestsresult)) {
@@ -354,9 +375,9 @@
             <div class="modal-body">
                 <label for="date">Desired date to be Rescheduled:</label>
                 <input type="hidden" name="appointmentId" value="<?= $appointmentrescheduled['id']; ?>">
-                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker" name="date[]" class="form-control" placeholder="Date1"  required></b><br>
-                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker2" name="date[]" class="form-control" placeholder="Date2*"></b><br>
-                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker3" name="date[]" class="form-control" placeholder="Date3*"></b><br>
+                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker" name="date1" class="form-control" placeholder="Date1"  required></b><br>
+                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker2" name="date2" class="form-control" placeholder="Date2*"></b><br>
+                <b><input type="text" style="font-family: 'Poppins', sans-serif;cursor: pointer;" id="datepicker3" name="date3" class="form-control" placeholder="Date3*"></b><br>
 
                 <label for="reasonStated">Reason:</label><br>
                 <textarea class="form-control" name="reasonStated" rows="5" ></textarea>   

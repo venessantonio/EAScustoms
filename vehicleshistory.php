@@ -6,17 +6,15 @@
     $username=$_SESSION['username'];
     $profile =new database;
     $profile->user_profile($username);
-    $date_count =new database;
-    $date_count->date_count();
 
 
   
-$mechanicalservice = new database ;
-$mechanicalservice -> mechanical_service();
-$electricalservice = new database ;
-$electricalservice -> electrical_service();
-$paintservice = new database ;
-$paintservice -> painting_service();
+// $mechanicalservice = new database ;
+// $mechanicalservice -> mechanical_service();
+// $electricalservice = new database ;
+// $electricalservice -> electrical_service();
+// $paintservice = new database ;
+// $paintservice -> painting_service();
 $appointmentinfo = new database ;
 $appointmentinfo -> appointment_info_activeschedule();
 $personalinfo = new database ;
@@ -125,7 +123,7 @@ $personalinfo -> personal_info();
                   </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 13px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
-                    <li><a  href="process/logout.php" style="color: red;font-size: 13px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    <li><a  href="process/logout.php" style="color: red;font-size: 13px;z-index: 9999;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
@@ -250,7 +248,7 @@ $personalinfo -> personal_info();
                         <?php 
                          }
                         }else{
-                          echo '<td colspan="7"><nav aria-label="breadcrumb" align="center">
+                          echo '<td colspan="7" style="text-align:center"><nav aria-label="breadcrumb" align="center">
                                   <ol class="breadcrumb">
                                     <li class="breadcrumb-item active" aria-current="page">NO DATA YET</li>
                                   </ol>

@@ -9,14 +9,14 @@
 
 
   
-$mechanicalservice = new database ;
-$mechanicalservice -> mechanical_service();
-$electricalservice = new database ;
-$electricalservice -> electrical_service();
-$paintservice = new database ;
-$paintservice -> painting_service();
-$appointmentinfo = new database ;
-$appointmentinfo -> appointment_info_activeschedule();
+// $mechanicalservice = new database ;
+// $mechanicalservice -> mechanical_service();
+// $electricalservice = new database ;
+// $electricalservice -> electrical_service();
+// $paintservice = new database ;
+// $paintservice -> painting_service();
+// $appointmentinfo = new database ;
+// $appointmentinfo -> appointment_info_activeschedule();
 // $personalinfo = new database ;
 // $personalinfo -> personal_info();
 
@@ -206,42 +206,40 @@ $appointmentinfo -> appointment_info_activeschedule();
                      
                         <div class="col-md-8 col-sm-8">
                             <ul style="text-align:justify; font-size:16px;list-style: none;">
-                            <div class="service-detail" id="mechanical_service" style="display: none; text-align:justify;">    
-                              <?php
-                               foreach($mechanicalservice->mechanical_service as $mechanicalservice):
-                              ?>  
-                               <div class="col-md-5 col-sm-5">
+                                                    <div class="service-detail" id="mechanical_service" style="display: none; text-align:justify;">    
+                          <?php
+                          if ($mechanicalservicearrayCheck > 0) {
+                            while ($mechanicalservice = mysqli_fetch_assoc($mechanicalservicearray)) {
+                          ?>
+                           <div class="col-md-4 col-sm-4">
                                <input type="checkbox" name="service[]" id="<?= $mechanicalservice['serviceName']; ?>"  value="<?= $mechanicalservice['serviceName']; ?>"><?= $mechanicalservice['serviceName']; ?><br>
                                </div>
-                              <?php 
-                                endforeach; 
+                          <?php 
+                            }
+                          }else{
                               ?>
+                                 <p> NO MECHANICAL SERVICE </p>
+                              <?php
+                              }
+                              ?> 
                             </div>
                         
                             <div class="service-detail" id="electrical_service" style="display: none; text-align:justify;">
-                              <?php
-                               foreach($electricalservice->electrical_service as $electricalservice):
-                              ?>
-                               <div class="col-md-5 cosl-sm-5">   
-                               <input type="checkbox" name="service[]" id="<?= $electricalservice['serviceName']; ?>"  value="<?= $electricalservice['serviceName']; ?>"> 
-                               <?= $electricalservice['serviceName']; ?>
-                               <br> 
+                          <?php
+                          if ($electricalservicearrayCheck > 0) {
+                            while ($electricalservice = mysqli_fetch_assoc($electricalservicearray)) {
+                          ?>
+                           <div class="col-md-4 col-sm-4">
+                               <input type="checkbox" name="service[]" id="<?= $electricalservice['serviceName']; ?>"  value="<?= $electricalservice['serviceName']; ?>"><?= $electricalservice['serviceName']; ?><br>
                                </div>
-                              <?php     
-                                 endforeach;  
+                          <?php 
+                            }
+                          }else{
                               ?>
-                         </div>
-                        
-                         <div class="service-detail" id="paint_service" style="display: none; text-align:justify;">
+                                 <p> NO ELECTRICAL SERVICE </p>
                               <?php
-                               foreach($paintservice->painting_service as $paintservice){
-                              ?>   
-                               <input type="checkbox" name="service[]" id="<?= $paintservice['serviceName']; ?>"  value="<?= $paintservice['serviceName']; ?>"><?= $paintservice['serviceName']; 
-                                ?>
-                              <br><br>
-                              <?php     
-                                   }
-                              ?>        
+                              }
+                              ?> 
                          </div>
                     
                         <div class="service-detail" id="body_Repair" style="display: none; text-align:justify;">
