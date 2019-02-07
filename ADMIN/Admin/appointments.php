@@ -17,8 +17,8 @@ $paintservice = new database ;
 $paintservice -> painting_service();
 $appointmentinfo = new database ;
 $appointmentinfo -> appointment_info_activeschedule();
-$personalinfo = new database ;
-$personalinfo -> personal_info();
+// $personalinfo = new database ;
+// $personalinfo -> personal_info();
 
 ?>
 
@@ -186,7 +186,7 @@ $personalinfo -> personal_info();
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="dashboard.php" style="font-size:18px;">Date Entry</a></li>
-                    <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;">Appointments</li>
+                    <li class="breadcrumb-item active" aria-current="page" style="font-size:18px;">Appointments <?PHP echo $_SESSION['id']; ?></li>
                   </ol>
                 </nav>
               </div>

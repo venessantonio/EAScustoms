@@ -17,8 +17,8 @@ $paintservice = new database ;
 $paintservice -> painting_service();
 $appointmentinfo = new database ;
 $appointmentinfo -> appointment_info_activeschedule();
-$personalinfo = new database ;
-$personalinfo -> personal_info();
+// $personalinfo = new database ;
+// $personalinfo -> personal_info();
 
 ?>
 

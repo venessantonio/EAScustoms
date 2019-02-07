@@ -86,7 +86,7 @@ class database{
 
 	
 	public function personal_info(){
-		$query=$this->conn->query("SELECT * from personalinfo where user_id= '".$_SESSION['id']."'");
+		$query=$this->conn->query("SELECT * from personalinfo where user_id = '".$_SESSION['id']."'");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
 			$this->personal_info[]=$row;
 		}
