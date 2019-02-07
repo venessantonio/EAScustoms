@@ -2,7 +2,6 @@ $('document').ready(function(){
  var username_state = false;
  var password_state = false;
  var existingpassword_state = false;
- var changepassword_state = false;
  var email_state = false;
  var firstName_state = false; 
  var middleName_state = false;
@@ -32,13 +31,6 @@ $('#others').val('');
 $('#otherseries').val('');  
 };
 });
-
-// Change password button state
-if (changepassword_state = true) {
-$('#changepassbutton').prop('type', 'submit');
-$('#changepassbutton').addClass('btn btn-primary btn-sm').fadeIn();
-return;
-};
 
 
 
@@ -145,7 +137,36 @@ $('input[type="checkbox"]').click(function () { getSelectedCheckBoxes('service[]
    } 
      }; 
 
+$('#existingpassword').on('keyup', function(){
+  var existingpassword = $('#existingpassword').val();
+  if (existingpassword == '') {
+    existingpassword_state = false;
+    return;
+  }
+  $.ajax({
+      url: 'accountsettings.php',
+      type: 'post',
+      data: {
+        'existingpassword_check' : 1,
+        'existingpassword' : existingpassword,
+      },
+      success: function(response){
+        if (response == 'taken' ) {
+          existingpassword_state = true;
+          $('#existingpassword').siblings("span").css("color","green");
+          $('#existingpassword').siblings("span").text('Correct');
+          return;
+        }else if (response == 'not_taken') {
+          existingpassword_state = false;
+          $('#existingpassword').siblings("span").css("color","#D83D5A");
+          $('#existingpassword').siblings("span").text('Incorrect Password');
+          return;
+        }
+      }
 
+  });
+ });
+ 
 
 
  $('#username').on('blur', function(){
@@ -277,11 +298,6 @@ $('#contactNumber').on('blur', function(){
   });
  });
 
-
-
-
-
-
 //Account Settings
 
 $('#accountpassword').blur(function() {
@@ -294,68 +310,22 @@ $('#accountpassword').blur(function() {
       return;
 });
 
-
-
-
-
-
-
-//Password Validators Settings
-
-//$('#accountpassword, #accountconfirm_password').on('keyup', function () {
 $('#accountpassword, #accountconfirm_password').on('keyup', function () {
   if ($('#accountpassword').val() == $('#accountconfirm_password').val()) {
     $('#message').html('Matching').css('color', 'green');
       $('#changepassbutton').removeClass();
-      changepassword_state = true;
+      $('#changepassbutton').prop('type', 'submit');
+      $('#changepassbutton').addClass('btn btn-primary btn-sm').fadeIn();
       return;
   } else 
     $('#message').html('Not Matching').css('color', 'red');
       $('#changepassbutton').removeClass();
       $('#changepassbutton').prop('type', 'button');
       $('#changepassbutton').addClass('btn btn-primary btn-sm disabled').fadeIn();
-      return;
+    return;
 });
 
-
-
-
-
-$('#existingpassword').on('keyup', function(){
-  var existingpassword = $('#existingpassword').val();
-  if (existingpassword == '') {
-    existingpassword_state = false;
-    return;
-  }
-  $.ajax({
-      url: 'accountsettings.php',
-      type: 'post',
-      data: {
-        'existingpassword_check' : 1,
-        'existingpassword' : existingpassword,
-      },
-      success: function(response){
-        if (response == 'taken' ) {
-          existingpassword_state = true;
-          
-          $('#existingpassword').siblings("span").addClass("form_success");
-          $('#existingpassword').siblings("span").text('Correct');
-          return;
-        }else if (response == 'not_taken') {
-          existingpassword_state = false;
-          $('#existingpassword').siblings("span").addClass("form_error");
-          $('#existingpassword').siblings("span").text('Incorrect Password');
-          return;
-        }
-      }
-
-  });
- });
-
-
-
-
-
+//End of Account Settings
 
 
 
@@ -483,7 +453,7 @@ var emailpattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
       email_state = false;
       return;
 });
-$('#plateNumber').blur(function() {
+$('#plateNumber').keyup(function() {
 var plateNumberpattern = new RegExp(/[A-Za-z]{3,}\s[0-9]{3,}$/i);
 
     if(plateNumberpattern.test($("#plateNumber").val())) {
@@ -536,33 +506,34 @@ $('#username').blur(function() {
 $('#password').blur(function() {
   if (this.value == '') {
     $('#password_msg').fadeIn("slow");
-    password_state = false;
     return;
   }
   if (this.value != '' )
     $('#password_msg').fadeOut();
-    password_state = true;
     return;
 });
 
 $('#accountpassword').keyup(function() {
   if (this.value == '') {
+    $('#accountpassword_msg').fadeIn("slow");
+    $('#changepassbutton').removeClass();
+    $('#changepassbutton').prop('type', 'button');
     $('#changepassbutton').addClass('btn btn-primary btn-sm disabled').fadeIn();
-    $('#password_msg').fadeIn("slow");
-    changepassword_state = false;
+    existingpasswordpassword_state = false;
     return;
   }
   if (this.value != '' )
-    $('#password_msg').fadeOut();
-    changepassword_state = true;
+    $('#accountpassword_msg').fadeOut();
+    existingpassword_state = true;
+    $('#changepassbutton').prop('type', 'submit');
+    $('#changepassbutton').addClass('btn btn-primary btn-sm disabled').fadeIn();
     return;
 });
 
-$('#password').blur(function() {
+$('#password').keyup(function() {
   var passwordpattern = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/i);
   if(passwordpattern.test($("#password").val())) {
       $('#passwordpat_msg').fadeOut("slow");
-      password_state = true;
       return;
     } else 
       $('#passwordpat_msg').fadeIn("slow");
@@ -571,7 +542,7 @@ $('#password').blur(function() {
 
 
 
-$('#contactNumber').blur(function() {
+$('#contactNumber').keyup(function() {
   var contactNumberpattern = new RegExp(/^\d{1,10}$/i);
   if(contactNumberpattern.test($("#contactNumber").val())) {
       $('#contactNumberpat_msg').fadeOut("slow");
@@ -584,7 +555,7 @@ $('#contactNumber').blur(function() {
 });
 
 //If empty values given
-$('#plateNumber').blur(function() {
+$('#plateNumber').keyup(function() {
   if (this.value == '') {
     $('#plateNumber_msg').fadeIn("slow");
     $('#plateNumber').css("border","1px solid #D83D5A");
@@ -601,7 +572,7 @@ $('#plateNumber').blur(function() {
     return;
 });
 
-$('#make').blur(function() {
+$('#make').keyup(function() {
   if (this.value == '') {
     $('#make_msg').fadeIn("slow");
     $('#make').css("border","1px solid #D83D5A");
@@ -618,7 +589,7 @@ $('#make').blur(function() {
     return;
 });
 
-$('#series').blur(function() {
+$('#series').keyup(function() {
   if (this.value == '') {
     $('#series_msg').fadeIn("slow");
     $('#series').css("border","1px solid #D83D5A");
@@ -739,3 +710,4 @@ $('#lastName,#firstName,#middleName,#username,#password,#email,#contactNumber,#a
 
 
 
+  
