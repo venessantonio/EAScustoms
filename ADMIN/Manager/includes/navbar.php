@@ -26,17 +26,14 @@
         </ul>
             
         <ul class="navbar-nav navbar-nav-right">
-            <!--
             <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" data-toggle="dropdown">
+                <span class="count">0</span>
                 <i class="mdi mdi-bell"></i>
-                <span class="label label-pill label-danger count"></span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown" id="dropdownnotif">
-
-
-            </div>
-            </li> -->
+            <ul class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" id="dropdownnotif">     
+           </ul>
+            </li>
 
 
 
