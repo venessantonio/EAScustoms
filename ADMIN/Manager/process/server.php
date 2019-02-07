@@ -1,7 +1,7 @@
 <?php
 require "require/dataconf.php"; //datebase connection
 
-if(isset($_POST['command1'])){
+if(isset($_POST['commands1'])){
   $action = $connection->real_escape_string($_POST["command1"]);
   $id = $connection->real_escape_string($_POST["id1"]);
   if(isset($_POST['message'])){
@@ -14,10 +14,17 @@ if(isset($_POST['color'])){
   }else{
     $color = "";
   }
+ if(!isset($_POST["date1"])){
+    $date = $connection->real_escape_string($_POST["date"]);
+  }else{
+    $date = $connection->real_escape_string($_POST["date1"]);
+  }
+$dates = $date;
+    
+    // echo $dates,$color;
 
-
- if($action=='accept'){
-    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted', `modified` = now(), `color` = '#4caf50', `date` = '$dates' WHERE `appointments`.`id` = $id;");
+  if($action=='accept'){
+    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted', `modified` = now(), `color` = '#4caf50', `date` = '$dates', `targetEndDate` =  '$dates' WHERE `appointments`.`id` = $id;");
   }else{
     if($action=='deny'){
       $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Reschedule', `modified` = now() WHERE `appointments`.`id` =  $id");
@@ -67,7 +74,7 @@ if(isset($_POST["submit-user"])){
   $mobile = $connection->real_escape_string($_POST["mobile"]);
   $telephone = $connection->real_escape_string($_POST["telephone"]);
 
-  echo $id,", ", $first,", ", $middle,", ", $last, ", ",$suffix,", ", $address,", ", $email,", ", $mobile,", ", $telephone;
+  // echo $id,", ", $first,", ", $middle,", ", $last, ", ",$suffix,", ", $address,", ", $email,", ", $mobile,", ", $telephone;
 
   $update = $connection->prepare("UPDATE `personalinfo` SET `firstName`= ?,
   `lastName`= ?,`middleName`= ?,`suffix`= ?,`address`= ?,`mobileNumber`= ?,`telephoneNumber`= ?,
@@ -76,7 +83,7 @@ if(isset($_POST["submit-user"])){
   $update->bind_param("ssssssssi", $first, $last, $middle, $suffix, $address, $mobile, $telephone, $email, $id);
   if($update->execute()){ 
     header("Location: ../user.php?id=$id");
-    echo "Gumana";
+    // echo "Gumana";
   }else{  
     header("Location: ../error.php");
     exit();
@@ -107,7 +114,7 @@ if(isset($_POST["submit-vehicle"])){
   $typeOfDriveTrain,$make,$series,$color,$engineNumber,$typeOfEngine,$engineDisplacement,$plate);
   if($update->execute()){ 
     header("Location: ../viewVehicle.php?plate=$plate");
-    echo "Gumana";
+    // echo "Gumana";
   }else{  
     header("Location: ../error.php");
     exit();
@@ -118,39 +125,13 @@ if(isset($_POST["start"])){
 
   $app = $connection->real_escape_string($_POST["app_id"]);
 
-  $query1 = $connection->prepare("UPDATE `appointments` SET `status`= 'In-Progress',`modified`= now(),  `color` = '#0071c5' WHERE appointments.id = $app");
-  $query1->execute();
-
-  $data = $connection->prepare("SELECT * FROM appointments WHERE status = 'In-Progress' AND appointments.id = $app");
-  if($data->execute()){
-      $values = $data->get_result();
-      while($row = $values->fetch_assoc()){
-          $services = $row['serviceId'];
-          $id = $row['id'];
-
-          if($row['otherService'] != ""){
-            $other = $row['otherService'];
-            $query2 = $connection->prepare("INSERT INTO `task`(`service`, `appointmentID`, `modified`)
-            VALUES ('$other', $id, now() )");
-            $query2->execute();
-          }
-
-          $task = explode(",", $services);
-          for ($i = 0; $i < count($task); $i++) {
-              echo  $task[$i];
-              $query3 = $connection->prepare("INSERT INTO `task`(`service`, `appointmentID`, `modified`)
-               VALUES ('$task[$i]', $id, now() )");
-               if($query3->execute()){ 
-                  header("Location: ../records.php?id=$app");
-                }else{  
-                  header("Location: ../error.php");
-                }
-
-          }
-
-          echo '<br>';
-      }
+  $query1 = $connection->prepare("UPDATE `appointments` SET `status`= 'In-Progress',`modified`= now(), `color` = '#0071c5', `modified` = CURRENT_DATE WHERE appointments.id = $app");
+  if($query1->execute()){
+    header("Location: ../records.php?id=$app");
+  }else{
+    header("Location: ../error.php");
   }
+
 }
 
 if(isset($_POST["startTask"])){
@@ -180,7 +161,7 @@ if(isset($_POST["finishTask"])){
 if(isset($_POST["toggle"])){
   $plate = $connection->real_escape_string($_POST["plate"]);
   $stat = $connection->real_escape_string($_POST["stat"]);
-  echo $stat;
+  // echo $stat;
   if($stat == 'Active'){
     $changeStatus = $connection->prepare("UPDATE `vehicles` SET `status` = 'Deactivated' WHERE `vehicles`.`plateNumber` = '$plate';");
     if($changeStatus->execute()){
@@ -272,9 +253,9 @@ if(isset($_POST["generate"])){
     $final = $username.$last;
 
     $password = password_hash($final, PASSWORD_DEFAULT);
-    echo $final;
-    echo '<br>';
-    echo $password;
+    // echo $final;
+    // echo '<br>';
+    // echo $password;
 
     $generate = $connection->prepare("INSERT INTO `users` (`id`, `username`, `password`, `type`, `created`, `modified`, `status`) 
                                       VALUES (NULL, '$final', '$password', 'client', CURRENT_TIMESTAMP, NULL, 'Active');");
@@ -327,10 +308,10 @@ if(isset($_POST["changePass"])){
     header("Location: ../error.php");
   }
 
-  echo $per;
-  echo $user;
+  // echo $per;
+  // echo $user;
   $password = password_hash($p1, PASSWORD_DEFAULT);
-  echo $password;
+  // echo $password;
 
   $query = $connection->prepare("UPDATE `users` SET `password` = '$password' WHERE `users`.`id` = '$user';");
   if($query->execute()){
@@ -347,10 +328,10 @@ if(isset($_POST["update_Admin"])){
   if($p1 != $p2){
     header("Location: ../error.php");
   }
-  echo $per;
-  echo $user;
+  // echo $per;
+  // echo $user;
   $password = password_hash($p1, PASSWORD_DEFAULT);
-  echo $password;
+  // echo $password;
   $query = $connection->prepare("UPDATE `users` SET `password` = '$password' WHERE `users`.`id` = '$user';");
   if($query->execute()){
     header("Location: ../accountmanagement.php");
@@ -408,10 +389,10 @@ if(isset($_POST["changePassAdm"])){
   if($p1 != $p2){
     header("Location: ../error.php");
   }
-  echo $per;
-  echo $user;
+  // echo $per;
+  // echo $user;
   $password = password_hash($p1, PASSWORD_DEFAULT);
-  echo $password;
+  // echo $password;
   $query = $connection->prepare("UPDATE `users` SET `password` = '$password' WHERE `users`.`id` = '$per';");
   if($query->execute()){
     header("Location: ../accountmanagement.php");
@@ -446,7 +427,7 @@ if(isset($_POST["taskSpare"])){
   $task = $connection->real_escape_string($_POST["taskId"]);
   $remarks = $connection->real_escape_string($_POST["remarks"]);
 
-  echo 'Appoinment ID: '.$app.'<br>'.'Part ID: '.$part.'<br>'.'Remarks: '.$remarks.'<br>'.'Total: '.$total.'<br>'.'TaskID: '.$task;
+  // echo 'Appoinment ID: '.$app.'<br>'.'Part ID: '.$part.'<br>'.'Remarks: '.$remarks.'<br>'.'Total: '.$total.'<br>'.'TaskID: '.$task;
   
   $query = $connection->prepare("INSERT INTO `taskspare`(`taskID`, `partID`, `remarks`, `quantity`, `total`, `created`) VALUES (?, ?, ?, ?, ?, now())");
    $query->bind_param('iisii',$task, $part, $remarks, $quantity, $total);
@@ -465,7 +446,7 @@ if(isset($_POST["update-spare-part"])){
   $quantity = $connection->real_escape_string($_POST["quantity"]);
   $price = $connection->real_escape_string($_POST["price"]);
   $total = $price*$quantity;
-  echo $taskspare;
+  // echo $taskspare;
 
   $deleteTask = $connection->prepare("UPDATE `taskspare` SET `remarks`= ?,`quantity`= ?,`total`= ?, `modified` = now() WHERE `taskspare`.`id`= ?");
   $deleteTask->bind_param('siii',$remarks, $quantity, $total, $taskspare);
