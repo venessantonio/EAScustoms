@@ -132,7 +132,7 @@ if (isset($_POST['login_user'])) {
               $_SESSION['username'] = $username;
               $_SESSION['password'] = $password;
               $_SESSION['Name'] = $row['Name'];
-              header("Location: ADMIN/Admin/dashboard.php");
+              header("Location: ADMIN/Admin/accountmanagement.php");
               exit();
          }else{
           if($row['type'] == 'manager'){
