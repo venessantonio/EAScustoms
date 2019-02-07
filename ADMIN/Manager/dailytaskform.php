@@ -35,7 +35,7 @@
     <!-- partial:partials/_sidebar.html -->
         
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav" style="position:fixed; width:256px;">
+        <ul class="nav" style="position:fixed; width:16.8%;">
         <hr class="style2">
             
           <li class="nav-item">
@@ -92,16 +92,6 @@
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
             </a>
           </li>
-            
-          <li class="nav-item">
-            <a class="nav-link" href="servicesmanagement.php">
-              <i class="menu-icon mdi mdi-wrench"></i>
-              <span class="menu-title" style="font-size:14px;">Services</span>
-            </a>
-          </li>
-            
-            
-            
             
         </ul>
       </nav>
@@ -235,6 +225,52 @@
                                        
                                        
                                         ?>
+                                       </tbody>
+
+                                    </table>
+                                </div>
+                                 
+                              </div>
+                           </div>
+                       </div>   
+                   </div>
+                    <div class="row">
+                       
+                       
+                       <div class="col-lg-12 stretch-card">
+                          <div class="card">
+                              <div class="card-body">
+                                <p class="card-title" style="font-size:20px;">Appointments for <?php echo $date = date('F j, Y'); ?></p> 
+
+                                <div class="table-responsive">
+                                   <table class="table table-bordered table-dark" id="doctables">
+                                      <thead>
+                                          <tr class="grid">
+                                              <th>Plate Number</th>
+                                              <th>Service</th>
+                                              <th>Scope</th>
+                                              <th>Date Start</th> 
+                                          </tr>
+                                       </thead> 
+                                       <tbody class="table-primary" style="color:black;">
+                                        <?php
+                                            $query = $connection->prepare("SELECT
+                                              appointments.date, appointments.targetEndDate, appointments.id, vehicles.plateNumber, appointments.status, task.appointmentID,
+                                              task.service, task.scope, task.dateStart, task.dateEnd
+                                              FROM vehicles JOIN appointments ON appointments.vehicleId = vehicles.id JOIN task 
+                                              ON appointments.id = task.appointmentID WHERE task.dateStart = '$date' AND dateEnd IS NOT NULL"); 
+                                          if ($query->execute()){
+                                            $result=$query->get_result();
+                                            while($row = $result->fetch_assoc()){
+                                                 echo '
+                                                <tr>
+                                                  <td>'.$row['plateNumber'].'</td>
+                                                  <td>'.$row['service'].'</td>
+                                                  <td>'.$row['scope'].'</td>
+                                                  <td>'.$row['dateStart'].'</td>
+                                                </tr>';
+                                             }
+                                          } ?>
                                        </tbody>
 
                                     </table>

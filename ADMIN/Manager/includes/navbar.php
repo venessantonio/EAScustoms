@@ -26,6 +26,7 @@
         </ul>
             
         <ul class="navbar-nav navbar-nav-right">
+            <!--
             <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                 <i class="mdi mdi-bell"></i>
@@ -35,7 +36,7 @@
 
 
             </div>
-            </li> 
+            </li> -->
 
 
 
