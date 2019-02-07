@@ -51,31 +51,31 @@ class database{
 	}
 	
 	
-	public function mechanical_service(){
-		$query=$this->conn->query("SELECT serviceId,serviceType,serviceName from services where serviceType = 'Mechanical'");
-		while($row=$query->fetch_array(MYSQLI_ASSOC)){
-			$this->mechanical_service[]=$row;
-		}
-		return $this->mechanical_service;
-	}
+	// public function mechanical_service(){
+	// 	$query=$this->conn->query("SELECT serviceId,serviceType,serviceName from services where serviceType = 'Mechanical'");
+	// 	while($row=$query->fetch_array(MYSQLI_ASSOC)){
+	// 		$this->mechanical_service[]=$row;
+	// 	}
+	// 	return $this->mechanical_service;
+	// }
 	
-	public function painting_service(){
-		$query=$this->conn->query("SELECT serviceId,serviceType,serviceName from services where serviceType = 'Painting'");
-		while($row=$query->fetch_array(MYSQLI_ASSOC)){
-			$this->painting_service[]=$row;
-		}
-		return $this->painting_service;
-	}
+	// public function painting_service(){
+	// 	$query=$this->conn->query("SELECT serviceId,serviceType,serviceName from services where serviceType = 'Painting'");	
+	// 	while($row=$query->fetch_array(MYSQLI_ASSOC)){
+	// 		$this->painting_service[]=$row;
+	// 	}
+	// 	return $this->painting_service;
+	// }
 	
-	public function electrical_service(){
-		$query=$this->conn->query("SELECT serviceId,serviceType,serviceName from services where serviceType = 'Electrical'");
-		while($row=$query->fetch_array(MYSQLI_ASSOC)){
-			$this->electrical_service[]=$row;
-		}
-		return $this->electrical_service;
-	}
+	// public function electrical_service(){
+	// 	$query=$this->conn->query("SELECT serviceId,serviceType,serviceName from services where serviceType = 'Electrical'");
+	// 	while($row=$query->fetch_array(MYSQLI_ASSOC)){
+	// 		$this->electrical_service[]=$row;
+	// 	}
+	// 	return $this->electrical_service;
+	// }
 
-	public function service_show(){
+	public function service_show(){ 
 		$query=$this->conn->query("Select * from services");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
 			$this->service[]=$row;
@@ -86,7 +86,8 @@ class database{
 
 	
 	public function personal_info(){
-		$query=$this->conn->query("SELECT * from personalinfo where user_id = '".$_SESSION['id']."'");
+
+		$query=$this->conn->query("SELECT * from personalinfo where user_id= '".$_SESSION['id']."'");
 		while($row=$query->fetch_array(MYSQLI_ASSOC)){
 			$this->personal_info[]=$row;
 		}
@@ -136,6 +137,20 @@ public function vehicle_info(){
     $vehicleinforesult   = mysqli_query($db,$query1);
     $vehicleinforesultCheck = mysqli_num_rows($vehicleinforesult);
 
+    //Services
+
+    $querymechanicalservice = "SELECT serviceId,serviceType,serviceName from services where serviceType = 'Mechanical'";
+    $mechanicalservicearray   = mysqli_query($db,$querymechanicalservice);
+    $mechanicalservicearrayCheck = mysqli_num_rows($mechanicalservicearray);
+
+    $querypaintservice = "SELECT serviceId,serviceType,serviceName from services where serviceType = 'Painting'";
+    $paintservicearray   = mysqli_query($db,$querypaintservice);
+    $paintservicearrayCheck = mysqli_num_rows($paintservicearray);
+
+    $queryelectricalservice = "SELECT serviceId,serviceType,serviceName from services where serviceType = 'Electrical'";
+    $electricalservicearray   = mysqli_query($db,$queryelectricalservice);
+    $electricalservicearrayCheck = mysqli_num_rows($electricalservicearray);
+
 
     //Appointment Info
     $query2 = "SELECT * from personalinfo where user_id = '".$_SESSION['id']."'";
@@ -147,7 +162,7 @@ public function vehicle_info(){
     $appointmentinforesultCheck = mysqli_num_rows($appointmentinforesult);
 
     //Pending Requests
-    $querypendingRequests = "SELECT appointments.id as id, appointments.serviceId as services, appointments.personalId as personalId, appointments.otherService as otherServices, appointments.date as desiredDate, appointments.status AS status, appointments.rescheduledate as rescheduledate, appointments.created as created, appointments.additionalMessage as reason, appointments.adminDate as adminDate, vehicles.plateNumber as plateNumber, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, vehicles.color AS color FROM appointments JOIN vehicles ON appointments.vehicleId = vehicles.id JOIN personalinfo on appointments.personalId = personalinfo.personalId WHERE appointments.personalId = '$personalId' AND (appointments.status = 'Rescheduled' OR appointments.status = 'Pending') ORDER BY appointments.`created` DESC";
+    $querypendingRequests = "SELECT appointments.id as id, appointments.serviceId as services, appointments.personalId as personalId, appointments.otherService as otherServices, appointments.date as desiredDate, appointments.status AS status, appointments.rescheduledate as rescheduledate, appointments.created as created, appointments.additionalMessage as reason, appointments.adminDate as adminDate, vehicles.plateNumber as plateNumber, vehicles.make AS make, vehicles.series AS series, vehicles.yearModel AS yearModel, vehicles.color AS color FROM appointments JOIN vehicles ON appointments.vehicleId = vehicles.id JOIN personalinfo on appointments.personalId = personalinfo.personalId WHERE appointments.personalId = '$personalId' AND appointments.status = 'Pending' ORDER BY appointments.`created` DESC";
     $pendingRequestsresult  = mysqli_query($db,$querypendingRequests);
     $pendingRequestsresultCheck = mysqli_num_rows($pendingRequestsresult);
 
