@@ -156,67 +156,94 @@ $ci = $stmt -> get_result();
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-11">
+                        <div class="col-6">
                             <p class="card-title" style="font-size:20px;">Sales Invoice</p>
                             <br>
                         </div>
-                        <div class="col-1">
-                           <button type="button" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#addCi"><i class="menu-icon mdi mdi-receipt"></i>
-                                Add SI
+                        <div class="col-2">
+                           <button  class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#Yearly"><i class="menu-icon mdi mdi-receipt"></i>
+                                Annual SI
                             </button> 
+                        </div>
+                        <div class="col-2">
+                           <button href="year.php" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;" data-toggle="modal" data-target="#Monthly"><i class="menu-icon mdi mdi-receipt"></i>
+                                Monthly SI
+                            </button> 
+                        </div>
+                        <div class="col-2">
+                           <a href="dailySI.php" class="btn btn-darkred" style="padding-button: 10px; float: right; width: 145px;"><i class="menu-icon mdi mdi-receipt"></i>
+                                Daily SI
+                            </a> 
                         </div>
                     </div>
                     
                     
                 <a href ="addSalesInvoice.php"></a>
 
-                <!-- Modal -->
-                <div class="modal fade" id="addCi" tabindex="-1" role="dialog" aria-labelledby="addCi" aria-hidden="true">
+                <!-- yearly Modal -->
+                <div class="modal fade" id="Yearly" tabindex="-1" role="dialog" aria-labelledby="addCi" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Sales Invoice</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Annual Sales Invoice</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                         <div class="modal-body">
-                        <form action = "process/addSalesInvoice_process.php" method = "post" id = "form">
-                        <?php
-                        $sql = "SELECT * FROM vehicles";
-                        $stmt = $connection->prepare($sql); 
-                        $stmt->execute(); 
-                        $vehicles = $stmt->get_result(); 
-                        ?>
-                        Vehicle : <select class="form-control" name="vehicleId" id="vehicle">
-                        <?php foreach($vehicles as $vehicle): ?>
-                        <option value="<?= $vehicle['id']; ?>"><?= $vehicle['plateNumber']; ?> <?= ucfirst($vehicle['make']); ?> <?= ucfirst($vehicle['series']); ?></option>
-                        <?php endforeach; ?>
-                        </select> 
-                        <br>
-                        Number of work done :
-                        <input type="text" id="noofscope" name = "noofscope"/>
-                        <input type="button" value="set" onclick="generate()" />
-                        <br>
-                        <br>    
-                        <?php 
-                        $sql2 = "SELECT * FROM spareparts";
-                        $stmt2 = $connection->prepare($sql2); 
-                        $stmt2->execute(); 
-                        $spareparts = $stmt2->get_result(); 
-                        ?>
-                        Spare Parts:
-                        <br>
-                        <br> 
-                        <?php foreach($spareparts as $sparepart): ?>
-                        <input type ="checkbox" name="spareParts[]" value="<?= $sparepart['id']; ?>"><?=  $sparepart['name']; ?> - <?=  $sparepart['price']; ?>
-                        <?php endforeach; ?>
-                        <br>       
-                        </form>
+                        <form action="year.php" method="POST">
+                          <label for="exampleFormControlSelect2">Select Year</label>
+                          <select type="text" class="form-control  chzn-select" name="date" id="exampleFormControlSelect2" tabindex="2" required> 
+                            <option hidden selected value="" >Select a Year</option>
+                            <?php
+                            for ($i = 2002; $i <= date('Y'); $i++){
+                                echo '<option value="'.$i.'">'.$i.'</option>';
+                              }
+                            ?>
+                          </select>
                         </div>
                       <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i>Generate</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i> Close</button>
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
+                <!-- monthly Modal -->
+                <div class="modal fade" id="Monthly" tabindex="-1" role="dialog" aria-labelledby="addCi" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header" style="background-color: #b80011; color: white; border: 3px solid #b80011;">
+                        <h5 class="modal-title" id="exampleModalLabel">Monthly Sales Invoice</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                        <div class="modal-body">
+                        <form action="month.php" method="POST">
+                          <label for="exampleFormControlSelect2">Select a Month</label>
+                          <select type="text" class="form-control  chzn-select" name="date" id="exampleFormControlSelect2" tabindex="2" required> 
+                            <option hidden selected value="" >Select Month</option>
+                            <option  value="1" >January</option>
+                            <option  value="2" >February</option>
+                            <option  value="3" >March</option>
+                            <option  value="4" >April</option>
+                            <option  value="5" >May</option>
+                            <option  value="6" >June</option>
+                            <option  value="7" >July</option>
+                            <option  value="8" >August</option>
+                            <option  value="9" >September</option>
+                            <option  value="10" >October</option>
+                            <option  value="11" >November</option>
+                            <option  value="12" >December</option>
+                          </select>
+                        </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger"><i class="menu-icon mdi mdi-arrow-right-drop-circle-outline"></i>Generate</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i> Close</button>
+                      </form>
                       </div>
                     </div>
                   </div>
