@@ -233,22 +233,22 @@
                 <div class="card-body">
                   <br><br><h1 class="card-title">Appointment in progress</h1>
                   <div class="table-responsive">
-                    <table class="table table-bordered" id="doctables" style="background-color: #212529; color:white; border-color:#212529;">
+                    <table class="table table-bordered" id="doctables" style="background-color: #212529; color:white; border-color:#212529; text-align: center;">
                       <thead>
                         <tr>
-                          <th style="text-align: center;">
+                          <th>
                             Plate Number
                           </th>
-                          <th style="text-align: center;">
+                          <th>
                             Progress
                           </th>
-                          <th style="text-align: center;">
+                          <th>
                             Start Date
                           </th>
-                          <th style="text-align: center;">
+                          <th>
                             Target End Date
                           </th>
-                          <th style="text-align: center;">
+                          <th>
                             Days Remaining
                           </th>
                         </tr>
@@ -396,7 +396,7 @@
                 <div class="card-body">
                   <br><br><h1 class="card-title">Appointments starting today</h1>
                   <div class="table-responsive">
-                    <table class="table table-bordered" id="doctables3" style="background-color: #212529; color:white; border-color:#212529;">
+                    <table class="table table-bordered" id="doctables3" style="background-color: #212529; color:white; border-color:#212529; ">
                       <thead>
                         <tr>
                           <th>
