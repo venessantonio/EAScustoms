@@ -35,8 +35,8 @@
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
         
-     <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav" style="position:fixed; width:256px;">
         <hr class="style2">
             
           <li class="nav-item">
@@ -48,7 +48,7 @@
             
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-content-copy"></i>
+              <i class="menu-icon mdi mdi-inbox"></i>
               <span class="menu-title" style="font-size:14px;">Appointment</span>
               <i class="menu-arrow"></i>
             </a>
@@ -60,9 +60,6 @@
                 <li class="nav-item">
                   <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
                 </li>
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
-                </li> -->
               </ul>
             </div>
           </li>
@@ -73,27 +70,22 @@
               <span class="menu-title" style="font-size:14px;">Calendar</span>
             </a>
           </li>
-            
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="dailytaskform.php">
-              <i class="menu-icon mdi mdi-file"></i>
-              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
-            </a>
-          </li> -->
 
           <li class="nav-item">
-            <a class="nav-link"  href="chargeinvoice.php">
-              <i class="menu-icon mdi mdi-receipt"></i>
-              <span class="menu-title" style="font-size:14px;">Sales Invoice</span>
+            <a class="nav-link" href="dailytaskform.php">
+              <i class="menu-icon mdi mdi-account-multiple"></i>
+              <span class="menu-title" style="font-size:14px;">Daily Task Form</span>
             </a>
           </li>
             
+<!--
           <li class="nav-item">
             <a class="nav-link" href="accountmanagement.php">
               <i class="menu-icon mdi mdi-account-multiple"></i>
               <span class="menu-title" style="font-size:14px;">Account Management</span>
             </a>
           </li>
+-->
             
           <li class="nav-item">
             <a class="nav-link" href="vehicle.php">
@@ -101,6 +93,16 @@
               <span class="menu-title" style="font-size:14px;">Vehicle</span>
             </a>
           </li>
+            
+          <li class="nav-item">
+            <a class="nav-link" href="servicesmanagement.php">
+              <i class="menu-icon mdi mdi-wrench"></i>
+              <span class="menu-title" style="font-size:14px;">Services</span>
+            </a>
+          </li>
+            
+            
+            
             
         </ul>
       </nav>
