@@ -93,10 +93,7 @@ $ci = $stmt -> get_result();
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Create Appointment</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="request.php" style="font-size:14px;">Request</a>
+                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Request</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
@@ -292,7 +289,7 @@ $ci = $stmt -> get_result();
                                 <td><?= $chargeInvoice2['owner']; ?></td>
                                 <td><?= $chargeInvoice2['plateNumber']; ?></td>
                                 <td><?= $chargeInvoice2['modified']; ?></td>
-                                <td></td>
+                                <td><a href="generate.php?id=<?= $chargeInvoice2['ID'];?>"><input type='submit'value='Generate' name='submit' class="btn btn-primary"></a></td>
                                   
                               </tr>
                         <?php endforeach; ?>
