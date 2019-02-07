@@ -64,7 +64,7 @@
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
         
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
@@ -96,7 +96,7 @@
             </div>
           </li>
             
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="calendar.php">
               <i class="menu-icon mdi mdi-calendar"></i>
               <span class="menu-title" style="font-size:14px;">Calendar</span>
