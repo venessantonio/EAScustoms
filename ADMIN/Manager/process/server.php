@@ -276,8 +276,8 @@ if(isset($_POST["generate"])){
     echo '<br>';
     echo $password;
 
-    $generate = $connection->prepare("INSERT INTO `users` (`id`, `username`, `password`, `created`, `modified`, `status`) 
-                                      VALUES (NULL, '$final', '$password', CURRENT_TIMESTAMP, NULL, 'Active');");
+    $generate = $connection->prepare("INSERT INTO `users` (`id`, `username`, `password`, `type`, `created`, `modified`, `status`) 
+                                      VALUES (NULL, '$final', '$password', 'client', CURRENT_TIMESTAMP, NULL, 'Active');");
     if($generate->execute()){
       $getId = $connection->prepare("SELECT * FROM `users` WHERE `username` = '$final' AND `password` = '$password' LIMIT 1");
       if($getId->execute()){
