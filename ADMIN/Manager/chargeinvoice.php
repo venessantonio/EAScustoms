@@ -196,7 +196,7 @@ $ci = $stmt -> get_result();
                           <select type="text" class="form-control  chzn-select" name="date" id="exampleFormControlSelect2" tabindex="2" required> 
                             <option hidden selected value="" >Select a Year</option>
                             <?php
-                            for ($i = 2002; $i <= date('Y'); $i++){
+                            for ($i = 2019; $i <= date('Y'); $i++){
                                 echo '<option value="'.$i.'">'.$i.'</option>';
                               }
                             ?>
@@ -273,6 +273,51 @@ $ci = $stmt -> get_result();
                                   <td>
                                       <a href="print.php?id=<?= $chargeInvoice['cId'];?>"><input type='submit'value='Full Details' name='submit' class="btn btn-primary"></a>
                                   </td>
+                              </tr>
+                        <?php endforeach; ?>
+                      </tbody>
+                    </table>
+                      <br>
+                  </div>
+
+
+                <!-- Done -->
+                <?php 
+                  $sql2 = "SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 
+                  'owner',make,series,appointments.created as 'created', appointments.serviceId as 'service', appointments.otherService as 
+                  'others', yearModel,plateNumber,appointments.status,date, appointments.additionalMessage as 'message', adminDate,rescheduledate, appointments.modified as 'modified'
+                   from appointments join personalinfo on appointments.personalId
+                  = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where (appointments.status = 'Done')";
+                  $stmt2 = $connection->prepare($sql2); 
+                  $stmt2->execute(); 
+                  $ci2 = $stmt2 -> get_result();
+                ?>
+                <div class="row">
+                    <div class="col-11">
+                        <p class="card-title" style="font-size:20px;">Done Appoinment</p>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table table-bordered table-dark" id="doctables2">
+                      <thead>
+                        <tr class="grid">
+                            
+                            <th>Name</th>
+                            <th>Plate Number</th>
+                            <th>Date Finished</th>
+                            <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-primary" style="color:black;">
+                          <?php foreach($ci2 as $chargeInvoice2): ?>
+                              <tr>
+                                <td><?= $chargeInvoice2['owner']; ?></td>
+                                <td><?= $chargeInvoice2['plateNumber']; ?></td>
+                                <td><?= $chargeInvoice2['modified']; ?></td>
+                                <td><a href="generate.php?id=<?= $chargeInvoice2['ID'];?>"><input type='submit'value='Generate' name='submit' class="btn btn-primary"></a></td>
+                                  
                               </tr>
                         <?php endforeach; ?>
                       </tbody>
