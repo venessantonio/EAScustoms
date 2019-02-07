@@ -146,45 +146,133 @@
           </div>
 
           <div class="row">   
-              <div class="col-lg-12 stretch-card">
+            <div class="col-lg-12 stretch-card">
               <div class="card">
                 <div class="card-body">
                     
                   <p class="card-title" style="font-size:20px;">Services</p>
                   Create services
                   <br>
-                 <br>
+                  <br>
                     
-                <div class="form-group">
-                 <form action="process/addservice_process.php" method="POST">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label class="bmd-label-floating">Service Name</label>
-                              <input type="text" class="form-control" name="servicename" required>
-                            </div>
+                  <div class="form-group">
+                    <form action="process/addservice_process.php" method="POST">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Service Name</label>
+                            <input type="text" class="form-control" name="servicename" required>
                           </div>
-                            
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label class="bmd-label-floating">Service Type</label>
-                              <input type="text" class="form-control" name="servicetype">
+                        </div>
+                          
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Service Type</label>
+                            <input type="text" class="form-control" name="servicetype">
+                          </div>
+                        </div>
+                      </div>
+
+                      <br>
+
+                      <button type="submit" class="btn btn-darkred" name="submit-service" style="float:right"><i class="menu-icon mdi mdi-car-side"></i> Add Service</button>
+                      <div class="clearfix"></div>
+                                      
+                    </form>   
+                  </div>
+                  
+                  <div class="table-responsive">
+                  <table class="table table-bordered table-dark" id="doctables">
+                      <thead>
+                        <tr class="grid">
+                          <th>
+                            Service Name
+                          </th>
+                          <th>
+                            Service Type
+                          </th>
+                          <th>
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-primary" style="color:black;">
+                        <?php
+                            $data = $connection->prepare("SELECT * FROM `services` ");
+                            if($data->execute()){
+                                $values = $data->get_result();
+                                while($row = $values->fetch_assoc()) {
+                            echo '<tr>
+                                        <td>'.$row['serviceName'].'</td>
+                                        <td>'.$row['serviceType'].'</td>
+                                        <td class="text-center"> 
+                                          <button type="submit" class="btn btn-success"  data-toggle="modal"  data-target="#updateSpareParts'.$row['serviceId'].'"><i class="menu-icon mdi mdi-account-edit"></i> Edit</button>
+                                           <a href="deleteServices.php?id='.$row['serviceId'].'"><button class="btn btn-danger"><i class="menu-icon mdi mdi-delete"></i> Delete</button></a>
+                                        </td>
+                              </tr>
+
+
+
+                        <div div class="modal fade" id="updateSpareParts'.$row['serviceId'].'" role="dialog">
+                          <div class="modal-dialog modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header" style="background-color: #4caf50; color: white; border: 3px solid #4caf50;">
+                              <h5 class="modal-title" id="exampleModalLabel">Update Spare Parts</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                            <!-- start -->
+                            <form action="process/server.php" method="POST">
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <div class="form-group">
+                                    <label class="bmd-label-floating">Service Name</label>
+                                    <input type="text" class="form-control" name="name" value="'.$row['serviceName'].'" placeholder="'.$row['serviceName'].'"  autocomplete="off">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <div class="form-group">
+                                    <label class="bmd-label-floating">Service Type</label>
+                                    <input type="text" class="form-control" name="type" value="'.$row['serviceType'].'" placeholder="'.$row['serviceType'].'"  autocomplete="off">
+                                    <input type="hidden" class="form-control" name="id" value="'.$row['serviceId'].'" placeholder="'.$row['serviceId'].'">
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- end -->
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="submit" class="btn btn-success" name="update_service" style="float:right"><i class="menu-icon mdi mdi-account-convert"></i> Update</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="menu-icon mdi mdi-close"></i> Cancel</button>
+                                <div class="clearfix"></div>
+                              </form>
+                              </div>
                             </div>
                           </div>
                         </div>
 
-                            <br>
-                            <button type="submit" class="btn btn-darkred" name="submit-service" style="float:right"><i class="menu-icon mdi mdi-car-side"></i> Add Service</button>
+                              ';  
+                            }
+                            }else{
+                                echo "<tr>
+                                        <td colspan='7'>No Available Data</td>
+                                    </tr>";
+                            } 
+                        ?>
 
 
-                            <div class="clearfix"></div>
-                                        
-                </form>   
-                </div>
-                  
+                      </tbody>
+                    </table>
+                  </div>
+
                 </div>
               </div>
             </div>
+
+            
 
           </div>
         </div>

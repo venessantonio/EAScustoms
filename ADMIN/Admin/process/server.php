@@ -503,6 +503,20 @@ if(isset($_POST["update_spareparts"])){
   }
 }
 
+if(isset($_POST["update_service"])){
+  $name = $connection->real_escape_string($_POST["name"]);
+  $type = $connection->real_escape_string($_POST["type"]);
+  $id = $connection->real_escape_string($_POST["id"]);
+  
+  $query = $connection->prepare("UPDATE `services` SET `serviceName`=?,`serviceType`=?,`modified` = CURRENT_DATE WHERE serviceId = ?");
+   $query->bind_param('ssi',$name, $type,$id);
+  if($query->execute()){
+    header("Location: ../servicesmanagement.php");
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
 if(isset($_POST["update_scope"])){
   $scope = $connection->real_escape_string($_POST["scope"]);
   $price = $connection->real_escape_string($_POST["price"]);
