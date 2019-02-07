@@ -228,7 +228,6 @@ $events = $req->fetchAll();
 				right: 'month,basicWeek,basicDay'
 			},
 			defaultDate: $('#calendar').fullCalendar('today'),
-			editable: true,
 			eventLimit: true, // allow "more" link when too many events
 			selectable: true,
 			selectHelper: true,

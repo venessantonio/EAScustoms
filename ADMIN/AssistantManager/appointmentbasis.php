@@ -35,8 +35,8 @@
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
         
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav" style="position:fixed;">
+     <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
         <hr class="style2">
             
           <li class="nav-item">
@@ -48,21 +48,21 @@
             
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-inbox"></i>
+              <i class="menu-icon mdi mdi-content-copy"></i>
               <span class="menu-title" style="font-size:14px;">Appointment</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Create Appointment</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="request.php" style="font-size:14px;">Request</a>
+                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Request</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
                 </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="declined.php" style="font-size:14px;">Declined</a>
+                </li> -->
               </ul>
             </div>
           </li>
@@ -102,13 +102,6 @@
             </a>
           </li>
             
-          <li class="nav-item">
-            <a class="nav-link" href="sparepartsmanagement.php">
-              <i class="menu-icon mdi mdi-wrench"></i>
-              <span class="menu-title" style="font-size:14px;">Spare Parts</span>
-            </a>
-          </li>
-            
         </ul>
       </nav>
       
@@ -128,24 +121,26 @@
                                    <table class="table table-bordered table-dark" id="doctables">
                                       <thead>
                                           <tr class="grid">
-                                              <th>Owner</th>
+                                              <th>ID</th>
                                               <th>Plate Number</th>
-                                              <th>Target End Date</th> 
+                                              <th>Service</th> 
+                                              <th>Scope</th> 
                                              
                                           </tr>
                                        </thead> 
                                        <tbody class="table-primary" style="color:black;">
                                         <?php
-                                            $query = $connection->prepare("SELECT CONCAT(personalinfo.firstName,' ', personalinfo.middleName, ' ', personalinfo.lastName) AS FullName, appointments.date, appointments.targetEndDate, appointments.id, vehicles.plateNumber, appointments.status FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'In-progress' AND appointments.targetEndDate > '$date' ORDER BY appointments.date ASC"); 
+                                            $query = $connection->prepare("SELECT appointments.id, vehicles.plateNumber, appointments.status, task.appointmentID, task.service, task.scope, task.dateStart, task.dateEnd FROM vehicles JOIN appointments ON appointments.vehicleId = vehicles.id JOIN task ON appointments.id = task.appointmentID WHERE appointments.status = 'In-Progress' AND task.dateStart < '$date' AND dateEnd IS NULL ORDER BY appointments.id"); 
                                           if ($query->execute()){
                                             $result=$query->get_result();
                                             while($appinprogress = $result->fetch_assoc()){
                                                  echo '
                                                 <tr>
-                                                  <td>'.$appinprogress['FullName'].'</td>
+                                                  <td>'.$appinprogress['appointmentID'].'</td>
                                                   <td>'.$appinprogress['plateNumber'].'</td>
-                                                  <td>'; echo date('F j, Y',strtotime($appinprogress['targetEndDate'])); echo'</td>
-                                                
+                                                  <td>'.$appinprogress['service'].'</td>
+                                                  <td>'.$appinprogress['scope'].'</td>
+                                                  
                                                 
                                                 
                                                 </tr>';

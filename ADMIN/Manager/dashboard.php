@@ -236,24 +236,24 @@
                     <table class="table table-bordered" id="doctables" style="background-color: #212529; color:white; border-color:#212529;">
                       <thead>
                         <tr>
-                          <th>
+                          <th style="text-align: center;">
                             Plate Number
                           </th>
-                          <th>
+                          <th style="text-align: center;">
                             Progress
                           </th>
-                          <th>
+                          <th style="text-align: center;">
                             Start Date
                           </th>
-                          <th>
+                          <th style="text-align: center;">
                             Target End Date
                           </th>
-                          <th>
+                          <th style="text-align: center;">
                             Days Remaining
                           </th>
                         </tr>
                       </thead>
-                      <tbody style="background-color:white; color:#212529;">
+                      <tbody style="background-color:white; color:#212529; text-align: center;">
                          <?php $query = $connection->prepare("SELECT CONCAT(personalinfo.firstName,' ', personalinfo.middleName, ' ', personalinfo.lastName) AS FullName, appointments.date, appointments.targetEndDate, appointments.id, appointments.status, vehicles.plateNumber FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'In-progress' ORDER BY appointments.date ASC"); 
                             if ($query->execute()){
                                 $result=$query->get_result();
@@ -335,7 +335,7 @@
                 <div class="card-body">
                   <br><br><h1 class="card-title">Upcoming Appointment</h1>
                   <div class="table-responsive">
-                    <table class="table table-bordered" id="doctables2" style="background-color: #212529; color:white; border-color:#212529;">
+                    <table class="table table-bordered" id="doctables2" style="background-color: #212529; color:white; border-color:#212529; text-align: center;">
                       <thead>
                         <tr>
                           <th>
@@ -349,7 +349,7 @@
                           </th>
                         </tr>
                       </thead>
-                      <tbody style="background-color:white; color:#212529;">
+                      <tbody style="background-color:white; color:#212529;text-align: center;">
                          <?php $query = $connection->prepare("SELECT CONCAT(personalinfo.firstName,' ', personalinfo.middleName, ' ', personalinfo.lastName) AS FullName, appointments.date, appointments.targetEndDate, appointments.id, vehicles.plateNumber FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted' AND appointments.date > now() ORDER BY appointments.date ASC"); 
                             if ($query->execute()){
                                 $result=$query->get_result();
@@ -394,7 +394,7 @@
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <br><br><h1 class="card-title">New Appointments today</h1>
+                  <br><br><h1 class="card-title">Appointments starting today</h1>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="doctables3" style="background-color: #212529; color:white; border-color:#212529;">
                       <thead>

@@ -131,7 +131,7 @@
                             
                         </tr>
                       </thead>
-                      <tbody class="table-primary" style="color:black;">
+                      <tbody class="table-primary" style="color:black;text-align: center;">
                       <?php
                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 'Name',make,series,
                         yearModel,plateNumber,appointments.status,date, appointments.created as 'created', appointments.additionalMessage as 'message', appointments.serviceId as 'service' from appointments join personalinfo on appointments.personalId

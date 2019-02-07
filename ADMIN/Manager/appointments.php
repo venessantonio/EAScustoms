@@ -128,12 +128,12 @@
                         <tr class="grid">
                             <th style="font-size:15px;">Name</th>
                             <th style="font-size:15px;">Plate Number</th>
-                            <th  style="font-size:15px;">Status</th>
+                            <th style="font-size:15px;">Status</th>
                             <th style="font-size:15px;">Date Sent</th>
                             <th style="font-size:15px;">Date of Appointment Request</th>
                         </tr>
                       </thead>
-                      <tbody class="table-primary" style="color:black;">
+                      <tbody class="table-primary" style="color:black; text-align: center;">
                       <?php
                         $data = $connection->prepare("SELECT appointments.id as 'ID',concat(firstName,' ',middleName,' ',lastName) as 
                         'Name',make,series,appointments.created as 'created', appointments.serviceId as 'service', appointments.otherService as 
