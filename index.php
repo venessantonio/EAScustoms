@@ -4,11 +4,8 @@ include 'process/authhome.php';
 include 'sendsms.php';
 include 'threedayssms.php';
 include 'onday.php';
-include 'process/databaseconnect.php'
-
-
-
-
+include 'process/createContents.php';
+include 'process/databaseconnect.php';
 
 ?>
 
