@@ -448,6 +448,20 @@ if(isset($_POST["add_spareparts"])){
   }
 }
 
+if(isset($_POST["add_scope_work"])){
+  $scope = $connection->real_escape_string($_POST["scope"]);
+  $subscope = $connection->real_escape_string($_POST["subScope"]);
+  $price = ($_POST["price"]);
+  
+  $query = $connection->prepare("INSERT INTO `scope` (`scopeWork`, `subScope`, `price`, `created` ) VALUES (?, ?, ?, CURRENT_DATE)");
+   $query->bind_param('ssi',$scope, $subscope, $price);
+  if($query->execute()){
+    header("Location: ../scopeofworkmanagement.php");
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
 if(isset($_POST["taskSpare"])){
   $app = $connection->real_escape_string($_POST["app_id"]);
   $spareContent = $connection->real_escape_string($_POST["spare"]);
@@ -484,6 +498,21 @@ if(isset($_POST["update_spareparts"])){
    $query->bind_param('sssssi',$name, $price, $desc, $brand, $status, $id);
   if($query->execute()){
     header("Location: ../sparepartsmanagement.php");
+  }else{
+    header("Location: ../error.php");
+  }
+}
+
+if(isset($_POST["update_scope"])){
+  $scope = $connection->real_escape_string($_POST["scope"]);
+  $price = $connection->real_escape_string($_POST["price"]);
+  $sub = $connection->real_escape_string($_POST["sub"]);
+  $id = $connection->real_escape_string($_POST["id"]);
+  
+  $query = $connection->prepare("UPDATE `scope` SET `scopeWork`=?,`price`=?,`subScope` = ?,`modified` = CURRENT_DATE WHERE id = ?");
+   $query->bind_param('sssi',$scope, $price, $sub,$id);
+  if($query->execute()){
+    header("Location: ../scopeofworkmanagement.php");
   }else{
     header("Location: ../error.php");
   }
