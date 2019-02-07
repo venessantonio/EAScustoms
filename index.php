@@ -776,7 +776,7 @@ include 'process/databaseconnect.php';
                 
               <div class="col-md-12 col-sm-12">
                 <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
-                  <h2 style="letter-spacing: 2px;">We love to hear from you
+                  <h2 style="letter-spacing: 2px;">We'd love to hear from you
                   </h2>
                   <div class="container">       
                     <div id="ratingDetails">           
