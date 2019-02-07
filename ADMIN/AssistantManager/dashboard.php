@@ -1,6 +1,6 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
-<?php require "process/check/dashboardcheck.php";?>
+<?php require"process/check/dashboardcheck.php";?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +59,7 @@
     <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
         
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav" style="position:fixed;">
         <hr class="style2">
             
@@ -79,10 +79,7 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Create Appointment</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="request.php" style="font-size:14px;">Request</a>
+                  <a class="nav-link" href="appointments.php" style="font-size:14px;">Request</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="overdue.php" style="font-size:14px;">Overdue</a>
@@ -145,7 +142,7 @@
       
          <div class="row">
          
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
               <div class="card card-statistics">
                 <div class="card-body">
                   <div class="clearfix">
@@ -154,7 +151,7 @@
                     </div>
                        <a href="#In-Progress" class="smoothScroll" style="color:black;"> 
                     <div class="float-right">
-                      <p class="mb-0 text-right">Appointment<br>In-Progress</p>
+                      <p class="mb-0 text-right">Appointment In-Progress</p>
                       <div class="fluid-container">
                         <h3 class="font-weight-medium text-right mb-0"><?php echo $box4['count']?></h3>
                       </div>
@@ -165,7 +162,7 @@
               </div>       
             </div>
             
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
               <div class="card card-statistics">
                 <div class="card-body">
                   <div class="clearfix">
@@ -174,7 +171,7 @@
                     </div>
                     <a href="#UpcomingAppointment" class="smoothScroll" style="color:black;">
                     <div class="float-right">
-                      <p class="mb-0 text-right">Upcoming<br> Appointment</p>
+                      <p class="mb-0 text-right">Upcoming Appointment</p>
                       <div class="fluid-container">
                         <h3 class="font-weight-medium text-right mb-0"><?php echo $box1['count']?></h3>
                       </div>
@@ -185,7 +182,7 @@
               </div>
             </div>
              
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
               <div class="card card-statistics">
                 <div class="card-body">
                   <div class="clearfix">
@@ -194,7 +191,7 @@
                     </div>
                     <a href="chargeinvoice.php" style="color:black;">
                     <div class="float-right">
-                      <p class="mb-0 text-right">New<br>Appointments today</p>
+                      <p class="mb-0 text-right">Appointments starting today</p>
                       <div class="fluid-container">
                         <h3 class="font-weight-medium text-right mb-0"><?php echo $box5['count']?></h3>
                       </div>
@@ -205,25 +202,7 @@
               </div>
             </div>
              
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="clearfix">
-                    <div class="float-left">
-                     <i class="mdi mdi-car-side text-warning icon-lg"></i>
-                    </div>
-                    <a href="appointments.php" style="color:black;">
-                    <div class="float-right">
-                      <p class="mb-0 text-right">Pending<br>Request</p>
-                      <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0"><?php echo $box2['count']?></h3>
-                      </div>
-                    </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+      
           </div>
           
            
@@ -285,15 +264,13 @@
                                       $rowb = $values->fetch_assoc(); 
                                         $finishedTask = $rowb['All'];
                                       }
-                                      
-                                      
+            
                                       if($finishedTask == 0 && $allTask == 0){
                                         $progress = 0;
                                       }else{
                                         $progress = ($finishedTask / $allTask)*100;
-                                      }
-                                    
-                                    }   
+                                      } 
+                                  }
                               ?>
                             <div class="progress">
                                     <div class="progress-bar bg-success progress-bar-striped" role="progressbar"
@@ -354,7 +331,7 @@
                           </th>
                         </tr>
                       </thead>
-                      <tbody style="background-color:white; color:#212529; text-align: center;">
+                      <tbody style="background-color:white; color:#212529;text-align: center;">
                          <?php $query = $connection->prepare("SELECT CONCAT(personalinfo.firstName,' ', personalinfo.middleName, ' ', personalinfo.lastName) AS FullName, appointments.date, appointments.targetEndDate, appointments.id, vehicles.plateNumber FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted' AND appointments.date > now() ORDER BY appointments.date ASC"); 
                             if ($query->execute()){
                                 $result=$query->get_result();
@@ -399,47 +376,9 @@
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <br><br><h1 class="card-title">New Appointments today</h1>
+                  <br><br><h1 class="card-title">Appointments starting today</h1>
                   <div class="table-responsive">
-                    <table class="table table-bordered" id="doctables3" style="background-color: #212529; color:white; border-color:#212529;">
-                      <thead>
-                        <tr>
-                          <th>
-                            Plate Number
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody style="background-color:white; color:#212529;">
-                         <?php $query = $connection->prepare("SELECT appointments.date, appointments.id, vehicles.plateNumber FROM personalinfo JOIN appointments ON appointments.personalId = personalinfo.personalId JOIN vehicles ON appointments.vehicleId = vehicles.id WHERE appointments.status = 'Accepted' AND DATE(date) =CURDATE() ORDER BY appointments.date ASC"); 
-                            if ($query->execute()){
-                                $result=$query->get_result();
-                                while($appinprogress = $result->fetch_assoc()){
-                               ?> 
-                        <tr class="detail">
-                          <td><a href ="records.php?id=<?php echo $appinprogress['id']?>" style="color:black">
-                           <?php echo $appinprogress['plateNumber']?>
-                              </a></td>
-                        </tr>
-                           <?php }
-                            }
-                          ?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-    
-        <section id ="DoneVehicles">
-           <div class="row">
-            <div class="col-lg-12 grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <br><br><h1 class="card-title">Done Vehicles</h1>
-                  <div class="table-responsive">
-                    <table class="table table-bordered" id="doctables4" style="background-color: #212529; color:white; border-color:#212529;">
+                    <table class="table table-bordered" id="doctables3" style="background-color: #212529; color:white; border-color:#212529; ">
                       <thead>
                         <tr>
                           <th>
@@ -520,14 +459,6 @@
  
     <script>
   var table = $('#doctables3').DataTable({
-    // PAGELENGTH OPTIONS
-    "lengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]]
-
-});
-</script>
-    
-<script>
-  var table = $('#doctables4').DataTable({
     // PAGELENGTH OPTIONS
     "lengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]]
 

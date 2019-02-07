@@ -62,10 +62,11 @@ if(isset($_GET['plate'])){
                <ul class="nav" style="position:fixed;">
                     <hr class="style2">
                    
-                      <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">
-                          <i class="menu-icon mdi mdi-view-dashboard"></i>
-                          <span class="menu-title" style="font-size:14px;">Dashboard</span>
+                    
+                     <li class="nav-item">
+                        <a class="nav-link" href="accountmanagement.php">
+                          <i class="menu-icon mdi mdi-account-multiple"></i>
+                          <span class="menu-title" style="font-size:14px;">Account Management</span>
                         </a>
                       </li>
 
@@ -78,12 +79,6 @@ if(isset($_GET['plate'])){
 
                         <div class="collapse" id="ui-basic">
                           <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                              <a class="nav-link" href="appointments.php" style="font-size:14px;">Appointment</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="administratormanagement.php" style="font-size:14px;">Administrators</a>
-                            </li>
                             <li class="nav-item">
                               <a class="nav-link" href="makeseriesmanagement.php" style="font-size:14px;">Make Series</a>
                             </li>
@@ -99,6 +94,34 @@ if(isset($_GET['plate'])){
                           </ul>
                         </div>
                     </li>
+                   
+                      <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                          <i class="menu-icon mdi mdi-folder-multiple-image"></i>
+                          <span class="menu-title" style="font-size:14px;">Content Management</span>
+                           <i class="menu-arrow"></i> 
+                        </a>
+                        <div class="collapse" id="ui-basic2">
+                          <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                              <a class="nav-link" href="CM.php" style="font-size:14px;">Services</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="CM2.php" style="font-size:14px;">Latest Cars</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="CM3.php" style="font-size:14px;">Our Team</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                   
+                        <li class="nav-item">
+                        <a class="nav-link" href="vehicle.php">
+                          <i class="menu-icon mdi mdi-car-side"></i>
+                          <span class="menu-title" style="font-size:14px;">Vehicle</span>
+                        </a>
+                      </li>
             
                   <!-- <li class="nav-item">
                     <a class="nav-link" href="dailytaskform.php">
@@ -113,41 +136,6 @@ if(isset($_GET['plate'])){
                       <span class="menu-title" style="font-size:14px;">Charge Invoice</span>
                     </a>
                   </li> -->
-
-                  <li class="nav-item">
-                    <a class="nav-link" href="accountmanagement.php">
-                      <i class="menu-icon mdi mdi-account-multiple"></i>
-                      <span class="menu-title" style="font-size:14px;">Account Management</span>
-                    </a>
-                  </li>
-            
-                  <li class="nav-item">
-                    <a class="nav-link" href="vehicle.php">
-                      <i class="menu-icon mdi mdi-car-side"></i>
-                      <span class="menu-title" style="font-size:14px;">Vehicle</span>
-                    </a>
-                  </li>
-
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
-                      <i class="menu-icon mdi mdi-inbox"></i>
-                      <span class="menu-title" style="font-size:14px;">Content </span>
-                       <i class="menu-arrow"></i> 
-                    </a>
-                    <div class="collapse" id="ui-basic2">
-                      <ul class="nav flex-column sub-menu">
-                        <li class="nav-item">
-                          <a class="nav-link" href="CM.php" style="font-size:14px;">Services</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="CM2.php" style="font-size:14px;">Latest Cars</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="CM3.php" style="font-size:14px;">Our Team</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
 
                </ul>
 

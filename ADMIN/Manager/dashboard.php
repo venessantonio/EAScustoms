@@ -142,7 +142,7 @@
       
          <div class="row">
          
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
               <div class="card card-statistics">
                 <div class="card-body">
                   <div class="clearfix">
@@ -151,7 +151,7 @@
                     </div>
                        <a href="#In-Progress" class="smoothScroll" style="color:black;"> 
                     <div class="float-right">
-                      <p class="mb-0 text-right">Appointment<br>In-Progress</p>
+                      <p class="mb-0 text-right">Appointment In-Progress</p>
                       <div class="fluid-container">
                         <h3 class="font-weight-medium text-right mb-0"><?php echo $box4['count']?></h3>
                       </div>
@@ -162,7 +162,7 @@
               </div>       
             </div>
             
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
               <div class="card card-statistics">
                 <div class="card-body">
                   <div class="clearfix">
@@ -171,7 +171,7 @@
                     </div>
                     <a href="#UpcomingAppointment" class="smoothScroll" style="color:black;">
                     <div class="float-right">
-                      <p class="mb-0 text-right">Upcoming<br> Appointment</p>
+                      <p class="mb-0 text-right">Upcoming Appointment</p>
                       <div class="fluid-container">
                         <h3 class="font-weight-medium text-right mb-0"><?php echo $box1['count']?></h3>
                       </div>
@@ -182,7 +182,7 @@
               </div>
             </div>
              
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
               <div class="card card-statistics">
                 <div class="card-body">
                   <div class="clearfix">
@@ -191,7 +191,7 @@
                     </div>
                     <a href="chargeinvoice.php" style="color:black;">
                     <div class="float-right">
-                      <p class="mb-0 text-right">New<br>Appointments today</p>
+                      <p class="mb-0 text-right">Appointments starting today</p>
                       <div class="fluid-container">
                         <h3 class="font-weight-medium text-right mb-0"><?php echo $box5['count']?></h3>
                       </div>
@@ -202,25 +202,7 @@
               </div>
             </div>
              
-            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-              <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="clearfix">
-                    <div class="float-left">
-                     <i class="mdi mdi-car-side text-warning icon-lg"></i>
-                    </div>
-                    <a href="appointments.php" style="color:black;">
-                    <div class="float-right">
-                      <p class="mb-0 text-right">Pending<br>Request</p>
-                      <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0"><?php echo $box2['count']?></h3>
-                      </div>
-                    </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+      
           </div>
           
            
