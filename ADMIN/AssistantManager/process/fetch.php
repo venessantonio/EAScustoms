@@ -19,7 +19,7 @@ if(isset($_POST["view"]))
   { 
    $output .=
    '
-               <a class="dropdown-item preview-item" href="appointments.php">
+               <a class="dropdown-item preview-item" href="request.php">
                 <div class="preview-thumbnail">
                     <div class="preview-icon bg-success">
                     <i class="mdi mdi-alert-circle-outline mx-0"></i>

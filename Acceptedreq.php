@@ -306,7 +306,7 @@
     <div class="row">
     <div class="col-xs-12 col-sm-12">
     <div class="panel panel-default" id="headings" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-      <div class="panel-heading" style="background-color:#4caf50; color: white; font-size: 18px;"><i class="fas fa-calendar-check"></i> &nbsp;Accepted Vehicles</div>
+      <div class="panel-heading" style="background-color:#4caf50; color: white; font-size: 18px;"><i class="fas fa-calendar-check"></i> &nbsp;Accepted Requests</div>
       <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 450px;">
       <?php
        if ($acceptedRequestsresultCheck > 0) {

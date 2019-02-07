@@ -1,6 +1,5 @@
 <?php require 'process/require/auth.php';?>
 <?php require "process/require/dataconf.php";?>
-<?php require "process/check/appointmentcheck.php";?>
 <?php if(!isset($_GET['id'])){
         header("Location: error.php");
         exit();

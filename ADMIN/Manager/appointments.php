@@ -136,7 +136,7 @@
                         'Name',make,series,appointments.created as 'created', appointments.serviceId as 'service', appointments.otherService as 
                         'others', yearModel,plateNumber,appointments.status,date, appointments.additionalMessage as 'message', adminDate,rescheduledate
                          from appointments join personalinfo on appointments.personalId
-                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where (appointments.status = 'Pending' OR appointments.status = 'Rescheduled' OR appointments.status = 'Accepted')");
+                        = personalinfo.personalId join vehicles on appointments.vehicleId = vehicles.id where (appointments.status = 'Pending' OR appointments.status = 'Rescheduled')");
                         if($data->execute()){
                             $values = $data->get_result();
                             while($row = $values->fetch_assoc()) {

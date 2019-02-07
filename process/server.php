@@ -132,7 +132,7 @@ if (isset($_POST['login_user'])) {
               $_SESSION['username'] = $username;
               $_SESSION['password'] = $password;
               $_SESSION['Name'] = $row['Name'];
-              header("Location: ADMIN/Admin/accountmanagement.php");
+              header("Location: ADMIN/Admin/dashboard.php");
               exit();
          }else{
           if($row['type'] == 'manager'){
@@ -228,11 +228,10 @@ if (isset($_POST['vehiclesinfo_deactivate'])) {
 
 
   if (isset($_POST['changepassword'])) { 
-  $personalId = mysqli_real_escape_string($db, $_POST['personalId']);
   $password = mysqli_real_escape_string($db, $_POST['accountpassword']);
   $confirmpassword = mysqli_real_escape_string($db, $_POST['accountconfirm_password']);
   
-   $query  = "UPDATE users SET password = '".password_hash($_POST['accountpassword'], PASSWORD_DEFAULT)."' WHERE id = '$personalId'";
+   $query  = "UPDATE users SET password = '".password_hash($password , PASSWORD_DEFAULT)."' WHERE id = '".$_SESSION['id']."'";
     if (mysqli_query($db, $query) == true) {
     $_SESSION['changepassword'] = '<div class="alert alert-success fade in" align="center">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -241,6 +240,8 @@ if (isset($_POST['vehiclesinfo_deactivate'])) {
 
      header('location: accountsettings.php');
      exit();
+    }else{
+      echo 'error';
     }
   }
 
@@ -324,7 +325,7 @@ if (isset($_POST['vehiclesinfo_deactivate'])) {
    <a href="#" class="close" data-dismiss="alert">&times;</a>
    <i class="fas fa-check"></i> <strong> Notice</strong>' .$plateNumber.' '.$make.' '.$series.' was added successfully </div>';
    mysqli_query($db, $query);
-   header('location: Pendingreq.php');
+   header('location: Acceptedreq.php');
    exit();
   }
 
@@ -402,10 +403,33 @@ if (isset($_POST['vehiclesinfo_deactivate'])) {
 
   if(isset($_POST["appointmentrescheduleRescheduled"]))
   {
+  $date1 = mysqli_real_escape_string($db, $_POST["date1"]);
+  if(isset($_POST["date2"])){
+    $date2 = mysqli_real_escape_string($db, $_POST["date2"]);
+  }else{
+    $date2 = "";
+  }
+  if(isset($_POST["date3"])){
+    $date3 = mysqli_real_escape_string($db, $_POST["date3"]);
+  }else{
+    $date3 = "";
+  }
+
+  if($date2=="" && $date3==""){
+    $update = $date1;
+  }
+  if($date2=="" && $date3 !=""){
+    $update = $date1."|".$date3;
+  }
+  if($date2!="" && $date3 ==""){
+    $update = $date1."|".$date2;
+  }
+  if($date2!="" && $date3 !=""){
+    $update = $date1."|".$date2."|".$date3;
+  }
    $appointmentId = $_POST['appointmentId'];
    $reason = $_POST['reasonStated'];
-   $date = implode('|', $_POST['date']);
-   $query = "UPDATE appointments SET additionalMessage= '$reason' , rescheduledate = '$date' , created= now(), adminDate= 'reschedclient'  WHERE id = '$appointmentId'";
+   $query = "UPDATE appointments SET status= 'Rescheduled', additionalMessage= '$reason' , rescheduledate = '$update' , created= now(), adminDate= 'reschedclient'  WHERE id = '$appointmentId'";
    $_SESSION['appointment_reschedule_Rescheduled'] = '<div class="alert alert-success fade in" align="center">
    <a href="#" class="close" data-dismiss="alert">&times;</a>
    <i class="fas fa-check"></i> <strong> Notice</strong> Rescheduled successfully </div>';
@@ -447,7 +471,7 @@ if (isset($_POST['vehiclesinfo_deactivate'])) {
    <a href="#" class="close" data-dismiss="alert">&times;</a>
    <i class="fas fa-check"></i> <strong> Notice</strong> Rescheduled successfully </div>';
    mysqli_query($db, $query);
-   header('location: Pendingreq.php');
+   header('location: Rescheduledreq.php');
    exit();
   }
 

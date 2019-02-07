@@ -190,7 +190,7 @@
                   </a>
                   <ul class="dropdown-menu" id="dropdownaccount">
                      <li><a  href="accountsettings.php" style="font-size: 13px;z-index: 9999;"><i class="fa fa-cogs" aria-hidden="true"></i> Account Settings</a></li>
-                    <li><a  href="process/logout.php" style="color: red;font-size: 13px;z-index: 9999;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    <li><a  href="process/logout.php" style="color: red;font-size: 13px;z-index: 9999;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                   </ul>
                   </li>
@@ -269,7 +269,7 @@
     <div class="row">
     <div class="col-xs-12 col-sm-12">
     <div class="panel panel-default" id="headings" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-      <div class="panel-heading" style="background-color: #ffaf00;color: white; font-size: 18px;"><i class="fas fa-truck-loading"></i> &nbsp;Pending and Reschedule Requests</div>
+      <div class="panel-heading" style="background-color: #ffaf00;color: white; font-size: 18px;"><i class="fas fa-truck-loading"></i> &nbsp;Pending Requests</div>
       <div class="panel-body" id="serviceDisplay" style="overflow-y: auto;height: 450px;">
 
 
@@ -291,7 +291,7 @@
         <div class="row">
        <div class="col-sm-6 col-md-6">
         <br>
-       <label for="desiredDate">Date:</label>
+       <label for="desiredDate">Date of Appointment:</label>
        <?= date('F d, Y', strtotime($appointmentpending['desiredDate'])); ?><br>
       </div>
 
@@ -315,7 +315,7 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-6 col-sm-6">
-                <label for="created">Date Requested:</label><br>
+                <label for="created">Date Sent:</label><br>
                 <?= date("F d, Y h:i A",strtotime($appointmentpending['created'])); ?>   
                <label for="otherServices">Other Services:</label><br>
                 <?= $appointmentpending['otherServices']; ?>
