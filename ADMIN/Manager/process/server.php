@@ -24,13 +24,13 @@ $dates = $date;
     // echo $dates,$color;
 
   if($action=='accept'){
-    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted', `modified` = now(), `color` = '#4caf50', `date` = '$dates', `targetEndDate` =  '$dates' WHERE `appointments`.`id` = $id;");
+    $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Accepted', `modified` = now(), `color` = '#4caf50', `date` = '$dates', `targetEndDate` =  '$dates', notificaton = 0 WHERE `appointments`.`id` = $id;");
   }else{
     if($action=='deny'){
-      $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Reschedule', `modified` = now() WHERE `appointments`.`id` =  $id");
+      $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Reschedule', `modified` = now(), notificaton = 0 WHERE `appointments`.`id` =  $id");
     }else{
       if($action=='decline'){
-        $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Declined', `additionalMessage` = '$message', `modified` = now() WHERE `appointments`.`id` =  $id");
+        $actions_command = $connection->prepare("UPDATE `appointments` SET `status` = 'Declined', `additionalMessage` = '$message', `modified` = now(), notificaton = 0 WHERE `appointments`.`id` =  $id");
       }
     }
   }

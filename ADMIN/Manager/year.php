@@ -6,7 +6,6 @@
 	$stmt = $connection->prepare($sql); 
 	$stmt->execute(); 
 	$ci = $stmt -> get_result();
-	$today = date("Y"); 
 $pdf = new FPDF('P','mm','A4');
 	$pdf->AddPage();
 	$pdf->SetFont('Arial','B',26);
@@ -16,7 +15,7 @@ $pdf = new FPDF('P','mm','A4');
 	$pdf->Cell(59,5,"",0,1);
 	$pdf->Cell(63,5," Annual Sales Invoice",0,0);
 	$pdf->Cell(97,5,"",0,0);
-	$pdf->Cell(29,5,"Year : ".$today,0,1);
+	$pdf->Cell(29,5,"Year : ".$year,0,1);
 	$pdf->Cell(189,5,"",0,1);
 	$pdf->SetFont('Arial','B',18);
 	$pdf->Cell(189,20,'List Of Sales Invoice',0,1,'C');

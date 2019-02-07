@@ -6,7 +6,7 @@
 	$stmt = $connection->prepare($sql); 
 	$stmt->execute(); 
 	$ci = $stmt -> get_result();
-	$today = date("F Y"); 
+	$text = date("F", strtotime('2001-'.$month.'-01'));
 $pdf = new FPDF('P','mm','A4');
 	$pdf->AddPage();
 	$pdf->SetFont('Arial','B',26);
@@ -15,7 +15,7 @@ $pdf = new FPDF('P','mm','A4');
 	$pdf->Cell(130,5,"",0,0);
 	$pdf->Cell(59,5,"",0,1);
 	$pdf->Cell(130,5," Monthly Sales Invoice",0,0);
-	$pdf->Cell(59,5,$today,0,1);
+	$pdf->Cell(59,5,'Month of '.$text,0,1);
 	$pdf->Cell(189,5,"",0,1);
 	$pdf->SetFont('Arial','B',18);
 	$pdf->Cell(189,20,'List Of Sales Invoice',0,1,'C');
